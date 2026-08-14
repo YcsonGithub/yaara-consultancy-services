@@ -1,0 +1,476 @@
+     1→     1→import Link from "next/link";
+     2→     2→import Image from "next/image";
+     3→     3→import {
+     4→     4→  ArrowRight,
+     5→     5→  ArrowUpRight,
+     6→     6→  CalendarClock,
+     7→     7→  CheckCircle2,
+     8→     8→  Clock,
+     9→     9→  FileCheck2,
+    10→    10→  MessageCircle,
+    11→    11→  ShieldCheck,
+    12→    12→  Sparkles,
+    13→    13→} from "lucide-react";
+    14→    14→import { Reveal } from "@/components/site/reveal";
+    15→    15→import { FounderSignature } from "@/components/site/logo";
+    16→    16→import { ConsultationForm } from "@/components/site/consultation-form";
+    17→    17→import {
+    18→    18→  SERVICES,
+    19→    19→  featuredServices,
+    20→    20→  CATEGORY_ORDER,
+    21→    21→  CATEGORY_DESCRIPTIONS,
+    22→    22→} from "@/lib/services";
+    23→    23→import {
+    24→    24→  INDUSTRIES,
+    25→    25→  FAQS,
+    26→    26→  STATS,
+    27→    27→  PROCESS_STEPS,
+    28→    28→  SITE,
+    29→    29→  CONTACT,
+    30→    30→} from "@/lib/site";
+    31→    31→
+    32→    32→export default function Home() {
+    33→    33→  const featured = featuredServices();
+    34→    34→  const topFaq = FAQS.slice(0, 3);
+    35→    35→
+    36→    36→  return (
+    37→    37→    <>
+    38→    38→      {/* ============ HERO ============ */}
+    39→    39→      <section className="relative overflow-hidden paper-grain">
+    40→    40→        <div className="gold-rule absolute inset-x-0 top-0" />
+    41→    41→        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-5 pb-20 pt-14 sm:px-8 sm:pt-20 lg:grid-cols-12 lg:gap-10 lg:pb-28 lg:pt-24">
+    42→    42→          <div className="lg:col-span-7 lg:pr-6">
+    43→    43→            <Reveal>
+    44→    44→              <span className="inline-flex items-center gap-2.5 font-mono text-[0.72rem] font-medium uppercase tracking-[0.22em] text-gold">
+    45→    45→                <span className="h-px w-7 bg-gold" />
+    46→    46→                Accounting · Tax · Compliance
+    47→    47→              </span>
+    48→    48→            </Reveal>
+    49→    49→            <Reveal delay={0.05}>
+    50→    50→              <h1 className="mt-5 font-serif text-[2.6rem] font-medium leading-[1.05] tracking-[-0.02em] text-ink sm:text-5xl lg:text-[4.1rem]">
+    51→    51→                Your numbers, handled by a{" "}
+    52→    52→                <span className="relative whitespace-nowrap">
+    53→    53→                  <span className="italic font-light">real&nbsp;person</span>
+    54→    54→                  <svg className="absolute -bottom-1 left-0 h-2 w-full text-gold" viewBox="0 0 200 8" preserveAspectRatio="none" aria-hidden>
+    55→    55→                    <path d="M2 5c40-3 120-4 196-2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none" />
+    56→    56→                  </svg>
+    57→    57→                </span>
+    58→    58→                .
+    59→    59→                <br />
+    60→    60→                Not a portal. Not a ticket queue.
+    61→    61→              </h1>
+    62→    62→            </Reveal>
+    63→    63→            <Reveal delay={0.1}>
+    64→    64→              <p className="mt-7 max-w-xl font-sans text-[1.05rem] leading-[1.7] text-body">
+    65→    65→                Yaara is the accounting and compliance partner for Indian founders
+    66→    66→                and small businesses who want someone who actually understands
+    67→    67→                their books. GST, ITR, registrations, ROC, payroll, advisory &mdash;
+    68→    68→                filed on time, explained in plain English, every time.
+    69→    69→              </p>
+    70→    70→            </Reveal>
+    71→    71→            <Reveal delay={0.15}>
+    72→    72→              <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+    73→    73→                <Link href="/book" className="group inline-flex h-12 items-center justify-center gap-2 rounded-md bg-gold px-7 font-sans text-[0.97rem] font-semibold text-ink transition-all hover:bg-[#a87a33] hover:shadow-[0_10px_30px_-12px_rgba(184,135,59,0.7)]">
+    74→    74→                  Book a free 20-minute call
+    75→    75→                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+    76→    76→                </Link>
+    77→    77→                <Link href="/services" className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-border bg-transparent px-7 font-sans text-[0.97rem] font-medium text-ink transition-colors hover:border-ink/40 hover:bg-surface">
+    78→    78→                  Explore services
+    79→    79→                </Link>
+    80→    80→              </div>
+    81→    81→            </Reveal>
+    82→    82→            <Reveal delay={0.2}>
+    83→    83→              <p className="mt-5 font-mono text-[0.78rem] text-muted-foreground">
+    84→    84→                No sales pitch. Just a straight answer &mdash; and a clear next step.
+    85→    85→              </p>
+    86→    86→            </Reveal>
+    87→    87→          </div>
+    88→    88→
+    89→    89→          <div className="lg:col-span-5">
+    90→    90→            <Reveal delay={0.18} y={24}>
+    91→    91→              <HeroCalendarMotif />
+    92→    92→            </Reveal>
+    93→    93→          </div>
+    94→    94→        </div>
+    95→    95→      </section>
+    96→    96→
+    97→    97→      {/* ============ TRUST BAR ============ */}
+    98→    98→      <section aria-label="At a glance" className="border-y border-border bg-surface/60">
+    99→    99→        <div className="mx-auto grid max-w-7xl grid-cols-2 divide-x divide-border px-5 sm:px-8 lg:grid-cols-4">
+   100→   100→          {STATS.map((s, i) => (
+   101→   101→            <Reveal key={s.label} delay={i * 0.06} className="flex flex-col gap-1 px-4 py-7 sm:px-7 sm:py-9">
+   102→   102→              <div className="flex items-baseline gap-1">
+   103→   103→                <span className="font-mono text-[2rem] font-semibold leading-none text-ink sm:text-[2.4rem]">{s.value}</span>
+   104→   104→                <span className="font-mono text-[0.95rem] font-medium text-gold">{s.unit}</span>
+   105→   105→              </div>
+   106→   106→              <p className="font-sans text-[0.82rem] leading-snug text-muted-foreground sm:text-[0.88rem]">{s.label}</p>
+   107→   107→            </Reveal>
+   108→   108→          ))}
+   109→   109→        </div>
+   110→   110→      </section>
+   111→   111→
+   112→   112→      {/* ============ SERVICES TEASER ============ */}
+   113→   113→      <section className="paper-grain py-20 sm:py-28">
+   114→   114→        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+   115→   115→          <Reveal>
+   116→   116→            <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
+   117→   117→              <div className="max-w-2xl">
+   118→   118→                <span className="font-mono text-[0.72rem] font-medium uppercase tracking-[0.22em] text-gold">01 — Services</span>
+   119→   119→                <h2 className="mt-3 font-serif text-[2rem] font-medium leading-tight text-ink sm:text-[2.6rem]">
+   120→   120→                  Everything your business needs to stay{" "}
+   121→   121→                  <span className="italic font-light">compliant and current</span>.
+   122→   122→                </h2>
+   123→   123→                <p className="mt-4 font-sans text-[1rem] leading-relaxed text-body">
+   124→   124→                  30+ services across tax, registrations, accounting, payroll and advisory &mdash; one partner, one point of contact.
+   125→   125→                </p>
+   126→   126→              </div>
+   127→   127→              <Link href="/services" className="group inline-flex items-center gap-1.5 font-sans text-[0.92rem] font-medium text-ink hover:text-gold">
+   128→   128→                View all services
+   129→   129→                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+   130→   130→              </Link>
+   131→   131→            </div>
+   132→   132→          </Reveal>
+   133→   133→
+   134→   134→          {/* featured services */}
+   135→   135→          <div className="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-2">
+   136→   136→            {featured.slice(0, 2).map((s, i) => {
+   137→   137→              const Icon = s.icon;
+   138→   138→              return (
+   139→   139→                <Reveal key={s.slug} delay={i * 0.06}>
+   140→   140→                  <Link href={`/services/${s.slug}`} className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card p-7 transition-all hover:border-ink/25 hover:shadow-[0_18px_44px_-26px_rgba(14,42,71,0.4)] sm:p-9">
+   141→   141→                    <div className="flex items-start justify-between">
+   142→   142→                      <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-surface text-ink ring-1 ring-border">
+   143→   143→                        <Icon className="h-6 w-6" strokeWidth={1.5} />
+   144→   144→                      </span>
+   145→   145→                      {s.comingSoon && (
+   146→   146→                        <span className="font-mono text-[0.62rem] uppercase tracking-wider text-gold">Coming soon</span>
+   147→   147→                      )}
+   148→   148→                    </div>
+   149→   149→                    <h3 className="mt-6 inline-block font-serif text-[1.5rem] font-medium text-ink">
+   150→   150→                      <span className="relative">
+   151→   151→                        {s.title}
+   152→   152→                        <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gold transition-all duration-300 group-hover:w-full" />
+   153→   153→                      </span>
+   154→   154→                    </h3>
+   155→   155→                    <p className="mt-3 font-sans text-[0.95rem] leading-relaxed text-body">{s.summary}</p>
+   156→   156→                    <span className="mt-auto inline-flex items-center gap-1.5 pt-6 font-sans text-[0.86rem] font-medium text-ink">
+   157→   157→                      Learn more
+   158→   158→                      <ArrowUpRight className="h-4 w-4 text-gold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+   159→   159→                    </span>
+   160→   160→                  </Link>
+   161→   161→                </Reveal>
+   162→   162→              );
+   163→   163→            })}
+   164→   164→          </div>
+   165→   165→
+   166→   166→          {/* category chips linking to /services */}
+   167→   167→          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+   168→   168→            {CATEGORY_ORDER.map((cat, i) => (
+   169→   169→              <Reveal key={cat} delay={i * 0.04}>
+   170→   170→                <Link href={`/services#${slugify(cat)}`} className="group block rounded-lg border border-border bg-card p-5 transition-all hover:border-ink/25 hover:bg-surface/60">
+   171→   171→                  <p className="font-serif text-[0.98rem] font-medium text-ink">{cat}</p>
+   172→   172→                  <p className="mt-1.5 font-sans text-[0.78rem] leading-snug text-muted-foreground line-clamp-2">{CATEGORY_DESCRIPTIONS[cat]}</p>
+   173→   173→                  <span className="mt-3 inline-flex items-center gap-1 font-mono text-[0.66rem] uppercase tracking-wider text-gold">
+   174→   174→                    {servicesByCategoryCount(cat)} services
+   175→   175→                    <ArrowRight className="h-3 w-3" />
+   176→   176→                  </span>
+   177→   177→                </Link>
+   178→   178→              </Reveal>
+   179→   179→            ))}
+   180→   180→          </div>
+   181→   181→        </div>
+   182→   182→      </section>
+   183→   183→
+   184→   184→      {/* ============ PROCESS TEASER ============ */}
+   185→   185→      <section className="border-y border-border bg-surface/50 py-20 sm:py-28">
+   186→   186→        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+   187→   187→          <Reveal>
+   188→   188→            <div className="max-w-2xl">
+   189→   189→              <span className="font-mono text-[0.72rem] font-medium uppercase tracking-[0.22em] text-gold">02 — How we work</span>
+   190→   190→              <h2 className="mt-3 font-serif text-[2rem] font-medium leading-tight text-ink sm:text-[2.6rem]">
+   191→   191→                What actually happens after you{" "}
+   192→   192→                <span className="italic font-light">hand over documents</span>.
+   193→   193→              </h2>
+   194→   194→              <p className="mt-4 font-sans text-[1rem] leading-relaxed text-body">
+   195→   195→                Compliance clients are rightly anxious about the &ldquo;black box&rdquo; after they send their papers. Here is the whole process &mdash; nothing hidden.
+   196→   196→              </p>
+   197→   197→            </div>
+   198→   198→          </Reveal>
+   199→   199→          <div className="relative mt-14">
+   200→   200→            <div className="absolute left-0 right-0 top-7 hidden h-px bg-border lg:block" />
+   201→   201→            <ol className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+   202→   202→              {PROCESS_STEPS.map((s, i) => (
+   203→   203→                <Reveal as="li" key={s.n} delay={i * 0.08} className="relative">
+   204→   204→                  <div className="flex items-center gap-4 lg:block">
+   205→   205→                    <span className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border bg-paper font-mono text-[1rem] font-semibold text-ink shadow-[0_6px_18px_-10px_rgba(14,42,71,0.3)]">{s.n}</span>
+   206→   206→                    <h3 className="font-serif text-[1.4rem] font-medium text-ink lg:mt-5">{s.title}</h3>
+   207→   207→                  </div>
+   208→   208→                  <p className="mt-3 font-sans text-[0.92rem] leading-relaxed text-body lg:mt-3">{s.desc}</p>
+   209→   209→                </Reveal>
+   210→   210→              ))}
+   211→   211→            </ol>
+   212→   212→          </div>
+   213→   213→        </div>
+   214→   214→      </section>
+   215→   215→
+   216→   216→      {/* ============ FOUNDER NOTE TEASER ============ */}
+   217→   217→      <section className="paper-grain py-20 sm:py-28">
+   218→   218→        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+   219→   219→          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
+   220→   220→            <Reveal className="lg:col-span-5" y={24}>
+   221→   221→              <div className="relative mx-auto max-w-sm lg:max-w-none">
+   222→   222→                <div className="duotone-navy relative overflow-hidden rounded-xl border border-border shadow-[0_30px_60px_-30px_rgba(14,42,71,0.45)]">
+   223→   223→                  <Image src="/founder/founder-portrait.png" alt={`Portrait of ${SITE.founder}, ${SITE.founderRole} of Yaara Consultancy Services`} width={864} height={1152} className="h-full w-full object-cover" />
+   224→   224→                </div>
+   225→   225→                <div className="absolute -bottom-5 -right-3 max-w-[16rem] rotate-1 rounded-lg border border-border bg-paper px-4 py-3 shadow-[0_14px_30px_-16px_rgba(14,42,71,0.4)] sm:-right-5">
+   226→   226→                  <p className="font-serif text-[1rem] font-semibold text-ink">{SITE.founder}</p>
+   227→   227→                  <p className="mt-0.5 font-mono text-[0.68rem] uppercase tracking-wider text-muted-foreground">{SITE.founderRole} · {SITE.experienceYears} yrs hands-on</p>
+   228→   228→                </div>
+   229→   229→                <div className="absolute -left-3 -top-3 h-10 w-10 rounded-tl-lg border-l-2 border-t-2 border-gold" />
+   230→   230→              </div>
+   231→   231→            </Reveal>
+   232→   232→            <div className="lg:col-span-7">
+   233→   233→              <Reveal>
+   234→   234→                <span className="font-mono text-[0.72rem] font-medium uppercase tracking-[0.22em] text-gold">03 — Founder&apos;s note</span>
+   235→   235→              </Reveal>
+   236→   236→              <Reveal delay={0.05}>
+   237→   237→                <blockquote className="mt-5 font-serif text-[1.5rem] font-light italic leading-[1.45] text-ink sm:text-[1.9rem]">
+   238→   238→                  &ldquo;I started Yaara because the founders I kept helping on the side were being treated like ticket numbers by the portals they paid. You deserve a person who knows your name{" "}
+   239→   239→                  <span className="not-italic font-medium">and</span> your numbers.&rdquo;
+   240→   240→                </blockquote>
+   241→   241→              </Reveal>
+   242→   242→              <Reveal delay={0.1}>
+   243→   243→                <p className="mt-7 font-sans text-[1rem] leading-[1.75] text-body">
+   244→   244→                  I&apos;m not a Chartered Accountant, and I won&apos;t pretend to be. I have five years of hands-on accounting experience. For work that legally requires a practicing CA&apos;s signature, I work with an empanelled network of independent CAs. What you get with Yaara: <span className="font-medium text-ink">me</span> &mdash; a single point of contact who knows your books.
+   245→   245→                </p>
+   246→   246→              </Reveal>
+   247→   247→              <Reveal delay={0.15}>
+   248→   248→                <div className="mt-8 flex items-center justify-between gap-6 border-t border-border pt-6">
+   249→   249→                  <FounderSignature />
+   250→   250→                  <Link href="/about" className="inline-flex items-center gap-1.5 font-sans text-[0.9rem] font-medium text-ink hover:text-gold">
+   251→   251→                    Read full story
+   252→   252→                    <ArrowUpRight className="h-4 w-4" />
+   253→   253→                  </Link>
+   254→   254→                </div>
+   255→   255→              </Reveal>
+   256→   256→            </div>
+   257→   257→          </div>
+   258→   258→        </div>
+   259→   259→      </section>
+   260→   260→
+   261→   261→      {/* ============ INDUSTRIES TEASER ============ */}
+   262→   262→      <section className="py-20 sm:py-28">
+   263→   263→        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+   264→   264→          <Reveal>
+   265→   265→            <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
+   266→   266→              <div className="max-w-2xl">
+   267→   267→                <span className="font-mono text-[0.72rem] font-medium uppercase tracking-[0.22em] text-gold">04 — Industries we serve</span>
+   268→   268→                <h2 className="mt-3 font-serif text-[2rem] font-medium leading-tight text-ink sm:text-[2.6rem]">
+   269→   269→                  We speak the language of{" "}
+   270→   270→                  <span className="italic font-light">your kind of business</span>.
+   271→   271→                </h2>
+   272→   272→              </div>
+   273→   273→              <Link href="/industries" className="group inline-flex items-center gap-1.5 font-sans text-[0.92rem] font-medium text-ink hover:text-gold">
+   274→   274→                All industries
+   275→   275→                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+   276→   276→              </Link>
+   277→   277→            </div>
+   278→   278→          </Reveal>
+   279→   279→          <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+   280→   280→            {INDUSTRIES.slice(0, 5).map((ind, i) => (
+   281→   281→              <Reveal key={ind.slug} delay={(i % 3) * 0.06}>
+   282→   282→                <Link href={`/industries#${ind.slug}`} className="group flex h-full flex-col rounded-lg border border-border bg-card p-6 transition-all hover:border-ink/25 hover:shadow-[0_16px_40px_-26px_rgba(14,42,71,0.4)]">
+   283→   283→                  <h3 className="inline-block font-serif text-[1.2rem] font-medium text-ink">
+   284→   284→                    <span className="relative">
+   285→   285→                      {ind.title}
+   286→   286→                      <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gold transition-all duration-300 group-hover:w-full" />
+   287→   287→                    </span>
+   288→   288→                  </h3>
+   289→   289→                  <p className="mt-2.5 font-sans text-[0.9rem] leading-relaxed text-body">{ind.blurb}</p>
+   290→   290→                </Link>
+   291→   291→              </Reveal>
+   292→   292→            ))}
+   293→   293→            <Reveal delay={0.12}>
+   294→   294→              <Link href="/industries" className="group flex h-full flex-col justify-between rounded-lg border border-ink bg-ink p-6 text-paper transition-all hover:bg-ink-dark">
+   295→   295→                <p className="font-serif text-[1.2rem] font-medium leading-snug">Not sure where you fit?</p>
+   296→   296→                <span className="mt-4 inline-flex items-center gap-1.5 font-sans text-[0.9rem] font-medium text-gold-light">
+   297→   297→                  See all industries
+   298→   298→                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+   299→   299→                </span>
+   300→   300→              </Link>
+   301→   301→            </Reveal>
+   302→   302→          </div>
+   303→   303→        </div>
+   304→   304→      </section>
+   305→   305→
+   306→   306→      {/* ============ CALENDAR + PRICING TEASER ============ */}
+   307→   307→      <section className="border-y border-border bg-surface/50 py-20 sm:py-28">
+   308→   308→        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+   309→   309→          <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
+   310→   310→            <Reveal>
+   311→   311→              <span className="font-mono text-[0.72rem] font-medium uppercase tracking-[0.22em] text-gold">05 — Compliance calendar</span>
+   312→   312→              <h2 className="mt-3 font-serif text-[1.8rem] font-medium leading-tight text-ink sm:text-[2.2rem]">
+   313→   313→                Deadlines you can&apos;t afford to miss.
+   314→   314→              </h2>
+   315→   315→              <p className="mt-4 font-sans text-[0.96rem] leading-relaxed text-body">
+   316→   316→                GST, TDS, ITR, advance tax &mdash; we track them so you don&apos;t have to. Bookmark our live calendar.
+   317→   317→              </p>
+   318→   318→              <Link href="/resources/compliance-calendar" className="mt-6 inline-flex h-11 items-center gap-2 rounded-md bg-ink px-6 font-sans text-[0.92rem] font-medium text-paper transition-colors hover:bg-ink-dark">
+   319→   319→                <CalendarClock className="h-4 w-4 text-gold" />
+   320→   320→                Open the calendar
+   321→   321→              </Link>
+   322→   322→            </Reveal>
+   323→   323→            <Reveal delay={0.08}>
+   324→   324→              <span className="font-mono text-[0.72rem] font-medium uppercase tracking-[0.22em] text-gold">06 — Pricing</span>
+   325→   325→              <h2 className="mt-3 font-serif text-[1.8rem] font-medium leading-tight text-ink sm:text-[2.2rem]">
+   326→   326→                Transparent. No &ldquo;get a quote&rdquo; walls.
+   327→   327→              </h2>
+   328→   328→              <p className="mt-4 font-sans text-[0.96rem] leading-relaxed text-body">
+   329→   329→                Retainers from <span className="font-mono font-semibold text-ink">&#8377;1,999/mo</span> and flat-fee one-offs. What you see is what you pay.
+   330→   330→              </p>
+   331→   331→              <Link href="/pricing" className="mt-6 inline-flex h-11 items-center gap-2 rounded-md border border-ink px-6 font-sans text-[0.92rem] font-medium text-ink transition-colors hover:bg-ink hover:text-paper">
+   332→   332→                See all pricing
+   333→   333→                <ArrowUpRight className="h-4 w-4" />
+   334→   334→              </Link>
+   335→   335→            </Reveal>
+   336→   336→          </div>
+   337→   337→        </div>
+   338→   338→      </section>
+   339→   339→
+   340→   340→      {/* ============ FAQ TEASER ============ */}
+   341→   341→      <section className="py-20 sm:py-28">
+   342→   342→        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+   343→   343→          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
+   344→   344→            <Reveal className="lg:col-span-5">
+   345→   345→              <span className="font-mono text-[0.72rem] font-medium uppercase tracking-[0.22em] text-gold">07 — Questions, answered straight</span>
+   346→   346→              <h2 className="mt-3 font-serif text-[2rem] font-medium leading-tight text-ink sm:text-[2.6rem]">
+   347→   347→                The things founders{" "}
+   348→   348→                <span className="italic font-light">actually ask us</span>.
+   349→   349→              </h2>
+   350→   350→              <p className="mt-4 font-sans text-[1rem] leading-relaxed text-body">
+   351→   351→                We&apos;d rather you ask the awkward question up front than find out the answer later.
+   352→   352→              </p>
+   353→   353→              <Link href="/resources/faqs" className="mt-6 inline-flex items-center gap-1.5 font-sans text-[0.92rem] font-medium text-ink hover:text-gold">
+   354→   354→                All FAQs
+   355→   355→                <ArrowUpRight className="h-4 w-4" />
+   356→   356→              </Link>
+   357→   357→            </Reveal>
+   358→   358→            <Reveal className="lg:col-span-7" y={20}>
+   359→   359→              <ul className="divide-y divide-border rounded-lg border border-border bg-card">
+   360→   360→                {topFaq.map((f) => (
+   361→   361→                  <li key={f.q} className="p-6">
+   362→   362→                    <p className="font-serif text-[1.1rem] font-medium text-ink">{f.q}</p>
+   363→   363→                    <p className="mt-2 font-sans text-[0.9rem] leading-relaxed text-body line-clamp-3">{f.a}</p>
+   364→   364→                  </li>
+   365→   365→                ))}
+   366→   366→              </ul>
+   367→   367→            </Reveal>
+   368→   368→          </div>
+   369→   369→        </div>
+   370→   370→      </section>
+   371→   371→
+   372→   372→      {/* ============ BOOKING CTA ============ */}
+   373→   373→      <section className="relative overflow-hidden bg-ink py-20 text-paper sm:py-28">
+   374→   374→        <div className="gold-rule absolute inset-x-0 top-0" />
+   375→   375→        <div className="pointer-events-none absolute -right-32 -top-24 h-96 w-96 rounded-full opacity-30" style={{ background: "radial-gradient(circle, rgba(184,135,59,0.5), transparent 70%)" }} />
+   376→   376→        <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:gap-16">
+   377→   377→          <div className="lg:col-span-5">
+   378→   378→            <span className="font-mono text-[0.72rem] font-medium uppercase tracking-[0.22em] text-gold-light">08 — Book a free consultation</span>
+   379→   379→            <h2 className="mt-3 font-serif text-[2.1rem] font-medium leading-tight text-paper sm:text-[2.8rem]">
+   380→   380→              Twenty minutes. No pitch.{" "}
+   381→   381→              <span className="italic font-light text-gold-light">Just a straight answer.</span>
+   382→   382→            </h2>
+   383→   383→            <p className="mt-5 max-w-md font-sans text-[1rem] leading-[1.7] text-paper/75">
+   384→   384→              Tell us about your business. We&apos;ll reply within one working day with a clear next step and a transparent price.
+   385→   385→            </p>
+   386→   386→            <ul className="mt-9 space-y-4">
+   387→   387→              <PromiseItem icon={Clock} title="Reply within 1 working day" desc="Usually much faster. Mornings get same-day replies." />
+   388→   388→              <PromiseItem icon={ShieldCheck} title="Your details stay private" desc="Encrypted, never shared, retained only for compliance." />
+   389→   389→              <PromiseItem icon={MessageCircle} title="Continue on WhatsApp" desc="Lower friction than a portal login." />
+   390→   390→            </ul>
+   391→   391→          </div>
+   392→   392→          <div className="lg:col-span-7">
+   393→   393→            <ConsultationForm variant="dark" />
+   394→   394→          </div>
+   395→   395→        </div>
+   396→   396→      </section>
+   397→   397→    </>
+   398→   398→  );
+   399→   399→}
+   400→   400→
+   401→   401→// ---- helpers ----
+   402→   402→function slugify(s: string) {
+   403→   403→  return s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+   404→   404→}
+   405→   405→function servicesByCategoryCount(cat: string) {
+   406→   406→  return SERVICES.filter((s) => s.category === cat).length;
+   407→   407→}
+   408→   408→
+   409→   409→function PromiseItem({ icon: Icon, title, desc }: { icon: typeof Clock; title: string; desc: string }) {
+   410→   410→  return (
+   411→   411→    <li className="flex gap-3.5">
+   412→   412→      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-paper/20 bg-paper/5 text-gold-light">
+   413→   413→        <Icon className="h-4 w-4" strokeWidth={1.5} />
+   414→   414→      </span>
+   415→   415→      <div>
+   416→   416→        <p className="font-sans text-[0.92rem] font-semibold text-paper">{title}</p>
+   417→   417→        <p className="font-sans text-[0.84rem] text-paper/65">{desc}</p>
+   418→   418→      </div>
+   419→   419→    </li>
+   420→   420→  );
+   421→   421→}
+   422→   422→
+   423→   423→function HeroCalendarMotif() {
+   424→   424→  const days = Array.from({ length: 31 }, (_, i) => i + 1);
+   425→   425→  const today = 11;
+   426→   426→  const dueDay = 20;
+   427→   427→  return (
+   428→   428→    <div className="relative">
+   429→   429→      <div className="absolute -right-3 -top-4 z-10 rotate-2 rounded-lg border border-border bg-paper px-3.5 py-2 shadow-[0_12px_30px_-14px_rgba(14,42,71,0.35)] sm:-right-5">
+   430→   430→        <div className="flex items-center gap-2">
+   431→   431→          <CheckCircle2 className="h-4 w-4 text-success" />
+   432→   432→          <span className="font-mono text-[0.72rem] font-medium uppercase tracking-wide text-ink">GSTR-3B filed</span>
+   433→   433→        </div>
+   434→   434→        <p className="mt-0.5 font-sans text-[0.66rem] text-muted-foreground">on time, every month</p>
+   435→   435→      </div>
+   436→   436→      <article className="overflow-hidden rounded-xl border border-border bg-card shadow-[0_24px_60px_-30px_rgba(14,42,71,0.4)]">
+   437→   437→        <div className="flex items-center justify-between border-b border-border bg-surface px-5 py-4">
+   438→   438→          <div className="flex items-center gap-2 text-ink">
+   439→   439→            <CalendarClock className="h-4 w-4 text-gold" />
+   440→   440→            <span className="font-serif text-[1.05rem] font-medium">Compliance desk</span>
+   441→   441→          </div>
+   442→   442→          <span className="font-mono text-[0.7rem] uppercase tracking-wider text-muted-foreground">live view</span>
+   443→   443→        </div>
+   444→   444→        <div className="px-5 pb-2 pt-4">
+   445→   445→          <div className="mb-2 flex items-center justify-between">
+   446→   446→            <span className="font-sans text-[0.82rem] font-semibold text-ink">This month</span>
+   447→   447→            <span className="font-mono text-[0.72rem] text-muted-foreground">M T W T F S S</span>
+   448→   448→          </div>
+   449→   449→          <div className="grid grid-cols-7 gap-1">
+   450→   450→            {days.map((d) => {
+   451→   451→              const isToday = d === today;
+   452→   452→              const isDue = d === dueDay;
+   453→   453→              return (
+   454→   454→                <div key={d} className={`flex h-6 items-center justify-center rounded font-mono text-[0.62rem] ${isDue ? "bg-gold/20 font-semibold text-gold ring-1 ring-gold/40" : isToday ? "bg-ink text-paper" : "text-muted-foreground"}`}>
+   455→   455→                  {d}
+   456→   456→                </div>
+   457→   457→              );
+   458→   458→            })}
+   459→   459→          </div>
+   460→   460→        </div>
+   461→   461→        <div className="space-y-2.5 border-t border-border px-5 py-4">
+   462→   462→          <p className="font-sans text-[0.72rem] font-medium uppercase tracking-wider text-muted-foreground">Upcoming</p>
+   463→   463→          <div className="flex items-center justify-between"><span className="font-sans text-[0.88rem] text-body">GSTR-3B</span><span className="font-mono text-[0.78rem] font-medium text-warning">20th</span></div>
+   464→   464→          <div className="flex items-center justify-between"><span className="font-sans text-[0.88rem] text-body">TDS payment</span><span className="font-mono text-[0.78rem] font-medium text-ink">7th</span></div>
+   465→   465→          <div className="flex items-center justify-between"><span className="font-sans text-[0.88rem] text-body">Advance tax</span><span className="font-mono text-[0.78rem] font-medium text-ink">15th</span></div>
+   466→   466→        </div>
+   467→   467→        <div className="flex items-center gap-2 border-t border-border bg-surface px-5 py-3">
+   468→   468→          <FileCheck2 className="h-4 w-4 text-success" />
+   469→   469→          <span className="font-sans text-[0.78rem] text-body"><span className="font-semibold text-ink">0</span> overdue filings this quarter</span>
+   470→   470→        </div>
+   471→   471→      </article>
+   472→   472→      <div className="pointer-events-none absolute -bottom-6 left-6 right-6 h-10 rounded-[50%] bg-ink/10 blur-2xl" />
+   473→   473→    </div>
+   474→   474→  );
+   475→   475→}
+   476→   476→

@@ -1,28 +1,29 @@
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 /**
- * Yaara logo — recreated as a flat, scalable SVG (the brief explicitly
- * recommends a flat vector over the 3D-bevelled raster original so it
- * survives at 24×24px). Concept: navy "Y" anchoring a three-bar ascending
- * chart that lifts into an upward arrow, encircled by a split navy/gold ring.
- *
+ * Yaara logo — uses the client's original logo image.
  * Two variants:
- *  - `mark`     : icon only (favicon, nav, avatar)
- *  - `lockup`   : icon + wordmark + tagline (hero, footer)
+ *  - `lockup` : the full original PNG (icon + wordmark + tagline)
+ *  - `mark`   : a clean flat SVG monogram for favicon / small placements
+ *               (the original 3D-bevelled image does not survive at 24×24px,
+ *                so a flat SVG mark is used for tiny placements — this is
+ *                standard practice, not a replacement of the brand logo.)
  */
 export function YaaraLogo({
   className,
   variant = "lockup",
   onDark = false,
+  height = 44,
 }: {
   className?: string;
   variant?: "mark" | "lockup";
   onDark?: boolean;
+  height?: number;
 }) {
-  const navy = onDark ? "#FAF7F1" : "#0E2A47";
-  const gold = onDark ? "#D4A855" : "#B8873B";
-
   if (variant === "mark") {
+    const navy = onDark ? "#FAF7F1" : "#0E2A47";
+    const gold = onDark ? "#D4A855" : "#B8873B";
     return (
       <svg
         viewBox="0 0 48 48"
@@ -31,73 +32,37 @@ export function YaaraLogo({
         aria-label="Yaara Consultancy Services"
         fill="none"
       >
-        {/* Split ring — navy left, gold right */}
-        <path
-          d="M24 3a21 21 0 1 0 0 42"
-          stroke={navy}
-          strokeWidth="2.5"
-          strokeLinecap="round"
-        />
-        <path
-          d="M24 45a21 21 0 0 0 0-42"
-          stroke={gold}
-          strokeWidth="2.5"
-          strokeLinecap="round"
-        />
-        {/* The Y stem */}
-        <path
-          d="M24 16v16"
-          stroke={navy}
-          strokeWidth="3"
-          strokeLinecap="round"
-        />
-        {/* Left arm of Y */}
-        <path
-          d="M24 22l-7-7"
-          stroke={navy}
-          strokeWidth="3"
-          strokeLinecap="round"
-        />
-        {/* Right arm of Y becomes the ascending bars + arrow */}
+        <path d="M24 3a21 21 0 1 0 0 42" stroke={navy} strokeWidth="2.5" strokeLinecap="round" />
+        <path d="M24 45a21 21 0 0 0 0-42" stroke={gold} strokeWidth="2.5" strokeLinecap="round" />
+        <path d="M24 16v16" stroke={navy} strokeWidth="3" strokeLinecap="round" />
+        <path d="M24 22l-7-7" stroke={navy} strokeWidth="3" strokeLinecap="round" />
         <rect x="25.5" y="20" width="2.6" height="6" rx="1" fill={gold} />
         <rect x="29.5" y="16.5" width="2.6" height="9.5" rx="1" fill={gold} />
-        <path
-          d="M33.5 13.5l3-3 3 3M36.5 10.5v9"
-          stroke={gold}
-          strokeWidth="2.2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+        <path d="M33.5 13.5l3-3 3 3M36.5 10.5v9" stroke={gold} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     );
   }
 
   return (
-    <div className={cn("flex items-center gap-3", className)}>
-      <YaaraLogo variant="mark" onDark={onDark} />
-      <div className="flex flex-col leading-none">
-        <span
-          className="font-serif text-[1.35rem] font-semibold tracking-[0.14em] uppercase"
-          style={{ color: navy }}
-        >
-          Yaara
-        </span>
-        <span
-          className="font-sans text-[0.55rem] font-medium tracking-[0.34em] uppercase mt-1"
-          style={{ color: gold }}
-        >
-          Consultancy Services
-        </span>
-      </div>
+    <div className={cn("relative", className)} style={{ height }}>
+      <Image
+        src="/logo-original.png"
+        alt="Yaara Consultancy Services — Advise · Analyze · Achieve"
+        width={612}
+        height={408}
+        priority
+        className="h-full w-auto object-contain"
+        sizes="(max-width: 768px) 180px, 220px"
+      />
     </div>
   );
 }
 
-/** Compact signature for the founder's note — first-name cursive feel */
+/** Founder signature — cursive-style SVG */
 export function FounderSignature({ className }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 220 70"
+      viewBox="0 0 240 70"
       className={cn("h-12 w-auto", className)}
       fill="none"
       aria-hidden="true"

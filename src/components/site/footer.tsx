@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { YaaraLogo } from "./logo";
 import {
   Phone,
@@ -8,72 +9,33 @@ import {
   Instagram,
   ShieldCheck,
   Lock,
+  ArrowUpRight,
 } from "lucide-react";
+import { CONTACT, NAV_LINKS, SITE } from "@/lib/site";
+import { SERVICES } from "@/lib/services";
 
-const COLUMNS = [
-  {
-    title: "Services",
-    links: [
-      "GST registration & filing",
-      "Income Tax Return (ITR)",
-      "Business registration",
-      "Udyam (MSME)",
-      "ROC compliance",
-      "Bookkeeping & accounting",
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      "About / Founder's story",
-      "CA partner network",
-      "How we work",
-      "Pricing",
-      "Book a consultation",
-      "Contact",
-    ],
-  },
-  {
-    title: "Resources",
-    links: [
-      "Compliance calendar",
-      "Knowledge center",
-      "GST due dates",
-      "ITR deadlines",
-      "FAQs",
-      "Blog",
-    ],
-  },
-  {
-    title: "Legal",
-    links: [
-      "Privacy policy",
-      "Terms of service",
-      "Refund policy",
-      "Data protection",
-      "Disclaimer",
-    ],
-  },
-];
+const SERVICE_LINKS = SERVICES.slice(0, 8).map((s) => ({
+  label: s.shortTitle ?? s.title,
+  href: `/services/${s.slug}`,
+}));
 
 export function SiteFooter() {
   return (
     <footer className="mt-auto border-t border-border bg-surface/50">
-      {/* gold hairline accent */}
       <div className="gold-rule" />
 
       <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-16">
         {/* top: brand + contact */}
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <YaaraLogo />
+            <YaaraLogo height={48} />
             <p className="mt-5 max-w-xs font-sans text-[0.9rem] leading-relaxed text-body">
               The accounting and compliance partner for Indian founders and
               small businesses who want a real person handling their numbers.
             </p>
 
             <p className="mt-5 font-mono text-[0.72rem] uppercase tracking-[0.2em] text-gold">
-              Advise &middot; Analyze &middot; Achieve
+              {SITE.tagline}
             </p>
 
             {/* trust badges */}
@@ -91,74 +53,113 @@ export function SiteFooter() {
 
           {/* sitemap */}
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 lg:col-span-8">
-            {COLUMNS.map((col) => (
-              <nav key={col.title} aria-label={col.title}>
-                <h3 className="font-sans text-[0.78rem] font-semibold uppercase tracking-wider text-ink">
-                  {col.title}
-                </h3>
-                <ul className="mt-4 space-y-2.5">
-                  {col.links.map((link) => (
-                    <li key={link}>
-                      <a
-                        href="#book"
-                        className="font-sans text-[0.86rem] text-body transition-colors hover:text-ink hover:underline hover:decoration-gold hover:decoration-1 hover:underline-offset-4"
-                      >
-                        {link}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            ))}
+            <nav aria-label="Pages">
+              <h3 className="font-sans text-[0.78rem] font-semibold uppercase tracking-wider text-ink">
+                Company
+              </h3>
+              <ul className="mt-4 space-y-2.5">
+                {NAV_LINKS.map((l) => (
+                  <li key={l.href}>
+                    <Link
+                      href={l.href}
+                      className="font-sans text-[0.86rem] text-body transition-colors hover:text-ink hover:underline hover:decoration-gold hover:decoration-1 hover:underline-offset-4"
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            <nav aria-label="Popular services">
+              <h3 className="font-sans text-[0.78rem] font-semibold uppercase tracking-wider text-ink">
+                Services
+              </h3>
+              <ul className="mt-4 space-y-2.5">
+                {SERVICE_LINKS.map((l) => (
+                  <li key={l.href}>
+                    <Link
+                      href={l.href}
+                      className="font-sans text-[0.86rem] text-body transition-colors hover:text-ink hover:underline hover:decoration-gold hover:decoration-1 hover:underline-offset-4"
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+                <li>
+                  <Link
+                    href="/services"
+                    className="inline-flex items-center gap-1 font-sans text-[0.86rem] font-medium text-ink hover:text-gold"
+                  >
+                    View all
+                    <ArrowUpRight className="h-3 w-3" />
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+
+            <nav aria-label="Resources">
+              <h3 className="font-sans text-[0.78rem] font-semibold uppercase tracking-wider text-ink">
+                Resources
+              </h3>
+              <ul className="mt-4 space-y-2.5">
+                <li><Link href="/resources/compliance-calendar" className="font-sans text-[0.86rem] text-body hover:text-ink hover:underline hover:decoration-gold hover:underline-offset-4">Compliance calendar</Link></li>
+                <li><Link href="/resources/faqs" className="font-sans text-[0.86rem] text-body hover:text-ink hover:underline hover:decoration-gold hover:underline-offset-4">FAQs</Link></li>
+                <li><Link href="/resources#knowledge-center" className="font-sans text-[0.86rem] text-body hover:text-ink hover:underline hover:decoration-gold hover:underline-offset-4">Knowledge center</Link></li>
+                <li><Link href="/industries" className="font-sans text-[0.86rem] text-body hover:text-ink hover:underline hover:decoration-gold hover:underline-offset-4">Industries we serve</Link></li>
+                <li><Link href="/book" className="font-sans text-[0.86rem] text-body hover:text-ink hover:underline hover:decoration-gold hover:underline-offset-4">Book a consultation</Link></li>
+              </ul>
+            </nav>
+
+            <nav aria-label="Legal">
+              <h3 className="font-sans text-[0.78rem] font-semibold uppercase tracking-wider text-ink">
+                Legal
+              </h3>
+              <ul className="mt-4 space-y-2.5">
+                <li><Link href="/legal/privacy" className="font-sans text-[0.86rem] text-body hover:text-ink hover:underline hover:decoration-gold hover:underline-offset-4">Privacy policy</Link></li>
+                <li><Link href="/legal/terms" className="font-sans text-[0.86rem] text-body hover:text-ink hover:underline hover:decoration-gold hover:underline-offset-4">Terms of service</Link></li>
+                <li><Link href="/legal/refund" className="font-sans text-[0.86rem] text-body hover:text-ink hover:underline hover:decoration-gold hover:underline-offset-4">Refund policy</Link></li>
+                <li><Link href="/legal/disclaimer" className="font-sans text-[0.86rem] text-body hover:text-ink hover:underline hover:decoration-gold hover:underline-offset-4">Disclaimer</Link></li>
+              </ul>
+            </nav>
           </div>
         </div>
 
         {/* contact strip */}
         <div className="mt-12 grid grid-cols-1 gap-5 border-t border-border pt-10 sm:grid-cols-2 lg:grid-cols-4">
-          <ContactItem
-            icon={Phone}
-            label="Call"
-            value="+91 90000 00000"
-            href="tel:+919000000000"
-          />
-          <ContactItem
-            icon={MessageCircle}
-            label="WhatsApp"
-            value="Chat with us"
-            href="https://wa.me/919000000000"
-          />
-          <ContactItem
-            icon={Mail}
-            label="Email"
-            value="hello@yaara.in"
-            href="mailto:hello@yaara.in"
-          />
-          <ContactItem
-            icon={MapPin}
-            label="Office"
-            value="Bengaluru, Karnataka, India"
-          />
+          <ContactItem icon={Phone} label="Call" value={CONTACT.phone} href={CONTACT.phoneHref} />
+          <ContactItem icon={MessageCircle} label="WhatsApp" value="Chat with us" href={CONTACT.whatsappHref} />
+          <ContactItem icon={Mail} label="Email" value={CONTACT.email} href={`mailto:${CONTACT.email}`} />
+          <ContactItem icon={MapPin} label="Office" value="Hyderabad, Telangana" href="/contact" />
+        </div>
+
+        {/* registered address */}
+        <div className="mt-8 rounded-lg border border-border bg-card/60 p-5">
+          <p className="font-mono text-[0.66rem] uppercase tracking-wider text-muted-foreground">
+            Registered office
+          </p>
+          <p className="mt-1.5 font-sans text-[0.86rem] leading-relaxed text-body">
+            {CONTACT.address.line1}, {CONTACT.address.line2}, {CONTACT.address.line3}, {CONTACT.address.line4}, {CONTACT.address.city}, {CONTACT.address.state} {CONTACT.address.pincode}, {CONTACT.address.country}
+          </p>
         </div>
 
         {/* social + registered details */}
-        <div className="mt-10 flex flex-col gap-6 border-t border-border pt-8 lg:flex-row lg:items-center lg:justify-between">
+        <div className="mt-8 flex flex-col gap-6 border-t border-border pt-8 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex items-center gap-3">
             <SocialLink icon={Linkedin} label="LinkedIn" />
             <SocialLink icon={Instagram} label="Instagram" />
-            <SocialLink icon={MessageCircle} label="WhatsApp" />
+            <SocialLink icon={MessageCircle} label="WhatsApp" href={CONTACT.whatsappHref} />
           </div>
 
           <div className="font-mono text-[0.74rem] text-muted-foreground">
-            <span className="text-ink">Yaara Consultancy Services</span> &middot;
-            Udyam &amp; GSTIN: <span className="text-muted-foreground">to be updated on registration</span>
+            <span className="text-ink">{SITE.name}</span> · Founded by {SITE.founder}
           </div>
         </div>
 
         {/* bottom bar */}
         <div className="mt-8 flex flex-col items-start justify-between gap-3 border-t border-border pt-6 sm:flex-row sm:items-center">
           <p className="font-mono text-[0.74rem] text-muted-foreground">
-            &copy; {new Date().getFullYear()} Yaara Consultancy Services. All
-            rights reserved.
+            &copy; {new Date().getFullYear()} {SITE.name}. All rights reserved.
           </p>
           <p className="font-sans text-[0.74rem] text-muted-foreground">
             Not a Chartered Accountancy firm. Statutory audit &amp; certification
@@ -208,13 +209,15 @@ function ContactItem({
 function SocialLink({
   icon: Icon,
   label,
+  href = "#",
 }: {
   icon: typeof Phone;
   label: string;
+  href?: string;
 }) {
   return (
     <a
-      href="#book"
+      href={href}
       aria-label={label}
       className="flex h-9 w-9 items-center justify-center rounded-md border border-border bg-card text-ink transition-colors hover:border-ink/30 hover:bg-surface"
     >

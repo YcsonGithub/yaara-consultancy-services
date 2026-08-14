@@ -1,9 +1,12 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Menu, X, MessageCircle } from "lucide-react";
+import { Menu, X, MessageCircle, Phone } from "lucide-react";
 import { YaaraLogo } from "./logo";
 import { cn } from "@/lib/utils";
+import { NAV_LINKS, CONTACT } from "@/lib/site";
 import {
   Sheet,
   SheetContent,
@@ -11,18 +14,10 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 
-const NAV = [
-  { label: "Services", href: "#services" },
-  { label: "How we work", href: "#process" },
-  { label: "Industries", href: "#industries" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "About", href: "#about" },
-  { label: "Resources", href: "#resources" },
-];
-
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -31,53 +26,65 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
+
   return (
     <header
       className={cn(
         "sticky top-0 z-50 w-full transition-all duration-300",
         scrolled
           ? "bg-paper/85 backdrop-blur-md shadow-[0_1px_0_0_rgba(220,217,207,0.9),0_8px_24px_-12px_rgba(14,42,71,0.18)]"
-          : "bg-transparent"
+          : "bg-paper/40 backdrop-blur-sm"
       )}
     >
-      <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between px-5 sm:px-8">
-        <a
-          href="#top"
+      <div className="mx-auto flex h-[4.75rem] max-w-7xl items-center justify-between px-5 sm:px-8">
+        <Link
+          href="/"
           className="flex items-center transition-opacity hover:opacity-90"
           aria-label="Yaara Consultancy Services — home"
         >
-          <YaaraLogo />
-        </a>
+          <YaaraLogo height={42} />
+        </Link>
 
-        {/* Desktop nav — real nav, not a hamburger when there's room */}
-        <nav className="hidden items-center gap-7 lg:flex">
-          {NAV.map((item) => (
-            <a
+        {/* Desktop nav */}
+        <nav className="hidden items-center gap-6 xl:flex">
+          {NAV_LINKS.map((item) => (
+            <Link
               key={item.href}
               href={item.href}
-              className="nav-underline font-sans text-[0.92rem] font-medium text-body hover:text-ink transition-colors"
+              data-active={isActive(item.href)}
+              className="nav-underline font-sans text-[0.9rem] font-medium text-body hover:text-ink transition-colors"
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden items-center gap-3 xl:flex">
           <a
-            href="https://wa.me/919000000000"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 font-sans text-[0.88rem] font-medium text-body hover:text-ink transition-colors"
+            href={CONTACT.phoneHref}
+            className="inline-flex items-center gap-1.5 font-sans text-[0.84rem] font-medium text-body hover:text-ink transition-colors"
           >
-            <MessageCircle className="h-4 w-4 text-gold" />
-            WhatsApp
+            <Phone className="h-3.5 w-3.5 text-gold" />
+            {CONTACT.phone}
           </a>
-          <a
-            href="#book"
-            className="inline-flex h-10 items-center rounded-md bg-ink px-5 font-sans text-[0.9rem] font-medium text-paper transition-colors hover:bg-ink-dark"
+          <Link
+            href="/book"
+            className="inline-flex h-10 items-center rounded-md bg-ink px-5 font-sans text-[0.88rem] font-medium text-paper transition-colors hover:bg-ink-dark"
           >
             Book a free consultation
-          </a>
+          </Link>
+        </div>
+
+        {/* Tablet — condensed nav (no hamburger yet, show compact CTA) */}
+        <div className="hidden items-center gap-2 lg:flex xl:hidden">
+          <Link
+            href="/book"
+            className="inline-flex h-9 items-center rounded-md bg-ink px-4 font-sans text-[0.84rem] font-medium text-paper transition-colors hover:bg-ink-dark"
+          >
+            Book a call
+          </Link>
         </div>
 
         {/* Mobile */}
@@ -95,7 +102,7 @@ export function SiteHeader() {
             className="w-[85vw] max-w-sm border-border bg-paper p-0"
           >
             <div className="flex items-center justify-between border-b border-border px-5 py-4">
-              <YaaraLogo />
+              <YaaraLogo height={38} />
               <SheetClose asChild>
                 <button
                   className="inline-flex h-9 w-9 items-center justify-center rounded-md text-ink"
@@ -106,34 +113,39 @@ export function SiteHeader() {
               </SheetClose>
             </div>
             <nav className="flex flex-col px-3 py-4">
-              {NAV.map((item) => (
+              {NAV_LINKS.map((item) => (
                 <SheetClose asChild key={item.href}>
-                  <a
+                  <Link
                     href={item.href}
-                    className="rounded-md px-3 py-3 font-sans text-[1rem] font-medium text-ink hover:bg-surface"
+                    className={cn(
+                      "rounded-md px-3 py-3 font-sans text-[1rem] font-medium",
+                      isActive(item.href)
+                        ? "bg-surface text-ink"
+                        : "text-ink hover:bg-surface"
+                    )}
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 </SheetClose>
               ))}
             </nav>
             <div className="mt-auto space-y-3 border-t border-border px-5 py-5">
               <a
-                href="https://wa.me/919000000000"
+                href={CONTACT.whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 rounded-md border border-border px-4 py-2.5 font-sans text-[0.92rem] font-medium text-ink"
               >
                 <MessageCircle className="h-4 w-4 text-gold" />
-                Chat on WhatsApp
+                WhatsApp us
               </a>
               <SheetClose asChild>
-                <a
-                  href="#book"
+                <Link
+                  href="/book"
                   className="flex h-11 items-center justify-center rounded-md bg-ink px-4 font-sans text-[0.95rem] font-medium text-paper"
                 >
                   Book a free consultation
-                </a>
+                </Link>
               </SheetClose>
             </div>
           </SheetContent>
