@@ -1,0 +1,290 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   YAARA CONSULTANCY SERVICES — Design System
+   Navy + Antique Gold on Warm Paper. Editorial serif headings.
+   ============================================================ */
+
+@theme inline {
+  /* ---- Font families (mapped to next/font CSS variables) ---- */
+  --font-sans: var(--font-work-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-mono: var(--font-ibm-plex-mono), ui-monospace, monospace;
+
+  /* ---- Semantic shadcn tokens ---- */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* ---- Yaara brand tokens ---- */
+  --color-ink: var(--ink);
+  --color-ink-dark: var(--ink-dark);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-body: var(--body);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  /* 8px corner radius — soft enough to feel human, not a consumer app */
+  --radius: 0.5rem;
+
+  /* Surfaces */
+  --background: #FAF7F1;   /* Warm Paper — NOT pure white */
+  --paper: #FAF7F1;
+  --surface: #F2EFE7;       /* Off-white card surface */
+  --card: #FFFFFF;          /* Clean card lift on paper */
+  --card-foreground: #0E2A47;
+  --popover: #FFFFFF;
+  --popover-foreground: #0E2A47;
+
+  /* Inks & text */
+  --ink: #0E2A47;           /* Deep Navy — headings, primary text, header/footer */
+  --ink-dark: #0B1F3A;      /* Midnight — hover / dark sections */
+  --foreground: #0E2A47;    /* default text reads navy-on-paper */
+  --body: #3D4654;          /* Slate — body copy */
+  --muted-foreground: #7A8394; /* Cool Gray — captions, metadata */
+
+  /* Brand */
+  --primary: #0E2A47;       /* Navy */
+  --primary-foreground: #FAF7F1;
+  --gold: #B8873B;          /* Antique Gold — used sparingly */
+  --gold-light: #D4A855;    /* Brighter gold for dark sections */
+  --accent: #B8873B;
+  --accent-foreground: #0E2A47;
+
+  /* Secondary / muted */
+  --secondary: #F2EFE7;
+  --secondary-foreground: #0E2A47;
+  --muted: #F2EFE7;
+
+  /* Lines */
+  --border: #DCD9CF;        /* Soft Slate hairlines */
+  --input: #DCD9CF;
+  --ring: #B8873B;          /* Gold focus ring */
+
+  /* Status — muted-earth family */
+  --success: #2F6B4F;       /* Muted Emerald */
+  --warning: #B7791F;       /* Ochre */
+  --error: #B23A32;         /* Brick */
+  --destructive: #B23A32;
+
+  /* Charts */
+  --chart-1: #0E2A47;
+  --chart-2: #B8873B;
+  --chart-3: #2F6B4F;
+  --chart-4: #B7791F;
+  --chart-5: #7A8394;
+
+  /* Sidebar (unused on marketing site, defined for completeness) */
+  --sidebar: #FAF7F1;
+  --sidebar-foreground: #0E2A47;
+  --sidebar-primary: #0E2A47;
+  --sidebar-primary-foreground: #FAF7F1;
+  --sidebar-accent: #F2EFE7;
+  --sidebar-accent-foreground: #0E2A47;
+  --sidebar-border: #DCD9CF;
+  --sidebar-ring: #B8873B;
+}
+
+.dark {
+  /* Optional dark mode — for any future client portal */
+  --background: #0B1420;
+  --paper: #0B1420;
+  --surface: #111C2E;
+  --card: #111C2E;
+  --card-foreground: #FAF7F1;
+  --popover: #111C2E;
+  --popover-foreground: #FAF7F1;
+
+  --ink: #FAF7F1;
+  --ink-dark: #0B1420;
+  --foreground: #FAF7F1;
+  --body: #C4CAD6;
+  --muted-foreground: #7A8394;
+
+  --primary: #FAF7F1;
+  --primary-foreground: #0B1420;
+  --gold: #D4A855;
+  --gold-light: #D4A855;
+  --accent: #D4A855;
+  --accent-foreground: #0B1420;
+
+  --secondary: #111C2E;
+  --secondary-foreground: #FAF7F1;
+  --muted: #111C2E;
+
+  --border: #1E2D44;
+  --input: #1E2D44;
+  --ring: #D4A855;
+
+  --success: #2F6B4F;
+  --warning: #B7791F;
+  --error: #B23A32;
+  --destructive: #B23A32;
+
+  --chart-1: #D4A855;
+  --chart-2: #FAF7F1;
+  --chart-3: #2F6B4F;
+  --chart-4: #B7791F;
+  --chart-5: #7A8394;
+
+  --sidebar: #0B1420;
+  --sidebar-foreground: #FAF7F1;
+  --sidebar-primary: #FAF7F1;
+  --sidebar-primary-foreground: #0B1420;
+  --sidebar-accent: #111C2E;
+  --sidebar-accent-foreground: #FAF7F1;
+  --sidebar-border: #1E2D44;
+  --sidebar-ring: #D4A855;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* offset for sticky header when jumping to anchors */
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "ss01", "cv01", "cv03";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Headings default to navy ink, Fraunces serif */
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--ink);
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  /* Numbers, deadlines, fees, code → monospace */
+  .font-mono, code, kbd, samp, pre {
+    font-feature-settings: "tnum", "zero";
+  }
+
+  /* Selection in brand gold */
+  ::selection {
+    background-color: rgba(184, 135, 59, 0.22);
+    color: var(--ink);
+  }
+
+  /* Refined scrollbar for long lists */
+  .scroll-fine::-webkit-scrollbar { width: 8px; height: 8px; }
+  .scroll-fine::-webkit-scrollbar-track { background: transparent; }
+  .scroll-fine::-webkit-scrollbar-thumb {
+    background-color: rgba(14, 42, 71, 0.18);
+    border-radius: 9999px;
+  }
+  .scroll-fine::-webkit-scrollbar-thumb:hover { background-color: rgba(14, 42, 71, 0.32); }
+}
+
+/* ============================================================
+   Utility helpers
+   ============================================================ */
+
+/* A hairline gold rule — used as a deliberate accent, never decorative noise */
+.gold-rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold) 20%, var(--gold) 80%, transparent);
+}
+
+/* Paper grain — extremely subtle texture so warm paper doesn't read as flat */
+.paper-grain {
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(rgba(14, 42, 71, 0.025) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+/* Duotone treatment for the founder portrait — ties photo to brand */
+.duotone-navy {
+  position: relative;
+}
+.duotone-navy::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(14, 42, 71, 0.12), rgba(11, 31, 58, 0.28));
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+.duotone-navy img {
+  filter: contrast(1.04) saturate(0.78) brightness(1.02);
+}
+
+/* Animated underline for nav links */
+.nav-underline {
+  position: relative;
+}
+.nav-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 1px;
+  width: 0;
+  background: var(--gold);
+  transition: width 300ms ease-out;
+}
+.nav-underline:hover::after,
+.nav-underline[data-active="true"]::after {
+  width: 100%;
+}
+
+/* Focus-visible ring in brand gold */
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
