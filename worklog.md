@@ -669,3 +669,35 @@ Stage Summary:
 - Reveal component now has a robustness fallback so content is never invisible
 - Lint clean, no console errors/warnings, all core interactions verified working
 - Key files modified: reveal.tsx, chat-assistant.tsx, whatsapp-float.tsx, footer.tsx, consultation-form.tsx, header.tsx, contact/page.tsx, about/page.tsx, pricing/page.tsx, page.tsx (home), section.tsx
+
+---
+Task ID: 9
+Agent: Orchestrator (main) — founder portrait + footer redesign + legal page visibility
+Task: Change the founder image to a better one, redesign the existing footer (which didn't look good), and ensure cookies/terms/privacy pages are properly linked from the footer.
+
+Work Log:
+- Read /home/z/my-project/worklog.md (full prior agent history) to understand what previous agents had produced: founder portrait already existed (AI-generated, plastic-looking), footer had been tweaked before but was cluttered (5 stacked sections), legal pages already existed (Privacy, Terms, Refund, Cookie, Disclaimer — all DPDP-compliant).
+- Read current state: src/components/site/footer.tsx (283 lines, cluttered), src/app/about/page.tsx (founder portrait usage), src/lib/site.ts (SITE, CONTACT, GRIEVANCE_OFFICER, LEGAL_PAGES config), src/app/layout.tsx (root layout), src/app/legal/legal-body.tsx (shared legal layout), src/components/site/consent-provider.tsx (ReopenConsentTrigger), src/components/site/logo.tsx (YaaraLogo, FounderSignature), src/app/globals.css (design tokens — Navy #0E2A47, Gold #B8873B, Paper #FAF7F1, gold-ink #8C6326 for AA text on light).
+- Verified all 5 legal routes return HTTP 200 via curl: /legal/privacy, /legal/terms, /legal/cookie, /legal/refund, /legal/disclaimer.
+- Analyzed the existing founder portrait with VLM (z-ai vision): rated it as obviously AI-generated — plastic skin, perfect teeth, waxy texture, low-detail background props, "past-on" smile. Recommendation: replace.
+- Generated a new founder portrait using z-ai image CLI with a detailed editorial prompt: South Asian Indian man, early 30s, navy blazer over white shirt, genuine Duchenne smile with eye crinkles, natural skin texture with visible pores, 85mm f/1.4 shallow depth of field, warm beige office background with brass lamp + books bokeh, color graded warm with navy/gold tones, 864x1152 (3:4 portrait). Saved to public/founder/founder-portrait.png (100KB).
+- VLM evaluated the new portrait: rated 9/10 realism — "extremely high quality, passes almost all uncanny valley checks, to the untrained eye looks like a professional studio photograph." Significant improvement over the previous obviously-AI image. VLM noted it's appropriate for a consultancy founder page and matches the brand palette.
+- Redesigned src/components/site/footer.tsx from scratch (was 283 lines → now ~330 lines but cleaner structure). Old footer had 5 stacked sections (brand+sitemap, contact strip, registered address + grievance card, social row, bottom bar) which felt cluttered and buried legal links. New footer has 4 clearly-separated bands:
+  1. **Main grid** — brand col (4/12: logo + tagline + trust badges + 4 compact contact rows) + sitemap (8/12: 4 columns — Company / Services / Resources / Legal with arrow icon on "View all services")
+  2. **DPDP grievance strip** — single gold-tinted row with icon + officer name/role + email + phone + "Full policy" link to /legal/privacy + response window caption. Compact but fully DPDP-compliant (§8(9) requires grievance officer to be "easily accessible").
+  3. **Bottom bar** — copyright + "Founded by [founder]" link to /about + "Book a consultation" link (left), social icons (LinkedIn/Instagram/WhatsApp) (right)
+  4. **Registered office + disclaimer** — compact registered office one-liner + "Not a CA firm" honesty disclaimer with link to /legal/disclaimer
+- Refactored sub-components: extracted FooterColumn (with optional arrow icon), ContactRow (compact icon+label+value, internal/external link handling), SocialLink (hover gold-ink). Used gold-ink token (#8C6326) instead of gold (#B8873B) for text on light backgrounds to maintain WCAG AA contrast.
+- Ran ESLint: clean, no errors. No compile errors in dev.log.
+- Verified with Agent Browser:
+  • Desktop (1440px): home + about pages render with new footer. VLM rated footer A- to A+ across all criteria (scannability, legal visibility, DPDP info, contact org, professionalism, layout). "Looks expensive and trustworthy. Avoids the wall-of-text trap common in this industry."
+  • Mobile (390px): footer stacks cleanly, no horizontal overflow, all sections readable, touch targets meet 44px accessibility minimum.
+  • About page: new founder portrait renders professionally, name plate overlay + gold corner accent well-integrated, portrait matches navy/gold brand palette.
+  • Legal link navigation: clicked "Cookie Policy" in footer → navigated to /legal/cookie → page loads with full content (title, intro, grievance callout, cookie inventory table, clean footer).
+- Confirmed the user's implicit assumption was incorrect: cookies/terms/privacy pages ALREADY existed (built in Task ID 6 by a previous agent). They were just hard to find because the old footer was cluttered. The redesigned footer makes the Legal column the 4th sitemap column with all 5 legal pages + "Cookie preferences" trigger clearly listed.
+
+Stage Summary:
+- New founder portrait: public/founder/founder-portrait.png — photorealistic editorial style, rated 9/10 realism, matches navy/gold brand palette, professional and trustworthy.
+- Footer redesigned: src/components/site/footer.tsx — 4 clean bands (main grid / DPDP grievance strip / bottom bar / office+disclaimer). All legal pages prominently linked. DPDP §8(9) grievance officer info compact but accessible. Mobile-responsive (no overflow, clean stacking). VLM rated A- to A+.
+- Legal pages (cookies, terms, privacy, refund, disclaimer) confirmed working — all 5 return HTTP 200, all linked in footer Legal column.
+- Lint clean, no compile errors, all routes 200, navigation verified end-to-end.
