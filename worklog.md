@@ -177,3 +177,48 @@ Stage Summary:
 - All forms use the existing shared `<ConsultationForm variant="light|dark" />` — no new form code.
 - All routes now resolve (footer legal links no longer 404; header Resources dropdown target exists).
 - Routes built by this agent: /resources, /resources/compliance-calendar, /resources/faqs, /contact, /book, /legal/privacy, /legal/terms, /legal/refund, /legal/disclaimer.
+
+---
+Task ID: 3
+Agent: Orchestrator (main) — WhatsApp float upgrade + scoped assistant chatbot + OG image
+
+Task: Address user's latest asks — (1) use a WhatsApp floating icon, (2) decide whether a chatbot is helpful or bad and add if helpful, (3) add more image designs if needed.
+
+Decision rationale:
+- WhatsApp float: already existed but used a generic MessageCircle icon. Upgraded to the official WhatsApp brand glyph + always-visible (user explicitly asked for it).
+- Chatbot: A full tax-advice bot would be a liability (regulated domain, brand is "a real person, not a portal"). But a SCOPED ROUTING ASSISTANT that helps visitors find the right service / price / deadline and hands off to a human is genuinely helpful and on-brand. Built that.
+- Images: Site already has founder portrait + 2 scene images + logo. The genuinely-missing asset was an OG/social-share image. Built it via next/og (crisp text, exact brand colors). Did NOT add more decorative images — the editorial minimalism is intentional; clutter would undercut it.
+
+Work Log:
+- Created src/lib/chat-context.ts — builds a compact system prompt from SERVICES + SITE + INDUSTRIES + PRICING + FAQS. Strict rules: never compute a visitor's tax liability, never invent prices, always hand off to WhatsApp/book-a-call for specifics, clearly state "not a CA".
+- Created src/app/api/chat/route.ts — POST handler using z-ai-web-dev-sdk (backend only). Accepts {message, messages[]} for multi-turn. Caps history at 16 messages, caps each message at 2000 chars. Uses role:"system" for the prompt + sanitised history + latest user message. thinking:{type:"disabled"}.
+- Upgraded src/components/site/whatsapp-float.tsx — replaced generic MessageCircle with inline WhatsApp brand SVG glyph (phone-in-bubble). Now always visible (removed scroll-trigger). Added gold "online" ping dot + expandable tooltip card with "Start chat" CTA + phone number. Positioned bottom-right (z-40).
+- Created src/components/site/chat-assistant.tsx — floating chat widget:
+  • Trigger: navy circle (bottom-24 right-5, above WhatsApp) with MessageSquareText icon + gold "AI" badge on first visit + unseen dot when closed.
+  • Panel: navy header with Sparkles icon + "Yaara Assistant" + "ROUTING · NOT A CA" badge + online status strip with pulsing green dot. Messages area with paper-grain bg + custom scrollbar. User bubbles (gold, right-aligned), assistant bubbles (card, left-aligned).
+  • Lightweight markdown renderer: **bold**, [text](url) with internal-link routing via Next router, bullet lists. No external deps.
+  • Quick-reply chips: 5 initial (services, GST, pricing, missed deadline, book call) + 4 follow-up suggestions.
+  • Typing indicator with custom chat-bounce keyframe (added to globals.css).
+  • Footer: "Instant replies · not tax advice · book a free call for specifics".
+  • A11y: role=dialog, aria-label, aria-live=polite on messages, Esc to close, auto-focus input on open.
+  • Mobile: panel is inset-x-3 (12px margins) and max-h-[70vh] on mobile; sm:w-[400px] sm:max-h-[600px] on desktop.
+- Created src/app/opengraph-image.tsx — next/og ImageResponse (edge runtime). 1200×630 PNG with navy radial-gradient bg, gold grain dots, "Y" monogram, tagline "Advise · Analyze · Achieve", headline "Accounting, tax & compliance — handled by a real person, not a portal.", service list (GST · ITR · TDS · ROC · Bookkeeping · Payroll · Advisory), founder name "Anakali Pawan Kalyan", domain. Auto-wired into layout metadata by Next.js convention.
+- Added @keyframes chat-bounce to src/app/globals.css for the typing dots.
+- Wired ChatAssistant into src/app/layout.tsx (alongside WhatsAppFloat).
+
+Browser verification (agent-browser):
+- Homepage loads, both floating buttons present (WhatsApp + Yaara assistant).
+- Chat trigger opens panel; welcome message renders with **bold** markdown.
+- Typed "I run a small consulting business in Hyderabad. Do I need to register for GST?" → AI replied with accurate ₹20L threshold, Hyderabad context, and a markdown link to /services/gst-registration-filing (verified href). Did NOT give specific advice.
+- Quick-reply chip "How much does it cost?" → AI replied with accurate pricing (₹1,999/mo, GST ₹1,499, ITR ₹999–₹2,499) + link to /pricing.
+- Multi-turn: follow-up "What about for a team of 5 people?" → AI correctly referenced prior context, recommended Growing plan (₹4,999/mo, covers payroll for 5), offered "book a free call" link. Context maintained.
+- WhatsApp button expands tooltip card with "Start chat" linking to wa.me/917675016737.
+- Mobile (390×844): panel is 366×587 with 12px margins — fits viewport perfectly. Both buttons accessible.
+- No console errors. Lint clean. POST /api/chat returns 200 in 1.3–1.8s. OG image returns 200, valid 1200×630 PNG, auto-wired as og:image in meta tags.
+
+Stage Summary:
+- WhatsApp float: brand-correct glyph, always visible, expandable card, gold online dot.
+- Chatbot: scoped routing assistant (NOT a tax advisor) using z-ai-web-dev-sdk in backend. Multi-turn, markdown rendering, quick replies, mobile-responsive, accessible. Clearly labelled "ROUTING · NOT A CA".
+- OG image: dynamic 1200×630 PNG via next/og, branded, auto-wired into metadata.
+- No new decorative images added — the editorial design intentionally relies on typography, color, and the existing 3 images (founder portrait, workspace flatlay, growth illustration). Adding more would clutter.
+- Files touched: src/lib/chat-context.ts (new), src/app/api/chat/route.ts (new), src/components/site/whatsapp-float.tsx (rewrite), src/components/site/chat-assistant.tsx (new), src/app/opengraph-image.tsx (new), src/app/globals.css (added keyframe), src/app/layout.tsx (added ChatAssistant import+render).

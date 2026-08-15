@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { SiteHeader } from "@/components/site/header";
 import { SiteFooter } from "@/components/site/footer";
 import { WhatsAppFloat } from "@/components/site/whatsapp-float";
+import { ChatAssistant } from "@/components/site/chat-assistant";
 import { SITE, CONTACT } from "@/lib/site";
 
 // Fraunces — warm editorial variable serif for headings
@@ -126,6 +127,7 @@ export default function RootLayout({
           <SiteFooter />
         </div>
         <WhatsAppFloat />
+        <ChatAssistant />
         <Toaster />
       </body>
     </html>
