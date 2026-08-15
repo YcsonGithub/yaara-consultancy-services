@@ -47,47 +47,37 @@ export function SiteHeader() {
           <YaaraLogo height={42} />
         </Link>
 
-        {/* Desktop nav */}
-        <nav className="hidden items-center gap-6 xl:flex">
+        {/* Desktop nav — visible at lg+ (1024px and up) */}
+        <nav className="hidden items-center gap-5 lg:flex xl:gap-6">
           {NAV_LINKS.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               data-active={isActive(item.href)}
-              className="nav-underline font-sans text-[0.9rem] font-medium text-body hover:text-ink transition-colors"
+              className="nav-underline font-sans text-[0.86rem] font-medium text-body hover:text-ink transition-colors xl:text-[0.9rem]"
             >
               {item.label}
             </Link>
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 xl:flex">
+        <div className="hidden items-center gap-3 lg:flex">
           <a
             href={CONTACT.phoneHref}
-            className="inline-flex items-center gap-1.5 font-sans text-[0.84rem] font-medium text-body hover:text-ink transition-colors"
+            className="hidden items-center gap-1.5 font-sans text-[0.84rem] font-medium text-body hover:text-ink transition-colors xl:inline-flex"
           >
             <Phone className="h-3.5 w-3.5 text-gold" />
             {CONTACT.phone}
           </a>
           <Link
             href="/book"
-            className="inline-flex h-10 items-center rounded-md bg-ink px-5 font-sans text-[0.88rem] font-medium text-paper transition-colors hover:bg-ink-dark"
-          >
-            Book a free consultation
-          </Link>
-        </div>
-
-        {/* Tablet — condensed nav (no hamburger yet, show compact CTA) */}
-        <div className="hidden items-center gap-2 lg:flex xl:hidden">
-          <Link
-            href="/book"
-            className="inline-flex h-9 items-center rounded-md bg-ink px-4 font-sans text-[0.84rem] font-medium text-paper transition-colors hover:bg-ink-dark"
+            className="inline-flex h-10 items-center rounded-md bg-ink px-4 font-sans text-[0.84rem] font-medium text-paper transition-colors hover:bg-ink-dark xl:px-5 xl:text-[0.88rem]"
           >
             Book a call
           </Link>
         </div>
 
-        {/* Mobile */}
+        {/* Mobile — hamburger below lg */}
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
             <button

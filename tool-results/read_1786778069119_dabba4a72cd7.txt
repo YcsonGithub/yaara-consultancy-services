@@ -1,0 +1,744 @@
+     1→"use client";
+     2→
+     3→import { useSyncExternalStore, useMemo, useState } from "react";
+     4→import Link from "next/link";
+     5→import {
+     6→  CalendarClock,
+     7→  ArrowRight,
+     8→  Info,
+     9→  AlertCircle,
+    10→} from "lucide-react";
+    11→
+    12→// ---- Types ----
+    13→type DeadlineType = "GST" | "TDS" | "ITR" | "ROC" | "Advance Tax";
+    14→
+    15→type Deadline = {
+    16→  date: Date;
+    17→  title: string;
+    18→  type: DeadlineType;
+    19→  note?: string;
+    20→};
+    21→
+    22→const TYPE_STYLES: Record<
+    23→  DeadlineType,
+    24→  { badge: string; dot: string; cell: string }
+    25→> = {
+    26→  GST: {
+    27→    badge: "bg-success/12 text-success ring-1 ring-success/30",
+    28→    dot: "bg-success",
+    29→    cell: "bg-success/15 text-success ring-1 ring-success/40",
+    30→  },
+    31→  TDS: {
+    32→    badge: "bg-ink/10 text-ink ring-1 ring-ink/25",
+    33→    dot: "bg-ink",
+    34→    cell: "bg-ink/15 text-paper ring-1 ring-ink/40",
+    35→  },
+    36→  ITR: {
+    37→    badge: "bg-gold/15 text-gold ring-1 ring-gold/30",
+    38→    dot: "bg-gold",
+    39→    cell: "bg-gold/20 text-gold ring-1 ring-gold/50",
+    40→  },
+    41→  ROC: {
+    42→    badge: "bg-muted-foreground/15 text-muted-foreground ring-1 ring-muted-foreground/25",
+    43→    dot: "bg-muted-foreground",
+    44→    cell: "bg-muted-foreground/15 text-muted-foreground ring-1 ring-muted-foreground/40",
+    45→  },
+    46→  "Advance Tax": {
+    47→    badge: "bg-warning/12 text-warning ring-1 ring-warning/30",
+    48→    dot: "bg-warning",
+    49→    cell: "bg-warning/15 text-warning ring-1 ring-warning/40",
+    50→  },
+    51→};
+    52→
+    53→const TYPES: DeadlineType[] = ["GST", "TDS", "ITR", "ROC", "Advance Tax"];
+    54→
+    55→// ---- Hydration-safe date hook ----
+    56→// Server render returns null; client renders the real Date only after hydration.
+    57→function subscribeNoop() {
+    58→  return () => {};
+    59→}
+    60→let clientNow: Date | null = null;
+    61→function getClientNow() {
+    62→  if (!clientNow) clientNow = new Date();
+    63→  return clientNow;
+    64→}
+    65→function getServerNow(): Date | null {
+    66→  return null;
+    67→}
+    68→
+    69→// ---- Deadline generation ----
+    70→function fyCode(startYear: number) {
+    71→  return `FY ${startYear}-${String(startYear + 1).slice(-2)}`;
+    72→}
+    73→
+    74→function generateDeadlines(now: Date): Deadline[] {
+    75→  const out: Deadline[] = [];
+    76→  const windowStart = new Date(now.getFullYear(), now.getMonth(), 1);
+    77→  const windowEnd = new Date(
+    78→    now.getFullYear(),
+    79→    now.getMonth() + 13,
+    80→    now.getDate()
+    81→  );
+    82→
+    83→  // Current FY start (April of current or previous year)
+    84→  const currentFYStart =
+    85→    now.getMonth() >= 3 ? now.getFullYear() : now.getFullYear() - 1;
+    86→
+    87→  // 1. Monthly GSTR-3B (20th) and TDS payment (7th) — for each month in window
+    88→  for (let i = 0; i < 14; i++) {
+    89→    const m = new Date(windowStart.getFullYear(), windowStart.getMonth() + i, 1);
+    90→    const yr = m.getFullYear();
+    91→    const mo = m.getMonth();
+    92→    out.push({
+    93→      date: new Date(yr, mo, 20),
+    94→      title: "GSTR-3B filing",
+    95→      type: "GST",
+    96→      note: "Monthly summary return",
+    97→    });
+    98→    out.push({
+    99→      date: new Date(yr, mo, 7),
+   100→      title: "TDS payment",
+   101→      type: "TDS",
+   102→      note: "Monthly tax deposit (challan)",
+   103→    });
+   104→  }
+   105→
+   106→  // 2. TDS quarterly returns — generate for FY-1, FY, FY+1 (some fall in window)
+   107→  for (let fy = currentFYStart - 1; fy <= currentFYStart + 1; fy++) {
+   108→    out.push({
+   109→      date: new Date(fy, 6, 31),
+   110→      title: "TDS Q1 return — Form 24Q",
+   111→      type: "TDS",
+   112→      note: `${fyCode(fy)} · Apr–Jun`,
+   113→    });
+   114→    out.push({
+   115→      date: new Date(fy, 9, 31),
+   116→      title: "TDS Q2 return — Form 24Q",
+   117→      type: "TDS",
+   118→      note: `${fyCode(fy)} · Jul–Sep`,
+   119→    });
+   120→    out.push({
+   121→      date: new Date(fy + 1, 0, 31),
+   122→      title: "TDS Q3 return — Form 24Q",
+   123→      type: "TDS",
+   124→      note: `${fyCode(fy)} · Oct–Dec`,
+   125→    });
+   126→    out.push({
+   127→      date: new Date(fy + 1, 4, 31),
+   128→      title: "TDS Q4 return — Form 24Q",
+   129→      type: "TDS",
+   130→      note: `${fyCode(fy)} · Jan–Mar`,
+   131→    });
+   132→  }
+   133→
+   134→  // 3. Advance tax — 4 instalments per FY
+   135→  for (let fy = currentFYStart - 1; fy <= currentFYStart + 1; fy++) {
+   136→    out.push({
+   137→      date: new Date(fy, 5, 15),
+   138→      title: "Advance tax — 1st instalment (15%)",
+   139→      type: "Advance Tax",
+   140→      note: fyCode(fy),
+   141→    });
+   142→    out.push({
+   143→      date: new Date(fy, 8, 15),
+   144→      title: "Advance tax — 2nd instalment (45%)",
+   145→      type: "Advance Tax",
+   146→      note: fyCode(fy),
+   147→    });
+   148→    out.push({
+   149→      date: new Date(fy, 11, 15),
+   150→      title: "Advance tax — 3rd instalment (75%)",
+   151→      type: "Advance Tax",
+   152→      note: fyCode(fy),
+   153→    });
+   154→    out.push({
+   155→      date: new Date(fy + 1, 2, 15),
+   156→      title: "Advance tax — 4th instalment (100%)",
+   157→      type: "Advance Tax",
+   158→      note: fyCode(fy),
+   159→    });
+   160→  }
+   161→
+   162→  // 4. ITR deadlines (for FY ending previous March) — 31 Jul, 31 Oct, 30 Nov
+   163→  for (let yr = now.getFullYear() - 1; yr <= now.getFullYear() + 1; yr++) {
+   164→    out.push({
+   165→      date: new Date(yr, 6, 31),
+   166→      title: "ITR — Individuals (ITR-1 / ITR-2 / ITR-3)",
+   167→      type: "ITR",
+   168→      note: `For FY ${yr - 1}-${String(yr).slice(-2)}`,
+   169→    });
+   170→    out.push({
+   171→      date: new Date(yr, 9, 31),
+   172→      title: "ITR — Businesses (audit cases u/s 44AB)",
+   173→      type: "ITR",
+   174→      note: `For FY ${yr - 1}-${String(yr).slice(-2)}`,
+   175→    });
+   176→    out.push({
+   177→      date: new Date(yr, 10, 30),
+   178→      title: "ITR — Transfer pricing cases",
+   179→      type: "ITR",
+   180→      note: `For FY ${yr - 1}-${String(yr).slice(-2)}`,
+   181→    });
+   182→  }
+   183→
+   184→  // 5. GSTR-9 annual — 31 Dec (for previous FY)
+   185→  for (let yr = now.getFullYear() - 1; yr <= now.getFullYear() + 1; yr++) {
+   186→    out.push({
+   187→      date: new Date(yr, 11, 31),
+   188→      title: "GSTR-9 — Annual return",
+   189→      type: "GST",
+   190→      note: `For FY ${yr - 1}-${String(yr).slice(-2)}`,
+   191→    });
+   192→  }
+   193→
+   194→  // 6. ROC filings — AOC-4 (~30 Sep), MGT-7 (~29 Nov)
+   195→  for (let yr = now.getFullYear() - 1; yr <= now.getFullYear() + 1; yr++) {
+   196→    out.push({
+   197→      date: new Date(yr, 8, 30),
+   198→      title: "ROC AOC-4 — Financial statements",
+   199→      type: "ROC",
+   200→      note: `For FY ${yr - 1}-${String(yr).slice(-2)}`,
+   201→    });
+   202→    out.push({
+   203→      date: new Date(yr, 10, 29),
+   204→      title: "ROC MGT-7 — Annual return",
+   205→      type: "ROC",
+   206→      note: `For FY ${yr - 1}-${String(yr).slice(-2)}`,
+   207→    });
+   208→  }
+   209→
+   210→  // Dedupe by date+title, filter to window, sort ascending
+   211→  const seen = new Set<string>();
+   212→  const unique = out.filter((d) => {
+   213→    const k = `${d.date.toISOString()}|${d.title}`;
+   214→    if (seen.has(k)) return false;
+   215→    seen.add(k);
+   216→    return true;
+   217→  });
+   218→
+   219→  return unique
+   220→    .filter((d) => d.date >= windowStart && d.date <= windowEnd)
+   221→    .sort((a, b) => a.date.getTime() - b.date.getTime());
+   222→}
+   223→
+   224→// ---- Date helpers ----
+   225→const MONTH_NAMES = [
+   226→  "January", "February", "March", "April", "May", "June",
+   227→  "July", "August", "September", "October", "November", "December",
+   228→];
+   229→const MONTH_SHORT = [
+   230→  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+   231→  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+   232→];
+   233→const DOW_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+   234→
+   235→function startOfDay(d: Date) {
+   236→  return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+   237→}
+   238→
+   239→function daysUntil(target: Date, now: Date) {
+   240→  const t = startOfDay(target).getTime();
+   241→  const n = startOfDay(now).getTime();
+   242→  return Math.round((t - n) / 86400000);
+   243→}
+   244→
+   245→function formatCountdown(days: number) {
+   246→  if (days < 0) return { label: `${Math.abs(days)}d overdue`, tone: "past" as const };
+   247→  if (days === 0) return { label: "Today", tone: "urgent" as const };
+   248→  if (days === 1) return { label: "Tomorrow", tone: "urgent" as const };
+   249→  if (days <= 7) return { label: `In ${days} days`, tone: "soon" as const };
+   250→  return { label: `In ${days} days`, tone: "normal" as const };
+   251→}
+   252→
+   253→// ---- Component ----
+   254→export function ComplianceCalendarFull() {
+   255→  const now = useSyncExternalStore(subscribeNoop, getClientNow, getServerNow);
+   256→  const [filter, setFilter] = useState<DeadlineType | "All">("All");
+   257→
+   258→  const allDeadlines = useMemo(
+   259→    () => (now ? generateDeadlines(now) : []),
+   260→    [now]
+   261→  );
+   262→
+   263→  const filtered = useMemo(() => {
+   264→    if (filter === "All") return allDeadlines;
+   265→    return allDeadlines.filter((d) => d.type === filter);
+   266→  }, [filter, allDeadlines]);
+   267→
+   268→  const byMonth = useMemo(() => {
+   269→    const map = new Map<string, Deadline[]>();
+   270→    for (const d of filtered) {
+   271→      const key = `${d.date.getFullYear()}-${String(d.date.getMonth()).padStart(2, "0")}`;
+   272→      if (!map.has(key)) map.set(key, []);
+   273→      map.get(key)!.push(d);
+   274→    }
+   275→    return Array.from(map.entries());
+   276→  }, [filtered]);
+   277→
+   278→  // Count by type for legend
+   279→  const counts = useMemo(() => {
+   280→    const c: Record<DeadlineType, number> = {
+   281→      GST: 0,
+   282→      TDS: 0,
+   283→      ITR: 0,
+   284→      ROC: 0,
+   285→      "Advance Tax": 0,
+   286→    };
+   287→    for (const d of allDeadlines) c[d.type]++;
+   288→    return c;
+   289→  }, [allDeadlines]);
+   290→
+   291→  if (!now) {
+   292→    return <CalendarSkeleton />;
+   293→  }
+   294→
+   295→  return (
+   296→    <div className="mx-auto max-w-7xl px-5 pb-20 sm:px-8">
+   297→      {/* Filter bar + legend */}
+   298→      <div className="mt-12 flex flex-col gap-6 border-b border-border pb-6 lg:flex-row lg:items-center lg:justify-between">
+   299→        <div className="flex flex-wrap gap-2">
+   300→          <FilterButton
+   301→            active={filter === "All"}
+   302→            onClick={() => setFilter("All")}
+   303→            label="All"
+   304→            count={allDeadlines.length}
+   305→          />
+   306→          {TYPES.map((t) => (
+   307→            <FilterButton
+   308→              key={t}
+   309→              active={filter === t}
+   310→              onClick={() => setFilter(t)}
+   311→              label={t}
+   312→              count={counts[t]}
+   313→              dotColor={TYPE_STYLES[t].dot}
+   314→            />
+   315→          ))}
+   316→        </div>
+   317→
+   318→        <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+   319→          {TYPES.map((t) => (
+   320→            <span
+   321→              key={t}
+   322→              className="inline-flex items-center gap-1.5 font-mono text-[0.7rem] text-muted-foreground"
+   323→            >
+   324→              <span className={`h-2 w-2 rounded-full ${TYPE_STYLES[t].dot}`} />
+   325→              {t}
+   326→            </span>
+   327→          ))}
+   328→        </div>
+   329→      </div>
+   330→
+   331→      {/* Month grid for current month */}
+   332→      <CurrentMonthGrid now={now} deadlines={allDeadlines} />
+   333→
+   334→      {/* List view */}
+   335→      <div className="mt-14">
+   336→        <div className="flex items-baseline justify-between">
+   337→          <h2 className="font-serif text-[1.6rem] font-medium text-ink sm:text-[1.9rem]">
+   338→            Upcoming deadlines
+   339→          </h2>
+   340→          <span className="font-mono text-[0.72rem] uppercase tracking-wider text-muted-foreground">
+   341→            Next 12 months · {filtered.length} dates
+   342→          </span>
+   343→        </div>
+   344→
+   345→        {byMonth.length === 0 ? (
+   346→          <p className="mt-6 font-sans text-[0.95rem] text-muted-foreground">
+   347→            No deadlines match this filter in the next 12 months.
+   348→          </p>
+   349→        ) : (
+   350→          <div className="mt-6 space-y-10">
+   351→            {byMonth.map(([key, items]) => {
+   352→              const [yStr, mStr] = key.split("-");
+   353→              const y = Number(yStr);
+   354→              const m = Number(mStr);
+   355→              return (
+   356→                <div key={key}>
+   357→                  <div className="mb-3 flex items-baseline gap-3 border-b border-border pb-2">
+   358→                    <h3 className="font-serif text-[1.15rem] font-medium text-ink">
+   359→                      {MONTH_NAMES[m]} {y}
+   360→                    </h3>
+   361→                    <span className="font-mono text-[0.7rem] uppercase tracking-wider text-muted-foreground">
+   362→                      {items.length} {items.length === 1 ? "deadline" : "deadlines"}
+   363→                    </span>
+   364→                  </div>
+   365→                  <ul className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-card">
+   366→                    {items.map((d, i) => {
+   367→                      const days = daysUntil(d.date, now);
+   368→                      const cd = formatCountdown(days);
+   369→                      const isPast = days < 0;
+   370→                      return (
+   371→                        <li
+   372→                          key={`${key}-${i}`}
+   373→                          className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:gap-5 sm:p-5"
+   374→                        >
+   375→                          {/* Date block */}
+   376→                          <div
+   377→                            className={`flex h-16 w-16 shrink-0 flex-col items-center justify-center rounded-md border ${
+   378→                              isPast
+   379→                                ? "border-border bg-surface text-muted-foreground"
+   380→                                : "border-border bg-surface text-ink"
+   381→                            }`}
+   382→                          >
+   383→                            <span className="font-mono text-[0.62rem] font-medium uppercase tracking-wider text-muted-foreground">
+   384→                              {MONTH_SHORT[d.date.getMonth()]}
+   385→                            </span>
+   386→                            <span className="font-mono text-[1.4rem] font-semibold leading-none">
+   387→                              {String(d.date.getDate()).padStart(2, "0")}
+   388→                            </span>
+   389→                            <span className="font-mono text-[0.6rem] text-muted-foreground">
+   390→                              {DOW_SHORT[d.date.getDay()]}
+   391→                            </span>
+   392→                          </div>
+   393→
+   394→                          {/* Title + note */}
+   395→                          <div className="min-w-0 flex-1">
+   396→                            <div className="flex flex-wrap items-center gap-2">
+   397→                              <span
+   398→                                className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 font-mono text-[0.62rem] font-semibold uppercase tracking-wider ${TYPE_STYLES[d.type].badge}`}
+   399→                              >
+   400→                                <span className={`h-1.5 w-1.5 rounded-full ${TYPE_STYLES[d.type].dot}`} />
+   401→                                {d.type}
+   402→                              </span>
+   403→                              <p className="font-serif text-[1.02rem] font-medium text-ink">
+   404→                                {d.title}
+   405→                              </p>
+   406→                            </div>
+   407→                            {d.note && (
+   408→                              <p className="mt-1 font-sans text-[0.82rem] text-body">
+   409→                                {d.note}
+   410→                              </p>
+   411→                            )}
+   412→                          </div>
+   413→
+   414→                          {/* Countdown */}
+   415→                          <div className="shrink-0 sm:text-right">
+   416→                            <span
+   417→                              className={`inline-flex items-center gap-1.5 font-mono text-[0.78rem] font-medium ${
+   418→                                cd.tone === "past"
+   419→                                  ? "text-muted-foreground"
+   420→                                  : cd.tone === "urgent"
+   421→                                  ? "text-error"
+   422→                                  : cd.tone === "soon"
+   423→                                  ? "text-warning"
+   424→                                  : "text-ink"
+   425→                              }`}
+   426→                            >
+   427→                              {cd.tone === "urgent" && (
+   428→                                <AlertCircle className="h-3.5 w-3.5" strokeWidth={2} />
+   429→                              )}
+   430→                              {cd.label}
+   431→                            </span>
+   432→                          </div>
+   433→                        </li>
+   434→                      );
+   435→                    })}
+   436→                  </ul>
+   437→                </div>
+   438→              );
+   439→            })}
+   440→          </div>
+   441→        )}
+   442→      </div>
+   443→
+   444→      {/* Disclaimer */}
+   445→      <div className="mt-12 flex gap-3 rounded-lg border border-border bg-surface/60 p-5">
+   446→        <Info className="mt-0.5 h-5 w-5 shrink-0 text-gold" strokeWidth={1.5} />
+   447→        <p className="font-sans text-[0.86rem] leading-relaxed text-body">
+   448→          <span className="font-semibold text-ink">A note on dates:</span> Dates
+   449→          are indicative for common cases. Your exact due date can vary by
+   450→          turnover, state, registrations already done, and whether you&apos;re on
+   451→          QRMP scheme. For GST in particular, monthly filers and quarterly
+   452→          (QRMP) filers have different GSTR-3B cycles. Always confirm your
+   453→          specific deadline with us before relying on this list.
+   454→        </p>
+   455→      </div>
+   456→
+   457→      {/* End-of-page CTA */}
+   458→      <div className="mt-12 overflow-hidden rounded-xl bg-ink p-7 text-paper sm:p-9">
+   459→        <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
+   460→          <div className="max-w-xl">
+   461→            <h2 className="font-serif text-[1.6rem] font-medium leading-tight text-paper sm:text-[1.9rem]">
+   462→              Hand these deadlines to us.
+   463→            </h2>
+   464→            <p className="mt-3 font-sans text-[0.95rem] leading-relaxed text-paper/75">
+   465→              Forget bookmarking. We track every date that applies to your
+   466→              business, file before it&apos;s due, and send a single WhatsApp
+   467→              reminder before each one — not a calendar full of noise.
+   468→            </p>
+   469→          </div>
+   470→          <Link
+   471→            href="/book"
+   472→            className="group inline-flex h-12 shrink-0 items-center gap-2 rounded-md bg-gold px-7 font-sans text-[0.97rem] font-semibold text-ink transition-all hover:bg-gold-light"
+   473→          >
+   474→            Book a free consultation
+   475→            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+   476→          </Link>
+   477→        </div>
+   478→      </div>
+   479→    </div>
+   480→  );
+   481→}
+   482→
+   483→// ---- Sub-components ----
+   484→function FilterButton({
+   485→  active,
+   486→  onClick,
+   487→  label,
+   488→  count,
+   489→  dotColor,
+   490→}: {
+   491→  active: boolean;
+   492→  onClick: () => void;
+   493→  label: string;
+   494→  count: number;
+   495→  dotColor?: string;
+   496→}) {
+   497→  return (
+   498→    <button
+   499→      type="button"
+   500→      onClick={onClick}
+   501→      aria-pressed={active}
+   502→      className={`inline-flex h-9 items-center gap-2 rounded-full border px-4 font-sans text-[0.86rem] font-medium transition-all ${
+   503→        active
+   504→          ? "border-ink bg-ink text-paper"
+   505→          : "border-border bg-card text-body hover:border-ink/30 hover:text-ink"
+   506→      }`}
+   507→    >
+   508→      {dotColor && (
+   509→        <span className={`h-2 w-2 rounded-full ${dotColor}`} aria-hidden />
+   510→      )}
+   511→      {label}
+   512→      <span
+   513→        className={`font-mono text-[0.72rem] ${
+   514→          active ? "text-paper/70" : "text-muted-foreground"
+   515→        }`}
+   516→      >
+   517→        {count}
+   518→      </span>
+   519→    </button>
+   520→  );
+   521→}
+   522→
+   523→function CurrentMonthGrid({
+   524→  now,
+   525→  deadlines,
+   526→}: {
+   527→  now: Date;
+   528→  deadlines: Deadline[];
+   529→}) {
+   530→  const year = now.getFullYear();
+   531→  const month = now.getMonth();
+   532→  const firstDay = new Date(year, month, 1).getDay(); // 0=Sun
+   533→  const daysInMonth = new Date(year, month + 1, 0).getDate();
+   534→  const today = now.getDate();
+   535→
+   536→  // Map: day-of-month → Deadline[] (only for current month)
+   537→  const dayMap = new Map<number, Deadline[]>();
+   538→  for (const d of deadlines) {
+   539→    if (d.date.getMonth() === month && d.date.getFullYear() === year) {
+   540→      const day = d.date.getDate();
+   541→      if (!dayMap.has(day)) dayMap.set(day, []);
+   542→      dayMap.get(day)!.push(d);
+   543→    }
+   544→  }
+   545→
+   546→  const cells: (number | null)[] = [];
+   547→  for (let i = 0; i < firstDay; i++) cells.push(null);
+   548→  for (let d = 1; d <= daysInMonth; d++) cells.push(d);
+   549→  // pad to multiple of 7
+   550→  while (cells.length % 7 !== 0) cells.push(null);
+   551→
+   552→  // Pick the dominant type for a day (priority: urgent-types first)
+   553→  const priority: DeadlineType[] = ["Advance Tax", "GST", "TDS", "ITR", "ROC"];
+   554→  function dominantType(list: Deadline[]) {
+   555→    for (const t of priority) {
+   556→      if (list.some((d) => d.type === t)) return t;
+   557→    }
+   558→    return list[0]?.type ?? null;
+   559→  }
+   560→
+   561→  return (
+   562→    <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-12">
+   563→      <div className="lg:col-span-7">
+   564→        <div className="rounded-xl border border-border bg-card p-5 sm:p-6">
+   565→          <div className="mb-4 flex items-center justify-between">
+   566→            <div className="flex items-center gap-2">
+   567→              <CalendarClock className="h-4 w-4 text-gold" strokeWidth={1.5} />
+   568→              <h3 className="font-serif text-[1.15rem] font-medium text-ink">
+   569→                {MONTH_NAMES[month]} {year}
+   570→              </h3>
+   571→            </div>
+   572→            <span className="font-mono text-[0.7rem] uppercase tracking-wider text-muted-foreground">
+   573→              Today · {String(today).padStart(2, "0")} {MONTH_SHORT[month]}
+   574→            </span>
+   575→          </div>
+   576→
+   577→          <div className="mb-2 grid grid-cols-7 gap-1">
+   578→            {DOW_SHORT.map((d) => (
+   579→              <div
+   580→                key={d}
+   581→                className="text-center font-mono text-[0.62rem] uppercase tracking-wider text-muted-foreground"
+   582→              >
+   583→                {d}
+   584→              </div>
+   585→            ))}
+   586→          </div>
+   587→
+   588→          <div className="grid grid-cols-7 gap-1">
+   589→            {cells.map((day, i) => {
+   590→              if (day === null) {
+   591→                return <div key={i} className="aspect-square" />;
+   592→              }
+   593→              const list = dayMap.get(day) ?? [];
+   594→              const dom = list.length > 0 ? dominantType(list) : null;
+   595→              const isToday = day === today;
+   596→              const isPast = day < today;
+   597→
+   598→              return (
+   599→                <div
+   600→                  key={i}
+   601→                  className={`relative flex aspect-square flex-col items-center justify-center rounded-md border text-center ${
+   602→                    dom
+   603→                      ? `${TYPE_STYLES[dom as DeadlineType].cell} font-semibold`
+   604→                      : isToday
+   605→                      ? "border-ink bg-ink text-paper"
+   606→                      : isPast
+   607→                      ? "border-border bg-surface/60 text-muted-foreground"
+   608→                      : "border-border bg-surface/40 text-ink"
+   609→                  }`}
+   610→                >
+   611→                  <span className="font-mono text-[0.78rem] leading-none">
+   612→                    {String(day).padStart(2, "0")}
+   613→                  </span>
+   614→                  {list.length > 0 && (
+   615→                    <span className="mt-1 flex gap-0.5">
+   616→                      {list.slice(0, 3).map((d, j) => (
+   617→                        <span
+   618→                          key={j}
+   619→                          className={`h-1 w-1 rounded-full ${TYPE_STYLES[d.type].dot}`}
+   620→                        />
+   621→                      ))}
+   622→                      {list.length > 3 && (
+   623→                        <span className="font-mono text-[0.5rem] leading-none text-current">
+   624→                          +
+   625→                        </span>
+   626→                      )}
+   627→                    </span>
+   628→                  )}
+   629→                </div>
+   630→              );
+   631→            })}
+   632→          </div>
+   633→
+   634→          {/* Today's & next-up deadlines summary */}
+   635→          <div className="mt-5 border-t border-border pt-4">
+   636→            <p className="font-mono text-[0.66rem] uppercase tracking-wider text-muted-foreground">
+   637→              This month — {dayMap.size} deadline days
+   638→            </p>
+   639→            <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1.5">
+   640→              {Array.from(dayMap.entries())
+   641→                .sort((a, b) => a[0] - b[0])
+   642→                .slice(0, 6)
+   643→                .map(([day, list]) => (
+   644→                  <span
+   645→                    key={day}
+   646→                    className="inline-flex items-center gap-1.5 font-sans text-[0.78rem] text-body"
+   647→                  >
+   648→                    <span
+   649→                      className={`h-1.5 w-1.5 rounded-full ${
+   650→                        TYPE_STYLES[dominantType(list) as DeadlineType].dot
+   651→                      }`}
+   652→                    />
+   653→                    <span className="font-mono font-medium text-ink">
+   654→                      {String(day).padStart(2, "0")}
+   655→                    </span>
+   656→                    {list[0].title.split("—")[0].trim()}
+   657→                    {list.length > 1 && (
+   658→                      <span className="font-mono text-[0.7rem] text-muted-foreground">
+   659→                        +{list.length - 1}
+   660→                      </span>
+   661→                    )}
+   662→                  </span>
+   663→                ))}
+   664→            </div>
+   665→          </div>
+   666→        </div>
+   667→      </div>
+   668→
+   669→      {/* Quick legend / info */}
+   670→      <div className="lg:col-span-5">
+   671→        <div className="flex h-full flex-col justify-between rounded-xl border border-border bg-surface/50 p-6">
+   672→          <div>
+   673→            <h3 className="font-serif text-[1.2rem] font-medium text-ink">
+   674→              How to read this
+   675→            </h3>
+   676→            <ul className="mt-4 space-y-3 font-sans text-[0.88rem] leading-relaxed text-body">
+   677→              <li className="flex gap-2.5">
+   678→                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ink" />
+   679→                <span>
+   680→                  <strong className="font-semibold text-ink">List view</strong>{" "}
+   681→                  below shows every deadline in the next 12 months, grouped by
+   682→                  month, sorted by date.
+   683→                </span>
+   684→              </li>
+   685→              <li className="flex gap-2.5">
+   686→                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold" />
+   687→                <span>
+   688→                  <strong className="font-semibold text-ink">Day blocks</strong>{" "}
+   689→                  show the calendar date in mono. Past dates are muted.
+   690→                </span>
+   691→              </li>
+   692→              <li className="flex gap-2.5">
+   693→                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-warning" />
+   694→                <span>
+   695→                  <strong className="font-semibold text-ink">Countdown</strong>{" "}
+   696→                  turns red for today/tomorrow, ochre within 7 days, navy
+   697→                  otherwise.
+   698→                </span>
+   699→              </li>
+   700→              <li className="flex gap-2.5">
+   701→                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-success" />
+   702→                <span>
+   703→                  <strong className="font-semibold text-ink">Filter</strong> by
+   704→                  type using the buttons above — useful if you only care about
+   705→                  GST or only ITR.
+   706→                </span>
+   707→              </li>
+   708→            </ul>
+   709→          </div>
+   710→          <p className="mt-6 font-mono text-[0.7rem] leading-relaxed text-muted-foreground">
+   711→            Bookmark this page — we keep the dates current as the department
+   712→            notifies changes.
+   713→          </p>
+   714→        </div>
+   715→      </div>
+   716→    </div>
+   717→  );
+   718→}
+   719→
+   720→function CalendarSkeleton() {
+   721→  return (
+   722→    <div className="mx-auto max-w-7xl px-5 pb-20 sm:px-8">
+   723→      <div className="mt-12 h-12 animate-pulse rounded-full bg-surface" />
+   724→      <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-12">
+   725→        <div className="lg:col-span-7">
+   726→          <div className="h-72 animate-pulse rounded-xl bg-surface" />
+   727→        </div>
+   728→        <div className="lg:col-span-5">
+   729→          <div className="h-72 animate-pulse rounded-xl bg-surface" />
+   730→        </div>
+   731→      </div>
+   732→      <div className="mt-12 space-y-3">
+   733→        {Array.from({ length: 6 }).map((_, i) => (
+   734→          <div
+   735→            key={i}
+   736→            className="h-20 animate-pulse rounded-lg bg-surface"
+   737→            style={{ animationDelay: `${i * 80}ms` }}
+   738→          />
+   739→        ))}
+   740→      </div>
+   741→    </div>
+   742→  );
+   743→}
+   744→

@@ -38,14 +38,14 @@ export default function IndustriesPage() {
       <section className="border-b border-border bg-surface/60">
         <div className="mx-auto max-w-7xl px-5 py-4 sm:px-8">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2 font-sans text-[0.82rem] sm:text-[0.88rem]">
-            <span className="font-mono text-[0.66rem] uppercase tracking-wider text-muted-foreground">
+            <span className="font-mono text-[0.72rem] uppercase tracking-wider text-muted-foreground">
               Jump to:
             </span>
             {INDUSTRIES.map((ind) => (
               <Link
                 key={ind.slug}
                 href={`/industries#${ind.slug}`}
-                className="font-medium text-ink/80 transition-colors hover:text-gold"
+                className="py-1 font-medium text-ink/80 transition-colors hover:text-gold"
               >
                 {ind.title}
               </Link>

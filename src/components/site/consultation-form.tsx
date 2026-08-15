@@ -143,7 +143,7 @@ export function ConsultationForm({ variant = "light" }: { variant?: "light" | "d
           <button
             type="submit"
             disabled={submitting}
-            className="group inline-flex h-12 w-full items-center justify-center gap-2 rounded-md bg-gold px-6 font-sans text-[0.97rem] font-semibold text-ink transition-all hover:bg-[#a87a33] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+            className="group inline-flex h-12 w-full items-center justify-center gap-2 rounded-md bg-gold px-6 font-sans text-[0.97rem] font-semibold text-ink transition-all hover:bg-gold-light disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
           >
             {submitting ? "Sending…" : "Request my free call"}
             {!submitting && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}

@@ -42,10 +42,10 @@ export default function ServicesPage() {
       {/* ============ CATEGORY NAV (sticky anchor chips) ============ */}
       <nav
         aria-label="Service categories"
-        className="sticky top-[4.5rem] z-30 border-b border-border bg-paper/85 backdrop-blur supports-[backdrop-filter]:bg-paper/70"
+        className="sticky top-[4.75rem] z-30 border-b border-border bg-paper/85 backdrop-blur supports-[backdrop-filter]:bg-paper/70"
       >
         <div className="mx-auto flex max-w-7xl items-center gap-2 overflow-x-auto px-5 py-3 sm:px-8 scroll-fine">
-          <span className="shrink-0 font-mono text-[0.66rem] uppercase tracking-[0.18em] text-muted-foreground">
+          <span className="shrink-0 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-muted-foreground">
             Jump to
           </span>
           {CATEGORY_ORDER.map((cat) => {

@@ -209,7 +209,7 @@ export function ChatAssistant() {
           ref={panelRef}
           role="dialog"
           aria-label="Yaara assistant chat"
-          className="fixed inset-x-3 bottom-44 z-50 flex max-h-[70vh] flex-col overflow-hidden rounded-2xl border border-border bg-paper shadow-[0_30px_70px_-20px_rgba(14,42,71,0.5)] sm:inset-x-auto sm:bottom-44 sm:right-6 sm:w-[400px] sm:max-h-[600px]"
+          className="fixed inset-x-3 bottom-44 z-40 flex max-h-[calc(100vh-16rem)] flex-col overflow-hidden rounded-2xl border border-border bg-paper shadow-[0_30px_70px_-20px_rgba(14,42,71,0.5)] sm:inset-x-auto sm:bottom-44 sm:right-6 sm:w-[400px]"
         >
           {/* Header */}
           <div className="relative shrink-0 bg-ink px-4 py-3.5 text-paper">
@@ -250,7 +250,7 @@ export function ChatAssistant() {
           {/* Messages */}
           <div
             ref={scrollRef}
-            className="scroll-fine flex-1 space-y-3 overflow-y-auto bg-paper-grain px-4 py-4"
+            className="scroll-fine flex-1 space-y-3 overflow-y-auto paper-grain px-4 py-4"
             aria-live="polite"
           >
             {messages.map((m, i) => (
@@ -308,7 +308,7 @@ export function ChatAssistant() {
                 type="submit"
                 disabled={!input.trim() || loading}
                 aria-label="Send message"
-                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-gold text-ink transition-colors hover:bg-[#a87a33] disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-gold text-ink transition-colors hover:bg-gold-light disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <Send className="h-4 w-4" />
               </button>

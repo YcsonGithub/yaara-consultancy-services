@@ -101,7 +101,7 @@ export default function ContactPage() {
                         <p className="font-mono text-[0.66rem] font-medium uppercase tracking-wider text-muted-foreground">
                           {row.label}
                         </p>
-                        <p className="mt-0.5 font-serif text-[1.05rem] font-medium text-ink">
+                        <p className="mt-0.5 font-serif text-[1.05rem] font-medium text-ink break-words">
                           {row.value}
                         </p>
                         <p className="mt-1 font-sans text-[0.82rem] text-body">
@@ -227,13 +227,44 @@ export default function ContactPage() {
           </Reveal>
 
           <Reveal delay={0.06}>
-            <iframe
-              title="Yaara Consultancy Services office location — Hi Tech City, Hyderabad"
-              src="https://www.google.com/maps?q=Hi+Tech+City+Hyderabad&output=embed"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="h-[400px] w-full rounded-xl border border-border"
-            />
+            <div className="relative">
+              {/* On mobile, the map is covered by an overlay until tap,
+                  so page scroll isn't trapped by the iframe. */}
+              <iframe
+                title="Yaara Consultancy Services office location — Hi Tech City, Hyderabad"
+                src={`https://www.google.com/maps?q=${encodeURIComponent(
+                  [
+                    CONTACT.address.line1,
+                    CONTACT.address.line3,
+                    CONTACT.address.city,
+                    CONTACT.address.state,
+                    CONTACT.address.pincode,
+                  ].join(", ")
+                )}&output=embed`}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="h-[400px] w-full rounded-xl border border-border pointer-events-none sm:pointer-events-auto"
+              />
+              <a
+                href={`https://www.google.com/maps?q=${encodeURIComponent(
+                  [
+                    CONTACT.address.line1,
+                    CONTACT.address.line3,
+                    CONTACT.address.city,
+                    CONTACT.address.state,
+                    CONTACT.address.pincode,
+                  ].join(", ")
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute inset-0 flex items-center justify-center rounded-xl bg-ink/5 sm:hidden"
+                aria-label="Open map in Google Maps"
+              >
+                <span className="rounded-md bg-paper/90 px-4 py-2 font-sans text-[0.86rem] font-medium text-ink shadow">
+                  Tap to open map
+                </span>
+              </a>
+            </div>
             <p className="mt-3 font-sans text-[0.82rem] text-muted-foreground">
               {CONTACT.address.line1}, {CONTACT.address.line3},{" "}
               {CONTACT.address.city}, {CONTACT.address.state}{" "}

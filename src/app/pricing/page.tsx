@@ -73,7 +73,7 @@ export default function PricingPage() {
             </div>
           </Reveal>
 
-          <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
+          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {PRICING_TIERS.map((tier, i) => {
               const featured = tier.featured;
               return (

@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   ArrowRight,
+  ArrowDown,
   ArrowUpRight,
   MessageCircle,
   Clock,
@@ -341,7 +342,7 @@ export default function AboutPage() {
                 <p className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-muted-foreground">
                   How statutory work flows
                 </p>
-                <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-stretch">
+                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-stretch sm:gap-4">
                   {/* You */}
                   <div className="flex-1 rounded-lg border border-border bg-surface/60 p-5">
                     <span className="font-mono text-[0.62rem] uppercase tracking-wider text-gold">01</span>
@@ -350,12 +351,10 @@ export default function AboutPage() {
                       One WhatsApp. One person. One relationship.
                     </p>
                   </div>
-                  {/* Arrow */}
-                  <div className="hidden items-center sm:flex">
-                    <ArrowRight className="h-5 w-5 text-gold" />
-                  </div>
-                  <div className="hidden items-center sm:flex">
-                    <ArrowRight className="h-5 w-5 text-gold" />
+                  {/* Arrow — vertical on mobile, horizontal on sm+ */}
+                  <div className="flex items-center justify-center text-gold sm:justify-start">
+                    <ArrowDown className="h-5 w-5 sm:hidden" />
+                    <ArrowRight className="hidden h-5 w-5 sm:block" />
                   </div>
                   {/* Yaara */}
                   <div className="flex-1 rounded-lg border-2 border-ink bg-ink p-5 text-paper">
@@ -365,12 +364,10 @@ export default function AboutPage() {
                       Prepares, reviews, and routes the file. Owns the deadline.
                     </p>
                   </div>
-                  {/* Arrow */}
-                  <div className="hidden items-center sm:flex">
-                    <ArrowRight className="h-5 w-5 text-gold" />
-                  </div>
-                  <div className="hidden items-center sm:flex">
-                    <ArrowRight className="h-5 w-5 text-gold" />
+                  {/* Arrow — vertical on mobile, horizontal on sm+ */}
+                  <div className="flex items-center justify-center text-gold sm:justify-start">
+                    <ArrowDown className="h-5 w-5 sm:hidden" />
+                    <ArrowRight className="hidden h-5 w-5 sm:block" />
                   </div>
                   {/* CA partner */}
                   <div className="flex-1 rounded-lg border border-border bg-surface/60 p-5">

@@ -1,0 +1,1002 @@
+     1→import {
+     2→  Receipt,
+     3→  FileText,
+     4→  Building2,
+     5→  BadgeCheck,
+     6→  Landmark,
+     7→  BookOpen,
+     8→  Users,
+     9→  Percent,
+    10→  Briefcase,
+    11→  ShieldCheck,
+    12→  KeyRound,
+    13→  ClipboardCheck,
+    14→  ScrollText,
+    15→  TrendingUp,
+    16→  Wallet,
+    17→  Banknote,
+    18→  PieChart,
+    19→  LineChart,
+    20→  Handshake,
+    21→  Search,
+    22→  Factory,
+    23→  Scale,
+    24→  FileCheck2,
+    25→  Stethoscope,
+    26→  GraduationCap,
+    27→  HeartPulse,
+    28→  Calculator,
+    29→  type LucideIcon,
+    30→} from "lucide-react";
+    31→
+    32→export type ServiceCategory =
+    33→  | "Tax & Statutory Compliance"
+    34→  | "Business Registration & Corporate"
+    35→  | "Accounting & Bookkeeping"
+    36→  | "Payroll & HR Compliance"
+    37→  | "Advisory & Growth";
+    38→
+    39→export type Service = {
+    40→  slug: string;
+    41→  title: string;
+    42→  shortTitle?: string;
+    43→  icon: LucideIcon;
+    44→  category: ServiceCategory;
+    45→  tagline: string; // one-line "why it matters"
+    46→  summary: string; // 1-2 sentences for overview cards
+    47→  whoNeeds: string[]; // concrete scenarios
+    48→  process: { step: string; desc: string }[];
+    49→  documents: string[];
+    50→  timeline: string;
+    51→  pricing: string;
+    52→  faqs: { q: string; a: string }[];
+    53→  featured?: boolean; // show on home + services hero
+    54→  comingSoon?: boolean;
+    55→};
+    56→
+    57→export const CATEGORY_ORDER: ServiceCategory[] = [
+    58→  "Tax & Statutory Compliance",
+    59→  "Business Registration & Corporate",
+    60→  "Accounting & Bookkeeping",
+    61→  "Payroll & HR Compliance",
+    62→  "Advisory & Growth",
+    63→];
+    64→
+    65→export const CATEGORY_DESCRIPTIONS: Record<ServiceCategory, string> = {
+    66→  "Tax & Statutory Compliance":
+    67→    "GST, income tax, TDS and the audits that keep you on the right side of every deadline.",
+    68→  "Business Registration & Corporate":
+    69→    "From your first incorporation to ongoing ROC filings, licences and trademarks.",
+    70→  "Accounting & Bookkeeping":
+    71→    "Clean books, real reporting, and the numbers you need to actually run the business.",
+    72→  "Payroll & HR Compliance":
+    73→    "Salaries, PF, ESI and full-and-final — handled accurately and on time.",
+    74→  "Advisory & Growth":
+    75→    "Forecasting, fundraising readiness and the financial clarity founders need to scale.",
+    76→};
+    77→
+    78→export const SERVICES: Service[] = [
+    79→  // ---------- Tax & Statutory Compliance ----------
+    80→  {
+    81→    slug: "gst-registration-filing",
+    82→    title: "GST Registration & Filing",
+    83→    icon: Receipt,
+    84→    category: "Tax & Statutory Compliance",
+    85→    tagline: "Your GSTIN, monthly returns and reconciliations — all on time.",
+    86→    summary:
+    87→      "From your first GSTIN to monthly GSTR-3B and annual returns, filed accurately and reconciled to your books.",
+    88→    whoNeeds: [
+    89→      "Businesses crossing the ₹40L / ₹20L turnover threshold",
+    90→      "E-commerce sellers and inter-state traders",
+    91→      "Anyone already registered who keeps missing or misfiling returns",
+    92→    ],
+    93→    process: [
+    94→      { step: "Assess", desc: "We confirm your turnover, state(s) of operation, and the right scheme (regular / composition)." },
+    95→      { step: "Register", desc: "Apply for GSTIN, handle Aadhaar auth, and deliver your 15-digit number." },
+    96→      { step: "File monthly", desc: "GSTR-1 and GSTR-3B each month, reconciled to your books and IT system." },
+    97→      { step: "Reconcile", desc: "Annual GSTR-9 + GSTR-9C where applicable, matched to purchases." },
+    98→    ],
+    99→    documents: ["PAN of business & owners", "Aadhaar of owners", "Address proof of place of business", "Bank details / cancelled cheque", "Photographs of premises", "Digital Signature (DSC) for companies"],
+   100→    timeline: "Registration: 5–7 working days. Monthly filings: due by 20th.",
+   101→    pricing: "Registration ₹1,499 · Monthly filing from ₹999/mo",
+   102→    faqs: [
+   103→      { q: "When do I actually need to register for GST?", a: "When your aggregate turnover crosses ₹40 lakh (goods) or ₹20 lakh (services), or immediately if you sell inter-state or through e-commerce operators. We'll confirm your exact trigger before you pay for anything." },
+   104→      { q: "What happens if I miss a monthly return?", a: "A late fee of ₹50/day (₹20/day for nil returns) applies, capped per return. Repeated misses trigger notices. We file pending returns, handle the fee, and put you on a schedule so it doesn't recur." },
+   105→      { q: "Can you take over mid-year from another accountant?", a: "Yes — we review what's been filed, reconcile to date, and pick up cleanly. We'll flag anything that looks off in the prior filings too." },
+   106→    ],
+   107→    featured: true,
+   108→  },
+   109→  {
+   110→    slug: "income-tax-return-filing",
+   111→    title: "Income Tax Return (ITR) Filing",
+   112→    icon: FileText,
+   113→    category: "Tax & Statutory Compliance",
+   114→    tagline: "The right ITR form, every deduction you're entitled to.",
+   115→    summary:
+   116→      "Salaried, business, capital gains, or presumptive — filed with the correct form and every legitimate deduction claimed.",
+   117→    whoNeeds: [
+   118→      "Salaried individuals with income above ₹2.5L",
+   119→      "Freelancers and consultants (ITR-3 / 4)",
+   120→      "Businesses and professionals needing audit or presumptive filing",
+   121→    ],
+   122→    process: [
+   123→      { step: "Gather", desc: "Form 16, AIS, investment proofs, and business books where relevant." },
+   124→      { step: "Compute", desc: "We compute taxable income, apply deductions, and show you the draft before filing." },
+   125→      { step: "File", desc: "We e-file the correct ITR form and verify (Aadhaar OTP / DSC)." },
+   126→      { step: "Acknowledge", desc: "You receive the acknowledgement and we track processing + refund." },
+   127→    ],
+   128→    documents: ["PAN", "Aadhaar", "Form 16 / salary slips", "Bank statements", "Investment & deduction proofs (80C, 80D, etc.)", "Capital gains statements", "Business books (if applicable)"],
+   129→    timeline: "3–5 working days from documents. ITR due: 31 Jul (individuals), 31 Oct (audit cases).",
+   130→    pricing: "Salaried ₹999 · Business / 44ADA ₹2,499",
+   131→    faqs: [
+   132→      { q: "Which ITR form applies to me?", a: "Salaried with income under ₹50L → ITR-1. House property + salary → ITR-2. Business / profession → ITR-3, or ITR-4 under presumptive (44AD/44ADA). We pick the right one for you." },
+   133→      { q: "My employer already deducted TDS. Do I still need to file?", a: "Yes — TDS deduction and filing the return are separate obligations. If your income exceeds the basic exemption, filing is mandatory even with full TDS." },
+   134→      { q: "How are refunds processed?", a: "After e-verification, the CPC processes the return and credits any refund directly to your bank account. We track it and follow up if there's a delay." },
+   135→    ],
+   136→    featured: true,
+   137→  },
+   138→  {
+   139→    slug: "tds-compliance",
+   140→    title: "TDS Compliance",
+   141→    icon: Percent,
+   142→    category: "Tax & Statutory Compliance",
+   143→    tagline: "Deduct, deposit, and file quarterly — without the scramble.",
+   144→    summary:
+   145→      "TAN registration, monthly TDS deposit, quarterly returns and Form 16/16A — the full cycle handled quietly.",
+   146→    whoNeeds: [
+   147→      "Employers paying salary",
+   148→      "Businesses paying rent, professional fees, or commission above thresholds",
+   149→      "Any entity required to deduct tax at source",
+   150→    ],
+   151→    process: [
+   152→      { step: "TAN", desc: "Obtain your Tax Deduction Account Number if not held." },
+   153→      { step: "Deduct & deposit", desc: "Monthly deduction at correct rates, deposited by the 7th." },
+   154→      { step: "Quarterly return", desc: "File 24Q / 26Q / 27Q / 27EQ by due dates." },
+   155→      { step: "Certificates", desc: "Issue Form 16 (annual) and Form 16A (quarterly) to deductees." },
+   156→    ],
+   157→    documents: ["TAN", "PAN of deductor & deductees", "Payment details with sections", "Challan for deposits"],
+   158→    timeline: "Monthly deposit by 7th · Quarterly returns by 31 Jul / 31 Oct / 31 Jan / 31 May.",
+   159→    pricing: "From ₹1,499/quarter",
+   160→    faqs: [
+   161→      { q: "What are the common TDS sections I should know?", a: "194C (contractor), 194J (professional), 194I (rent), 194Q (purchase of goods), 192 (salary). We map every payment to the right section so nothing is missed." },
+   162→      { q: "What's the penalty for late deposit?", a: "1% interest per month on the delayed amount, plus a late fee on the return. We keep you ahead of the 7th so this never applies." },
+   163→    ],
+   164→  },
+   165→  {
+   166→    slug: "professional-tax",
+   167→    title: "Professional Tax",
+   168→    icon: Briefcase,
+   169→    category: "Tax & Statutory Compliance",
+   170→    tagline: "State-wise registration and returns, handled in the background.",
+   171→    summary:
+   172→      "Professional tax registration and returns for the entity and employees, scoped to your state's rules.",
+   173→    whoNeeds: [
+   174→      "Employers in states that levy professional tax",
+   175→      "Professionals earning above the state threshold",
+   176→      "Companies needing to regularise employee PT deductions",
+   177→    ],
+   178→    process: [
+   179→      { step: "Register", desc: "State-specific RC for the entity and employees." },
+   180→      { step: "Deduct", desc: "Monthly PT deducted from salaries per slab." },
+   181→      { step: "File", desc: "Monthly / annual returns as your state requires." },
+   182→    ],
+   183→    documents: ["PAN & GSTIN", "Incorporation / partnership deed", "Employee salary details", "Bank details"],
+   184→    timeline: "Registration 7–15 days (state-dependent).",
+   185→    pricing: "From ₹999/mo",
+   186→    faqs: [
+   187→      { q: "Is professional tax the same everywhere?", a: "No — it's a state levy and each state has its own slabs, due dates and return formats. Telangana, Karnataka, Maharashtra and others differ significantly. We handle the specifics for your state." },
+   188→    ],
+   189→  },
+   190→  {
+   191→    slug: "gst-audit",
+   192→    title: "GST Audit (GSTR-9C)",
+   193→    icon: ClipboardCheck,
+   194→    category: "Tax & Statutory Compliance",
+   195→    tagline: "Annual reconciliation and reconciliation statement, signed off.",
+   196→    summary:
+   197→      "GSTR-9 annual return and GSTR-9C reconciliation statement for businesses above the turnover threshold, via our CA partner network.",
+   198→    whoNeeds: [
+   199→      "Businesses with aggregate turnover above ₹2 crore (GSTR-9)",
+   200→      "Businesses above ₹5 crore requiring GSTR-9C reconciliation",
+   201→    ],
+   202→    process: [
+   203→      { step: "Compile", desc: "Gather annual GST data, books, and reconciliations." },
+   204→      { step: "Reconcile", desc: "Match GSTR-9 with audited financials." },
+   205→      { step: "Certify", desc: "CA partner certifies GSTR-9C where applicable." },
+   206→      { step: "File", desc: "Submit annual return + reconciliation before due date." },
+   207→    ],
+   208→    documents: ["Audited financial statements", "GSTR-1 & 3B for the year", "Books of accounts", "Purchase & sales registers"],
+   209→    timeline: "Due 31st December of following FY.",
+   210→    pricing: "From ₹14,999",
+   211→    faqs: [
+   212→      { q: "Who signs off the GSTR-9C?", a: "A practicing Chartered Accountant or Cost Accountant from our empanelled partner network — the certification is statutory and must be signed by a CA/CMA." },
+   213→    ],
+   214→  },
+   215→  {
+   216→    slug: "tax-audit",
+   217→    title: "Tax Audit (Section 44AB)",
+   218→    icon: ShieldCheck,
+   219→    category: "Tax & Statutory Compliance",
+   220→    tagline: "Statutory tax audit, signed by a practicing CA.",
+   221→    summary:
+   222→      "Section 44AB tax audit for businesses and professionals above the prescribed turnover, completed via our CA partner network.",
+   223→    whoNeeds: [
+   224→      "Businesses with turnover above ₹1 crore (₹10 crore with digital transactions)",
+   225→      "Professionals with gross receipts above ₹50 lakh",
+   226→      "Those opting out of presumptive taxation under 44AD",
+   227→    ],
+   228→    process: [
+   229→      { step: "Plan", desc: "Understand your books and the applicable audit threshold." },
+   230→      { step: "Audit", desc: "CA partner examines books, disallowances, and 26AS / TDS matching." },
+   231→      { step: "Report", desc: "Form 3CA/3CB and 3CD prepared and signed." },
+   232→      { step: "File", desc: "Filed electronically with your ITR." },
+   233→    ],
+   234→    documents: ["Books of accounts", "Bank statements", "TDS & GST returns", "Sales & purchase registers", "Expense vouchers"],
+   235→    timeline: "Due by 30th October (audit cases).",
+   236→    pricing: "From ₹24,999",
+   237→    faqs: [
+   238→      { q: "Is the tax audit done by you directly?", a: "The audit and Form 3CB-3CD certification is signed by a practicing Chartered Accountant from our empanelled partner network. We coordinate the entire process end-to-end." },
+   239→    ],
+   240→  },
+   241→  {
+   242→    slug: "tax-planning-strategy",
+   243→    title: "Tax Planning & Strategy",
+   244→    icon: PieChart,
+   245→    category: "Tax & Statutory Compliance",
+   246→    tagline: "Plan through the year, not just at filing season.",
+   247→    summary:
+   248→      "Structured tax planning to legitimately minimise your liability — across income, investments, and business structure.",
+   249→    whoNeeds: [
+   250→      "High-income individuals and professionals",
+   251→      "Businesses structuring transactions for tax efficiency",
+   252→      "Founders planning exits or capital gains",
+   253→    ],
+   254→    process: [
+   255→      { step: "Review", desc: "We map your current income, investments and tax exposure." },
+   256→      { step: "Plan", desc: "Identify deductions, exemptions and structure optimisations." },
+   257→      { step: "Execute", desc: "Implement through the year with checkpoints." },
+   258→    ],
+   259→    documents: ["Income details", "Investment portfolio", "Business financials"],
+   260→    timeline: "Ongoing — ideally starts in April, reviewed quarterly.",
+   261→    pricing: "From ₹9,999",
+   262→    faqs: [
+   263→      { q: "Is tax planning legal?", a: "Absolutely — tax planning (using legitimate deductions, exemptions and structures) is your right. Tax evasion is illegal; tax planning is not. We stay firmly on the legal side." },
+   264→    ],
+   265→  },
+   266→  {
+   267→    slug: "advance-tax",
+   268→    title: "Advance Tax",
+   269→    icon: Wallet,
+   270→    category: "Tax & Statutory Compliance",
+   271→    tagline: "Pay in four instalments — no surprises at year-end.",
+   272→    summary:
+   273→      "Estimate your year-end liability and pay advance tax in the four prescribed instalments to avoid interest under 234B/C.",
+   274→    whoNeeds: [
+   275→      "Anyone with estimated tax liability above ₹10,000 after TDS",
+   276→      "Businesses and freelancers with lumpy income",
+   277→    ],
+   278→    process: [
+   279→      { step: "Estimate", desc: "We project your annual income and net liability." },
+   280→      { step: "Schedule", desc: "15% / 45% / 75% / 100% by 15 Jun, 15 Sep, 15 Dec, 15 Mar." },
+   281→      { step: "Pay", desc: "We deposit each instalment and confirm challans." },
+   282→    ],
+   283→    documents: ["Income projection", "TDS already deducted"],
+   284→    timeline: "4 instalments: 15 Jun, 15 Sep, 15 Dec, 15 Mar.",
+   285→    pricing: "Included with retainer · One-off ₹1,499",
+   286→    faqs: [
+   287→      { q: "What if I overpay advance tax?", a: "Any excess is refunded with your ITR, often with interest under section 244A. We reconcile this at year-end." },
+   288→    ],
+   289→  },
+   290→
+   291→  // ---------- Business Registration & Corporate ----------
+   292→  {
+   293→    slug: "business-registration",
+   294→    title: "Business Registration",
+   295→    icon: Building2,
+   296→    category: "Business Registration & Corporate",
+   297→    tagline: "Pvt Ltd, LLP, Partnership or OPC — incorporated end-to-end.",
+   298→    summary:
+   299→      "Private Limited, LLP, Partnership, or One Person Company — incorporated with DSC, DIN, name reservation, MOA/AOA, PAN and TAN in one pass.",
+   300→    whoNeeds: [
+   301→      "Founders starting a new venture",
+   302→      "Partnerships formalising their arrangement",
+   303→      "Solo founders weighing OPC vs Pvt Ltd",
+   304→    ],
+   305→    process: [
+   306→      { step: "Advise", desc: "We help you choose the right structure based on liability, taxation and funding plans." },
+   307→      { step: "Name", desc: "Reserve your company name via SPICe+ Part A." },
+   308→      { step: "File", desc: "DSC, DIN, MOA/AOA and incorporation filed together." },
+   309→      { step: "Deliver", desc: "Certificate of Incorporation, PAN, TAN, EPFO & ESIC registrations." },
+   310→    ],
+   311→    documents: ["PAN & Aadhaar of all directors/partners", "Address proof of registered office", "Utility bill (not older than 2 months)", "Photos", "DSC applications"],
+   312→    timeline: "10–15 working days.",
+   313→    pricing: "Pvt Ltd ₹6,999 · LLP ₹5,499 · OPC ₹5,999 (+ govt. fees)",
+   314→    faqs: [
+   315→      { q: "Pvt Ltd vs LLP — which should I pick?", a: "Pvt Ltd if you plan to raise external funding (investors prefer it). LLP if you want lower compliance burden and flexibility. We walk you through the trade-offs for your specific case." },
+   316→      { q: "What's included in the fee?", a: "DSC for two directors, DIN, name reservation, MOA/AOA drafting, incorporation filing, PAN, TAN, and EPFO/ESIC. Government fees are additional and depend on authorised capital." },
+   317→    ],
+   318→    featured: true,
+   319→  },
+   320→  {
+   321→    slug: "udyam-msme-registration",
+   322→    title: "Udyam (MSME) Registration",
+   323→    icon: BadgeCheck,
+   324→    category: "Business Registration & Corporate",
+   325→    tagline: "Unlock subsidies, priority credit and MSME protection.",
+   326→    summary:
+   327→      "Register your business under the Udyam portal to access collateral-free loans, subsidies, and MSME procurement protection.",
+   328→    whoNeeds: [
+   329→      "Any micro, small or medium enterprise",
+   330→      "Businesses seeking lower interest working capital loans",
+   331→      "Vendors wanting to sell to government / large buyers",
+   332→    ],
+   333→    process: [
+   334→      { step: "Eligibility", desc: "Confirm your classification (micro/small/medium) by investment & turnover." },
+   335→      { step: "Register", desc: "File on the Udyam portal with Aadhaar-linked verification." },
+   336→      { step: "Deliver", desc: "Permanent Udyam certificate, valid lifetime." },
+   337→    ],
+   338→    documents: ["Aadhaar of proprietor / partner", "PAN of business", "Business activity & bank details"],
+   339→    timeline: "1–2 working days.",
+   340→    pricing: "₹999",
+   341→    faqs: [
+   342→      { q: "Is Udyam registration mandatory?", a: "Not legally mandatory, but practically essential — it unlocks priority sector lending, protection against delayed payments (MSME Samadhaan), and subsidies. Free on the government portal; we charge for the hassle of getting it right." },
+   343→    ],
+   344→  },
+   345→  {
+   346→    slug: "roc-compliance-annual-filings",
+   347→    title: "ROC Compliance & Annual Filings",
+   348→    icon: Landmark,
+   349→    category: "Business Registration & Corporate",
+   350→    tagline: "Keep your company's statutory record spotless.",
+   351→    summary:
+   352→      "Annual ROC filings — AOC-4, MGT-7, DIR-3 KYC, board resolutions, and statutory registers — filed accurately and on time.",
+   353→    whoNeeds: [
+   354→      "Every registered company (Pvt Ltd, Ltd, OPC)",
+   355→      "Companies that have fallen behind on filings",
+   356→      "Directors needing DIR-3 KYC",
+   357→    ],
+   358→    process: [
+   359→      { step: "Prepare", desc: "Draft financials, board resolutions, and statutory registers." },
+   360→      { step: "File AOC-4", desc: "Financial statements filed within 30 days of AGM." },
+   361→      { step: "File MGT-7", desc: "Annual return filed within 60 days of AGM." },
+   362→      { step: "KYC & more", desc: "DIR-3 KYC by 30 Sep, plus ADT-1 and event-based filings." },
+   363→    ],
+   364→    documents: ["Audited financials", "Board minutes", "Shareholder details", "Statutory registers"],
+   365→    timeline: "AOC-4: 30 days post-AGM · MGT-7: 60 days post-AGM · DIR-3 KYC: 30 Sep.",
+   366→    pricing: "From ₹4,999 per form · Annual package from ₹14,999",
+   367→    faqs: [
+   368→      { q: "What happens if I miss ROC filings?", a: "A flat ₹100/day penalty per form applies, and directors' DINs can be deactivated after repeated defaults. We bring companies current and set up a calendar so it doesn't recur." },
+   369→    ],
+   370→  },
+   371→  {
+   372→    slug: "trademark-registration",
+   373→    title: "Trademark Registration",
+   374→    icon: ShieldCheck,
+   375→    category: "Business Registration & Corporate",
+   376→    tagline: "Protect your name before someone else does.",
+   377→    summary:
+   378→      "Trademark search, application, objection handling, and registration — protecting your brand identity for 10 years.",
+   379→    whoNeeds: [
+   380→      "Any business with a unique name, logo, or tagline",
+   381→      "Brands expanding into new product categories",
+   382→      "Founders before launching publicly",
+   383→    ],
+   384→    process: [
+   385→      { step: "Search", desc: "Public registry search for conflicts in your class." },
+   386→      { step: "Apply", desc: "File under the right class(es) with your logo/wordmark." },
+   387→      { step: "Examine", desc: "Respond to examiner objections if raised." },
+   388→      { step: "Register", desc: "Trademark journal publication, then registration certificate." },
+   389→    ],
+   390→    documents: ["Logo / wordmark", "Business details", "Power of Attorney (TM-48)", "User affidavit (if claiming prior use)"],
+   391→    timeline: "6–18 months to registration; ™ symbol usable from application date.",
+   392→    pricing: "₹3,499 (+ govt. fees ₹4,500 per class)",
+   393→    faqs: [
+   394→      { q: "When can I use the ™ and ® symbols?", a: "Use ™ from the date you file the application. Use ® only after the trademark is fully registered and the certificate is issued." },
+   395→    ],
+   396→  },
+   397→  {
+   398→    slug: "digital-signature-certificate",
+   399→    title: "Digital Signature Certificate (DSC)",
+   400→    icon: KeyRound,
+   401→    category: "Business Registration & Corporate",
+   402→    tagline: "Class 3 DSC for filing, tenders and e-verification.",
+   403→    summary:
+   404→      "Class 3 DSC issuance and renewal — valid for e-filing of returns, e-tendering, and signing documents digitally.",
+   405→    whoNeeds: [
+   406→      "Directors of companies filing MCA returns",
+   407→      "Businesses participating in e-tenders",
+   408→      "Anyone needing to e-sign GST / income tax filings",
+   409→    ],
+   410→    process: [
+   411→      { step: "Apply", desc: "Submit identity & address verification." },
+   412→      { step: "Issue", desc: "Class 3 DSC issued on USB token or cloud." },
+   413→      { step: "Renew", desc: "We track the 2-year validity and renew before expiry." },
+   414→    ],
+   415→    documents: ["PAN & Aadhaar", "Passport-size photo", "Address proof"],
+   416→    timeline: "2–4 working days.",
+   417→    pricing: "₹1,499 (2-year validity)",
+   418→    faqs: [
+   419→      { q: "USB token vs cloud DSC?", a: "USB tokens are the traditional option; cloud DSCs let you sign from any device. We recommend cloud for most founders unless you specifically need the hardware token for e-tenders." },
+   420→    ],
+   421→  },
+   422→  {
+   423→    slug: "business-licenses",
+   424→    title: "Business Licenses",
+   425→    icon: ScrollText,
+   426→    category: "Business Registration & Corporate",
+   427→    tagline: "Shop & Establishment, FSSAI, Trade License, IEC — what you need, where you are.",
+   428→    summary:
+   429→      "Every licence your business legally needs — Shop & Establishment, FSSAI, Trade License, Import-Export Code and more.",
+   430→    whoNeeds: [
+   431→      "Any business with a physical premises",
+   432→      "Food businesses (manufacturers, restaurants, traders)",
+   433→      "Importers and exporters needing IEC",
+   434→    ],
+   435→    process: [
+   436→      { step: "Identify", desc: "We map the licences your specific business and location require." },
+   437→      { step: "Apply", desc: "File applications with the relevant authorities." },
+   438→      { step: "Deliver", desc: "Licence certificate, valid for the prescribed period." },
+   439→    ],
+   440→    documents: ["Business registration proof", "Premises address & rental agreement", "PAN & photos", "Activity-specific documents"],
+   441→    timeline: "Varies by licence (1 day to 30 days).",
+   442→    pricing: "From ₹1,499 per licence",
+   443→    faqs: [
+   444→      { q: "Which licences does my business need?", a: "It depends on your activity and location. A typical retail store needs Shop & Establishment + Trade License + GST. A food business adds FSSAI. An importer needs IEC. We'll give you a specific checklist." },
+   445→    ],
+   446→  },
+   447→  {
+   448→    slug: "startup-india-registration",
+   449→    title: "Startup India Registration",
+   450→    icon: TrendingUp,
+   451→    category: "Business Registration & Corporate",
+   452→    tagline: "DPIIT recognition and the tax benefits it unlocks.",
+   453→    summary:
+   454→      "DPIIT recognition as a startup under the Startup India scheme — unlocking tax holiday under Section 80-IAC and easier compliance.",
+   455→    whoNeeds: [
+   456→      "Incorporated startups under 10 years old",
+   457→      "Innovative businesses with turnover under ₹100 crore",
+   458→      "Founders seeking the 3-year tax holiday",
+   459→    ],
+   460→    process: [
+   461→      { step: "Prepare", desc: "Innovation pitch, incorporation docs, and sector details." },
+   462→      { step: "Apply", desc: "File on the Startup India portal for DPIIT recognition." },
+   463→      { step: "Tax exemption", desc: "Apply for 80-IAC tax holiday if eligible." },
+   464→    ],
+   465→    documents: ["Certificate of Incorporation", "PAN", "Pitch deck / innovation note", "Director details"],
+   466→    timeline: "10–20 working days.",
+   467→    pricing: "₹4,999",
+   468→    faqs: [
+   469→      { q: "Does every startup get the tax holiday?", a: "No — DPIIT recognition is separate from the 80-IAC tax holiday. Recognition is broad; the tax holiday requires inter-ministerial board approval. We help you assess eligibility honestly." },
+   470→    ],
+   471→  },
+   472→  {
+   473→    slug: "section-8-ngo-registration",
+   474→    title: "Section 8 / NGO Registration",
+   475→    icon: HeartPulse,
+   476→    category: "Business Registration & Corporate",
+   477→    tagline: "Set up a non-profit with 12A/80G tax-exempt status.",
+   478→    summary:
+   479→      "Section 8 company incorporation plus 12A and 80G registrations — enabling tax-exempt status and deductible donations.",
+   480→    whoNeeds: [
+   481→      "Founders starting a non-profit or charitable trust",
+   482→      "NGOs wanting to receive tax-deductible donations",
+   483→      "Existing trusts/societies formalising as Section 8",
+   484→    ],
+   485→    process: [
+   486→      { step: "Incorporate", desc: "Section 8 company set-up via SPICe+." },
+   487→      { step: "12A", desc: "Income tax exemption registration." },
+   488→      { step: "80G", desc: "Donor tax-deduction registration." },
+   489→      { step: "FCRA (optional)", desc: "If you plan to receive foreign contributions." },
+   490→    ],
+   491→    documents: ["Director details", "Memorandum & Articles", "Object & activity plan", "Registered office proof"],
+   492→    timeline: "30–60 days for incorporation + registrations.",
+   493→    pricing: "From ₹14,999",
+   494→    faqs: [
+   495→      { q: "What's the difference between 12A and 80G?", a: "12A exempts the NGO's own income from tax. 80G allows donors to claim a deduction on their donation. Most legitimate NGOs want both." },
+   496→    ],
+   497→  },
+   498→
+   499→  // ---------- Accounting & Bookkeeping ----------
+   500→  {
+   501→    slug: "bookkeeping-accounting",
+   502→    title: "Bookkeeping & Accounting",
+   503→    icon: BookOpen,
+   504→    category: "Accounting & Bookkeeping",
+   505→    tagline: "Clean, reconciled books — and reports you can actually read.",
+   506→    summary:
+   507→      "Monthly bookkeeping in your preferred tool, fully reconciled to bank and GST, with reports that make sense to a non-accountant.",
+   508→    whoNeeds: [
+   509→      "Any business needing accurate monthly books",
+   510→      "Founders tired of messy spreadsheets",
+   511→      "Companies preparing for audit or fundraising",
+   512→    ],
+   513→    process: [
+   514→      { step: "Set up", desc: "We configure your accounting tool (Tally / Zoho / QuickBooks) properly." },
+   515→      { step: "Record", desc: "Monthly recording of sales, purchases, expenses, and bank entries." },
+   516→      { step: "Reconcile", desc: "Bank, GST, and TDS reconciliation every month." },
+   517→      { step: "Report", desc: "P&L, balance sheet, and a plain-English monthly summary." },
+   518→    ],
+   519→    documents: ["Bank statements", "Sales & purchase invoices", "Expense receipts", "GST returns", "Payroll data"],
+   520→    timeline: "Monthly — closed within 7 days of month-end.",
+   521→    pricing: "From ₹4,999/mo",
+   522→    faqs: [
+   523→      { q: "Which accounting tool do you use?", a: "Your choice — Tally Prime, Zoho Books, QuickBooks, or even a custom sheet for very small operations. We're tool-agnostic and work with what suits your scale." },
+   524→      { q: "Do you take over existing books?", a: "Yes. We review your current books, clean up any misclassifications, and continue from there. Most clients arrive with 6–12 months of unorganised data." },
+   525→    ],
+   526→    featured: true,
+   527→  },
+   528→  {
+   529→    slug: "bank-reconciliation",
+   530→    title: "Bank Reconciliation",
+   531→    icon: Banknote,
+   532→    category: "Accounting & Bookkeeping",
+   533→    tagline: "Every rupee accounted for, every month.",
+   534→    summary:
+   535→      "Monthly bank reconciliation matching your books to actual bank balances — catching errors, duplicates and missing entries.",
+   536→    whoNeeds: [
+   537→      "Businesses with multiple bank accounts",
+   538→      "Anyone noticing book vs bank balance mismatches",
+   539→      "Companies preparing for audit",
+   540→    ],
+   541→    process: [
+   542→      { step: "Match", desc: "Compare books against bank statements entry by entry." },
+   543→      { step: "Identify", desc: "Flag missing entries, duplicates, and uncleared items." },
+   544→      { step: "Adjust", desc: "Post correcting entries and clear reconciling items." },
+   545→    ],
+   546→    documents: ["Bank statements", "Books of accounts", "Cheque & deposit registers"],
+   547→    timeline: "Monthly, within 5 days of month-end.",
+   548→    pricing: "From ₹1,499/mo",
+   549→    faqs: [
+   550→      { q: "Why does my bank balance never match my books?", a: "Usually because of uncleared cheques, unrecorded bank charges, or timing differences. Regular reconciliation eliminates the gap — and surfaces any errors early." },
+   551→    ],
+   552→  },
+   553→  {
+   554→    slug: "accounts-receivable-payable",
+   555→    title: "Accounts Receivable / Payable",
+   556→    icon: Handshake,
+   557→    category: "Accounting & Bookkeeping",
+   558→    tagline: "Know who owes you — and who you owe.",
+   559→    summary:
+   560→      "AR/AP management with ageing analysis, follow-up schedules, and clear visibility on your working capital position.",
+   561→    whoNeeds: [
+   562→      "Businesses with credit sales or supplier credit",
+   563→      "Companies struggling with cash flow timing",
+   564→      "Anyone wanting tighter debtor follow-up",
+   565→    ],
+   566→    process: [
+   567→      { step: "Record", desc: "Track every invoice raised and bill received." },
+   568→      { step: "Age", desc: "Ageing buckets: 0–30, 31–60, 61–90, 90+ days." },
+   569→      { step: "Follow up", desc: "Scheduled debtor follow-ups; creditor payment calendar." },
+   570→    ],
+   571→    documents: ["Sales invoices", "Purchase bills", "Payment receipts", "Supplier statements"],
+   572→    timeline: "Ongoing — weekly ageing reports.",
+   573→    pricing: "From ₹2,499/mo",
+   574→    faqs: [
+   575→      { q: "Can you chase my customers for payment?", a: "We prepare professional follow-up communications and reminders for your approval; the actual sending can be done by you or on your behalf, depending on your preference." },
+   576→    ],
+   577→  },
+   578→  {
+   579→    slug: "mis-reporting",
+   580→    title: "MIS Reporting",
+   581→    icon: PieChart,
+   582→    category: "Accounting & Bookkeeping",
+   583→    tagline: "A dashboard you can actually run the business from.",
+   584→    summary:
+   585→      "Custom monthly MIS reports — P&L, cash flow, unit economics, KPIs — formatted for founders, not accountants.",
+   586→    whoNeeds: [
+   587→      "Founders wanting real visibility on performance",
+   588→      "Businesses preparing for investor reporting",
+   589→      "Teams needing consistent monthly metrics",
+   590→    ],
+   591→    process: [
+   592→      { step: "Define", desc: "We agree the 8–12 metrics that matter for your business." },
+   593→      { step: "Compile", desc: "Monthly data pulled and structured from your books." },
+   594→      { step: "Present", desc: "A one-page report with trends, variance, and commentary." },
+   595→    ],
+   596→    documents: ["Books of accounts", "Prior period reports", "Business KPI definitions"],
+   597→    timeline: "Monthly, within 10 days of month-end.",
+   598→    pricing: "From ₹3,499/mo",
+   599→    faqs: [
+   600→      { q: "What goes in a typical MIS?", a: "P&L summary, cash position, top customers, AR/AP ageing, burn rate (for startups), and 3–5 business-specific KPIs. We tailor the format to how you actually make decisions." },
+   601→    ],
+   602→  },
+   603→  {
+   604→    slug: "financial-statement-preparation",
+   605→    title: "Financial Statement Preparation",
+   606→    icon: FileCheck2,
+   607→    category: "Accounting & Bookkeeping",
+   608→    tagline: "P&L, balance sheet, notes — audit-ready.",
+   609→    summary:
+   610→      "Preparation of the full set of financial statements — Balance Sheet, P&L, notes, and schedules — in the format auditors and regulators expect.",
+   611→    whoNeeds: [
+   612→      "Companies preparing for statutory audit",
+   613→      "Businesses needing bank-ready financials",
+   614→      "Founders seeking investment (investor due diligence)",
+   615→    ],
+   616→    process: [
+   617→      { step: "Close books", desc: "Complete and reconcile the year's accounts." },
+   618→      { step: "Prepare", desc: "Balance sheet, P&L, cash flow, schedules, and notes." },
+   619→      { step: "Review", desc: "Internal review for classification and disclosure." },
+   620→    ],
+   621→    documents: ["Trial balance", "Ledgers", "Bank statements", "Supporting vouchers"],
+   622→    timeline: "2–3 weeks from complete books.",
+   623→    pricing: "From ₹9,999",
+   624→    faqs: [
+   625→      { q: "Are these audited financials?", a: "These are management-prepared financial statements. For statutory audit certification, we coordinate with our CA partner network to sign off." },
+   626→    ],
+   627→  },
+   628→  {
+   629→    slug: "cash-flow-management",
+   630→    title: "Cash Flow Management",
+   631→    icon: Wallet,
+   632→    category: "Accounting & Bookkeeping",
+   633→    tagline: "Know your cash position before it becomes a crisis.",
+   634→    summary:
+   635→      "Cash flow forecasting and monitoring — 13-week rolling view, working capital tracking, and early warnings.",
+   636→    whoNeeds: [
+   637→      "Growing businesses with tight working capital",
+   638→      "Startups managing runway",
+   639→      "Anyone who has been surprised by a cash shortfall",
+   640→    ],
+   641→    process: [
+   642→      { step: "Map", desc: "Weekly inflows and outflows for the next 13 weeks." },
+   643→      { step: "Monitor", desc: "Weekly check-in on actuals vs forecast." },
+   644→      { step: "Adjust", desc: "Reforecast and flag risks early." },
+   645→    ],
+   646→    documents: ["Bank balances", "AR/AP ageing", "Committed expenses", "Sales pipeline"],
+   647→    timeline: "Ongoing — weekly updates.",
+   648→    pricing: "From ₹3,999/mo",
+   649→    faqs: [
+   650→      { q: "How accurate is a 13-week forecast?", a: "Weeks 1–4 are highly accurate (committed), weeks 5–9 are reasonable, weeks 10–13 are directional. The value is in early warnings, not perfect prediction." },
+   651→    ],
+   652→  },
+   653→  {
+   654→    slug: "cost-accounting",
+   655→    title: "Cost Accounting",
+   656→    icon: Calculator,
+   657→    category: "Accounting & Bookkeeping",
+   658→    tagline: "Know what every product, job or service truly costs.",
+   659→    summary:
+   660→      "Cost accounting — allocating direct and indirect costs to products, services, and departments so you price profitably.",
+   661→    whoNeeds: [
+   662→      "Manufacturers needing product costing",
+   663→      "Service businesses with multi-service profitability",
+   664→      "Anyone pricing without knowing true margins",
+   665→    ],
+   666→    process: [
+   667→      { step: "Map cost centres", desc: "Identify direct and indirect cost categories." },
+   668→      { step: "Allocate", desc: "Apportion overheads on a sensible basis." },
+   669→      { step: "Report", desc: "Per-product / per-service margin analysis." },
+   670→    ],
+   671→    documents: ["Material costs", "Labour costs", "Overhead details", "Production / service volumes"],
+   672→    timeline: "Initial set-up 2–3 weeks; monthly updates thereafter.",
+   673→    pricing: "From ₹4,999/mo",
+   674→    faqs: [
+   675→      { q: "We're a services firm — is cost accounting relevant?", a: "Very. Knowing the true cost of each engagement (including unbillable time) reveals which clients are actually profitable and which are quietly losing you money." },
+   676→    ],
+   677→  },
+   678→  {
+   679→    slug: "inventory-management-valuation",
+   680→    title: "Inventory Management & Valuation",
+   681→    icon: Factory,
+   682→    category: "Accounting & Bookkeeping",
+   683→    tagline: "Right stock, right value, less write-off.",
+   684→    summary:
+   685→      "Inventory accounting — valuation methods (FIFO/weighted average), stock reconciliation, and slow-moving write-downs.",
+   686→    whoNeeds: [
+   687→      "Traders and manufacturers carrying stock",
+   688→      "Businesses with inventory shrinkage",
+   689→      "Companies needing accurate COGS",
+   690→    ],
+   691→    process: [
+   692→      { step: "Value", desc: "Adopt the right valuation method (FIFO / WAC)." },
+   693→      { step: "Reconcile", desc: "Physical vs book stock reconciliation." },
+   694→      { step: "Write down", desc: "Identify slow-moving / obsolete stock." },
+   695→    ],
+   696→    documents: ["Stock registers", "Purchase invoices", "Physical count sheets"],
+   697→    timeline: "Quarterly recommended.",
+   698→    pricing: "From ₹2,499/quarter",
+   699→    faqs: [
+   700→      { q: "FIFO or weighted average?", a: "Depends on your inventory turnover and tax strategy. FIFO often matches physical flow better; weighted average smooths price fluctuations. We recommend based on your specifics." },
+   701→    ],
+   702→  },
+   703→  {
+   704→    slug: "budgeting-forecasting",
+   705→    title: "Budgeting & Forecasting",
+   706→    icon: LineChart,
+   707→    category: "Accounting & Bookkeeping",
+   708→    tagline: "A budget you'll actually use — and reforecast against.",
+   709→    summary:
+   710→      "Annual budgeting with monthly variance analysis and rolling reforecasts — so you steer the business, not the other way around.",
+   711→    whoNeeds: [
+   712→      "Businesses wanting deliberate growth",
+   713→      "Founders who keep missing their numbers",
+   714→      "Teams needing shared financial targets",
+   715→    ],
+   716→    process: [
+   717→      { step: "Budget", desc: "Revenue, cost, and overhead plan for the year." },
+   718→      { step: "Compare", desc: "Monthly actual vs budget variance." },
+   719→      { step: "Reforecast", desc: "Quarterly rolling update." },
+   720→    ],
+   721→    documents: ["Historical financials", "Sales pipeline", "Cost structure", "Growth plans"],
+   722→    timeline: "Annual budget + monthly variance.",
+   723→    pricing: "From ₹4,999/mo",
+   724→    faqs: [
+   725→      { q: "Our numbers are unpredictable — is a budget useful?", a: "Especially then. A budget isn't about predicting perfectly; it's about having a shared baseline to measure against, so you spot deviations early and adjust intentionally." },
+   726→    ],
+   727→  },
+   728→
+   729→  // ---------- Payroll & HR Compliance ----------
+   730→  {
+   731→    slug: "payroll-services",
+   732→    title: "Payroll Services",
+   733→    icon: Users,
+   734→    category: "Payroll & HR Compliance",
+   735→    tagline: "Salaries, payslips, PF/ESI and full-and-final — done.",
+   736→    summary:
+   737→      "End-to-end payroll processing — salary computation, payslips, PF/ESI deposits, TDS on salary, and exits.",
+   738→    whoNeeds: [
+   739→      "Any business with employees",
+   740→      "Companies hiring their first employee",
+   741→      "Teams wanting to outsource the monthly payroll grind",
+   742→    ],
+   743→    process: [
+   744→      { step: "Set up", desc: "Salary structures, PF/ESI registration, and TDS declarations." },
+   745→      { step: "Process", desc: "Monthly computation, payslip generation, and bank file." },
+   746→      { step: "Comply", desc: "PF/ESI deposit and return, TDS deposit and Form 16." },
+   747→      { step: "Exit", desc: "Full-and-final settlement on exits." },
+   748→    ],
+   749→    documents: ["Employee details", "CTC structures", "Attendance / leave", "Declarations (80C, rent, etc.)"],
+   750→    timeline: "Monthly — payslips within 3 days of month-end.",
+   751→    pricing: "From ₹299/employee/mo",
+   752→    faqs: [
+   753→      { q: "Do you handle PF and ESI registration too?", a: "Yes. PF is mandatory once you cross 20 employees; ESI applies to employees earning under ₹21,000. We handle registration, monthly deposit, and returns." },
+   754→      { q: "Can you process variable pay and bonuses?", a: "Yes — incentive structures, variable pay, joining / retention bonuses, and leave encashment are all handled in the monthly run." },
+   755→    ],
+   756→    featured: true,
+   757→  },
+   758→  {
+   759→    slug: "pf-esi-compliance",
+   760→    title: "PF & ESI Compliance",
+   761→    icon: HeartPulse,
+   762→    category: "Payroll & HR Compliance",
+   763→    tagline: "Statutory social security — registered, deposited, returned.",
+   764→    summary:
+   765→      "PF and ESI registration, monthly contributions, and returns — keeping you compliant with India's social security regimes.",
+   766→    whoNeeds: [
+   767→      "Employers with 20+ employees (PF)",
+   768→      "Employers with 10+ employees earning under ₹21,000 (ESI)",
+   769→      "Companies wanting to offer PF voluntarily",
+   770→    ],
+   771→    process: [
+   772→      { step: "Register", desc: "EPFO & ESIC registration with UAN generation." },
+   773→      { step: "Deposit", desc: "Monthly employer + employee contribution by 15th." },
+   774→      { step: "Return", desc: "Monthly ECR filing and ESI returns." },
+   775→    ],
+   776→    documents: ["Incorporation", "PAN", "Employee details", "Bank details", "Cancelled cheque"],
+   777→    timeline: "Registration 7–15 days; monthly thereafter.",
+   778→    pricing: "From ₹1,999/mo",
+   779→    faqs: [
+   780→      { q: "Is PF mandatory from day one?", a: "Mandatory once you cross 20 employees. Below that, it's voluntary. Many startups register early to attract talent and build employee benefits." },
+   781→    ],
+   782→  },
+   783→
+   784→  // ---------- Advisory & Growth ----------
+   785→  {
+   786→    slug: "virtual-cfo",
+   787→    title: "Virtual CFO & Growth Advisory",
+   788→    icon: TrendingUp,
+   789→    category: "Advisory & Growth",
+   790→    tagline: "CFO-level insight without a full-time hire.",
+   791→    summary:
+   792→      "Part-time CFO support — financial strategy, fundraising readiness, investor reporting, and the clarity founders need to scale.",
+   793→    whoNeeds: [
+   794→      "Startups preparing to raise capital",
+   795→      "Growing businesses needing strategic financial direction",
+   796→      "Founders without a CFO on the team",
+   797→    ],
+   798→    process: [
+   799→      { step: "Diagnose", desc: "We assess your financial position and gaps." },
+   800→      { step: "Strategise", desc: "Build a financial roadmap aligned to your goals." },
+   801→      { step: "Execute", desc: "Monthly check-ins, investor reports, and ad-hoc support." },
+   802→    ],
+   803→    documents: ["Financials", "Business plan", "Cap table", "Fundraising targets"],
+   804→    timeline: "Retainer-based, monthly.",
+   805→    pricing: "From ₹24,999/mo",
+   806→    faqs: [
+   807→      { q: "Is this the same as bookkeeping?", a: "No — bookkeeping records the past; a Virtual CFO shapes the future. We handle unit economics, fundraising readiness, investor conversations, and strategic financial decisions." },
+   808→    ],
+   809→    comingSoon: true,
+   810→    featured: true,
+   811→  },
+   812→  {
+   813→    slug: "business-valuation",
+   814→    title: "Business Valuation",
+   815→    icon: PieChart,
+   816→    category: "Advisory & Growth",
+   817→    tagline: "Know what your business is worth — and why.",
+   818→    summary:
+   819→      "Independent business valuation using income, market, and asset approaches — for fundraising, exits, or internal clarity.",
+   820→    whoNeeds: [
+   821→      "Founders raising equity capital",
+   822→      "Business owners considering a sale",
+   823→      "Companies issuing ESOPs at fair value",
+   824→    ],
+   825→    process: [
+   826→      { step: "Analyse", desc: "Financials, growth, and comparable transactions." },
+   827→      { step: "Value", desc: "Multiple valuation methods applied." },
+   828→      { step: "Report", desc: "Valuation report with methodology and assumptions." },
+   829→    ],
+   830→    documents: ["3-year financials", "Projections", "Cap table", "Business plan"],
+   831→    timeline: "2–3 weeks.",
+   832→    pricing: "From ₹19,999",
+   833→    faqs: [
+   834→      { q: "Which valuation method is used?", a: "Typically a blend — DCF for growth businesses, comparable company analysis for market context, and asset-based for asset-heavy businesses. We apply the combination that fits your stage." },
+   835→    ],
+   836→  },
+   837→  {
+   838→    slug: "due-diligence",
+   839→    title: "Due Diligence Support",
+   840→    icon: Search,
+   841→    category: "Advisory & Growth",
+   842→    tagline: "Walk into investor or acquisition diligence prepared.",
+   843→    summary:
+   844→      "Buy-side and sell-side financial due diligence — clean data rooms, reconciled financials, and defensible numbers.",
+   845→    whoNeeds: [
+   846→      "Founders entering fundraising diligence",
+   847→      "Businesses being acquired",
+   848→      "Acquirers needing financial DD support",
+   849→    ],
+   850→    process: [
+   851→      { step: "Prepare", desc: "Organise financials into a clean data room." },
+   852→      { step: "Reconcile", desc: "Ensure all numbers tie and are defensible." },
+   853→      { step: "Defend", desc: "Support through Q&A and clarifications." },
+   854→    ],
+   855→    documents: ["Full financials", "Contracts", "Customer & supplier data", "Tax filings"],
+   856→    timeline: "Project-based, 3–6 weeks.",
+   857→    pricing: "From ₹49,999",
+   858→    faqs: [
+   859→      { q: "When should we start preparing for diligence?", a: "Ideally 3–6 months before raising. Clean financials, reconciled numbers, and organised documentation prevent deals from stalling over avoidable questions." },
+   860→    ],
+   861→  },
+   862→  {
+   863→    slug: "project-finance",
+   864→    title: "Project Finance",
+   865→    icon: Factory,
+   866→    category: "Advisory & Growth",
+   867→    tagline: "Structure and present funding for your next big project.",
+   868→    summary:
+   869→      "Project finance advisory — financial models, lender-ready projections, and support through the sanction process.",
+   870→    whoNeeds: [
+   871→      "Businesses expanding with new projects",
+   872→      "Manufacturers setting up new facilities",
+   873→      "Anyone seeking term loans for capital expenditure",
+   874→    ],
+   875→    process: [
+   876→      { step: "Model", desc: "Build a detailed financial model for the project." },
+   877→      { step: "Package", desc: "Prepare the CMA and projections lenders expect." },
+   878→      { step: "Support", desc: "Liaise through sanction and disbursement." },
+   879→    ],
+   880→    documents: ["Project cost breakdown", "Revenue projections", "Promoter details", "Existing financials"],
+   881→    timeline: "4–8 weeks.",
+   882→    pricing: "From ₹34,999",
+   883→    faqs: [
+   884→      { q: "What's a CMA data?", a: "Credit Monitoring Arrangement data — the standardised financial projection format banks require for term loans. We prepare it to exactly the format your lender expects." },
+   885→    ],
+   886→  },
+   887→  {
+   888→    slug: "loan-funding-assistance",
+   889→    title: "Loan & Funding Assistance",
+   890→    icon: Banknote,
+   891→    category: "Advisory & Growth",
+   892→    tagline: "From application to disbursement — less friction.",
+   893→    summary:
+   894→      "End-to-end support for business loans — documentation, lender matching, application tracking, and disbursement.",
+   895→    whoNeeds: [
+   896→      "Businesses seeking working capital or term loans",
+   897→      "Startups exploring debt or seed equity",
+   898→      "Anyone navigating the loan application maze",
+   899→    ],
+   900→    process: [
+   901→      { step: "Assess", desc: "Understand your need and eligibility." },
+   902→      { step: "Package", desc: "Prepare the application with all documents." },
+   903→      { step: "Submit", desc: "Apply to suitable lenders and track progress." },
+   904→      { step: "Disburse", desc: "Coordinate through to sanction and disbursal." },
+   905→    ],
+   906→    documents: ["Business financials", "Bank statements (12 months)", "GST returns", "ITR", "Project / use-of-funds note"],
+   907→    timeline: "2–6 weeks depending on lender and loan type.",
+   908→    pricing: "From ₹9,999",
+   909→    faqs: [
+   910→      { q: "Do you guarantee loan approval?", a: "No one can ethically guarantee approval — it depends on the lender's assessment. What we guarantee is a complete, well-presented application that maximises your chances and minimises back-and-forth." },
+   911→    ],
+   912→  },
+   913→  {
+   914→    slug: "startup-fundraising-support",
+   915→    title: "Startup Fundraising Support",
+   916→    icon: Handshake,
+   917→    category: "Advisory & Growth",
+   918→    tagline: "Term sheets, cap tables, and the numbers behind them.",
+   919→    summary:
+   920→      "Fundraising support — financial models, pitch numbers, term sheet review, and cap table management for early-stage startups.",
+   921→    whoNeeds: [
+   922→      "Pre-seed and seed-stage founders",
+   923→      "Startups raising their first institutional round",
+   924→      "Founders navigating term sheets",
+   925→    ],
+   926→    process: [
+   927→      { step: "Prepare", desc: "Financial model, unit economics, and use of funds." },
+   928→      { step: "Cap table", desc: "Clean cap table with ESOP pool and dilution modelling." },
+   929→      { step: "Review", desc: "Term sheet review — valuation, liquidation, anti-dilution." },
+   930→    ],
+   931→    documents: ["Current cap table", "Financial projections", "Pitch deck", "Existing agreements"],
+   932→    timeline: "Engagement-based through the raise.",
+   933→    pricing: "From ₹29,999",
+   934→    faqs: [
+   935→      { q: "Do you help find investors?", a: "We prepare you to raise — the model, the numbers, the cap table, and term sheet review. Introductions depend on your sector and stage; we'll be honest about what we can and can't do there." },
+   936→    ],
+   937→  },
+   938→  {
+   939→    slug: "internal-audit-controls",
+   940→    title: "Internal Audit & Controls",
+   941→    icon: ShieldCheck,
+   942→    category: "Advisory & Growth",
+   943→    tagline: "Find the gaps before anyone else does.",
+   944→    summary:
+   945→      "Internal audit and process review — identifying control weaknesses, process inefficiencies, and compliance gaps.",
+   946→    whoNeeds: [
+   947→      "Growing businesses with multiple processes",
+   948→      "Companies preparing for external audit",
+   949→      "Anyone concerned about fraud or leakage",
+   950→    ],
+   951→    process: [
+   952→      { step: "Scope", desc: "Identify the processes and risk areas to review." },
+   953→      { step: "Audit", desc: "Test controls, sample transactions, and interview." },
+   954→      { step: "Report", desc: "Findings, risk ratings, and practical remediation." },
+   955→    ],
+   956→    documents: ["Process documentation", "Financial records", "Access to team"],
+   957→    timeline: "2–4 weeks for a standard scope.",
+   958→    pricing: "From ₹24,999",
+   959→    faqs: [
+   960→      { q: "Is internal audit only for large companies?", a: "No — smaller businesses often benefit most, because control gaps are costlier relative to size. A single leakage prevented can pay for years of audit." },
+   961→    ],
+   962→  },
+   963→  {
+   964→    slug: "financial-health-checkup",
+   965→    title: "Financial Health Checkup",
+   966→    icon: Stethoscope,
+   967→    category: "Advisory & Growth",
+   968→    tagline: "A complete diagnostic of your business finances.",
+   969→    summary:
+   970→      "A one-time financial health check — profitability, liquidity, tax exposure, and compliance gaps, with a prioritised action plan.",
+   971→    whoNeeds: [
+   972→      "Founders who've never had a proper financial review",
+   973→      "Businesses feeling uncertain about their financial position",
+   974→      "Anyone considering engaging an accountant",
+   975→    ],
+   976→    process: [
+   977→      { step: "Review", desc: "Full review of books, filings, and cash position." },
+   978→      { step: "Diagnose", desc: "Identify strengths, risks, and gaps." },
+   979→      { step: "Plan", desc: "Prioritised action plan with cost estimates." },
+   980→    ],
+   981→    documents: ["Books of accounts", "Tax filings", "Bank statements", "Existing registrations"],
+   982→    timeline: "1–2 weeks.",
+   983→    pricing: "From ₹9,999",
+   984→    faqs: [
+   985→      { q: "Is this useful if I already have an accountant?", a: "Yes — it's an independent second opinion. We often find things internal accountants miss, simply because we're looking with fresh eyes." },
+   986→    ],
+   987→  },
+   988→];
+   989→
+   990→// Convenience lookups
+   991→export function getService(slug: string): Service | undefined {
+   992→  return SERVICES.find((s) => s.slug === slug);
+   993→}
+   994→
+   995→export function servicesByCategory(category: ServiceCategory): Service[] {
+   996→  return SERVICES.filter((s) => s.category === category);
+   997→}
+   998→
+   999→export function featuredServices(): Service[] {
+  1000→  return SERVICES.filter((s) => s.featured);
+  1001→}
+  1002→

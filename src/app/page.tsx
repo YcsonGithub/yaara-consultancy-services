@@ -70,7 +70,7 @@ export default function Home() {
             </Reveal>
             <Reveal delay={0.15}>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <Link href="/book" className="group inline-flex h-12 items-center justify-center gap-2 rounded-md bg-gold px-7 font-sans text-[0.97rem] font-semibold text-ink transition-all hover:bg-[#a87a33] hover:shadow-[0_10px_30px_-12px_rgba(184,135,59,0.7)]">
+                <Link href="/book" className="group inline-flex h-12 items-center justify-center gap-2 rounded-md bg-gold px-7 font-sans text-[0.97rem] font-semibold text-ink transition-all hover:bg-gold-light hover:shadow-[0_10px_30px_-12px_rgba(184,135,59,0.7)]">
                   Book a free 20-minute call
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </Link>
@@ -96,7 +96,7 @@ export default function Home() {
 
       {/* ============ TRUST BAR ============ */}
       <section aria-label="At a glance" className="border-y border-border bg-surface/60">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 divide-x divide-border px-5 sm:px-8 lg:grid-cols-4">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 divide-x divide-y divide-border px-5 sm:px-8 sm:divide-y-0 lg:grid-cols-4">
           {STATS.map((s, i) => (
             <Reveal key={s.label} delay={i * 0.06} className="flex flex-col gap-1 px-4 py-7 sm:px-7 sm:py-9">
               <div className="flex items-baseline gap-1">
@@ -132,7 +132,7 @@ export default function Home() {
           </Reveal>
 
           {/* featured services */}
-          <div className="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-2">
+          <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-2">
             {featured.slice(0, 2).map((s, i) => {
               const Icon = s.icon;
               return (
@@ -214,7 +214,7 @@ export default function Home() {
       </section>
 
       {/* ============ FOUNDER NOTE TEASER ============ */}
-      <section className="paper-grain py-20 sm:py-28">
+      <section id="about" className="paper-grain py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
             <Reveal className="lg:col-span-5" y={24}>

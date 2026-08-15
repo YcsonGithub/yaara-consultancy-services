@@ -197,8 +197,17 @@ function ContactItem({
   );
 
   if (href) {
+    // Internal routes use Next Link for client-side navigation;
+    // external (tel:, mailto:, https://) use a plain anchor.
+    if (href.startsWith("/")) {
+      return (
+        <Link href={href} className="transition-opacity hover:opacity-80">
+          {content}
+        </Link>
+      );
+    }
     return (
-      <a href={href} className="transition-opacity hover:opacity-80">
+      <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="transition-opacity hover:opacity-80">
         {content}
       </a>
     );
