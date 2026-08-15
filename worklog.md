@@ -701,3 +701,48 @@ Stage Summary:
 - Footer redesigned: src/components/site/footer.tsx — 4 clean bands (main grid / DPDP grievance strip / bottom bar / office+disclaimer). All legal pages prominently linked. DPDP §8(9) grievance officer info compact but accessible. Mobile-responsive (no overflow, clean stacking). VLM rated A- to A+.
 - Legal pages (cookies, terms, privacy, refund, disclaimer) confirmed working — all 5 return HTTP 200, all linked in footer Legal column.
 - Lint clean, no compile errors, all routes 200, navigation verified end-to-end.
+
+---
+Task ID: 10
+Agent: Orchestrator (main) — fix founder image + dramatic footer redesign (cache-bust)
+Task: User reported the founder photo and footer "didn't change" despite Task 9. Root cause: browser was caching the old founder image (same filename), and the previous footer redesign was too subtle. Fix both with unmistakable visual changes.
+
+Work Log:
+- Investigated user's 3 uploaded screenshots via VLM:
+  • Screenshot 1: showed a "man seated at a desk with papers/calculator/laptop" founder portrait — NOT the head-and-shoulders image I generated in Task 9. This was a browser-cached version of an older image (the file on disk WAS my new image, confirmed via HTTP Last-Modified header, but the browser was serving a stale cached copy because the filename hadn't changed).
+  • Screenshots 2 & 3: confirmed the Task 9 footer redesign WAS live, but user felt it "didn't look good" — too similar to the body (light-on-light).
+- Root cause for founder image: Next.js Image component + browser cache were serving the old image because the `src` path (`/founder/founder-portrait.png`) was unchanged. The file content changed but the URL didn't, so the browser used its cached copy.
+- Root cause for footer: the Task 9 redesign used `bg-surface/50` (light cream) which was too similar to the warm-paper body background — not enough visual contrast to register as "redesigned".
+- FIX 1 — Founder image (cache-bust + new composition):
+  • Deleted old public/founder/founder-portrait.png
+  • Generated a NEW founder portrait with a completely different composition: man seated at a desk actively working — writing with a pen on an open ledger, calculator + documents + laptop + chai on desk, blurred bookshelf + brass lamp background. This matches the "professional at work" reference the user's screenshot showed.
+  • Saved as NEW filename: public/founder/founder-at-work.png (864x1152, 100KB). New URL = no browser cache.
+  • VLM verified: "man seated at a desk working, navy blazer, documents/laptop/desk lamp visible, 9/10 realism"
+  • Updated src/app/page.tsx (home founder note teaser) and src/app/about/page.tsx (founder story) to use new `/founder/founder-at-work.png` path
+  • Confirmed old path /founder/founder-portrait.png now returns HTTP 404 (no more cache confusion)
+- FIX 2 — Footer dramatic redesign (dark navy + gold):
+  • Completely rewrote src/components/site/footer.tsx with a premium DARK NAVY footer (`bg-ink` = #0E2A47) — deliberate contrast with the warm-paper body. This is a classic high-end consultancy pattern (Goldman Sachs, McKinsey, boutique advisory) and creates an unmistakable visual anchor.
+  • Gold gradient hairline at the very top (brand signature)
+  • Main grid: brand column (logo with onDark variant, tagline in gold-light, trust badges with paper/5 backgrounds, contact rows with gold-light icons) + 4-column sitemap (gold-light headings, paper/70 link text, gold-light hover underline)
+  • DPDP grievance band: paper/[0.03] inset within navy, gold-light accents, UserCheck icon, officer name in serif, email/phone/SLA caption
+  • Bottom bar: copyright + "Founded by" link + "Book a consultation" CTA in gold-light, social icons with gold-light hover, registered office, "Not a CA firm" disclaimer with link to /legal/disclaimer
+  • Updated ReopenConsentTrigger component (src/components/site/consent-provider.tsx) to accept an optional `className` prop so it can be styled for dark backgrounds (previously had hardcoded light-mode classes). Footer passes a dark-mode className.
+- FIX 3 — Dev server cache clear:
+  • Killed all running `next dev` / `bun dev` processes
+  • Deleted .next/cache directory (Turbopack cache)
+  • Restarted dev server fresh
+- Verification (Agent Browser + VLM):
+  • About page founder portrait: VLM confirms "man seated at a desk working, navy blazer, documents/laptop/desk lamp visible" — the NEW image is live, not the cached old one.
+  • Home page founder note section: VLM confirms "portrait of a man seated at a desk, name plate overlay professional and well-integrated"
+  • Desktop footer: VLM confirms "DARK NAVY footer with gold accents, multiple columns of white/cream links, contact details, copyright" — unmistakable visual change from the light footer
+  • Mobile footer (390px): VLM confirms "dark navy footer, stacks cleanly, no horizontal overflow, all sections readable (brand, sitemap, grievance strip, bottom bar)"
+  • All 5 legal pages return HTTP 200
+  • Old founder image path returns HTTP 404 (cache fully busted)
+  • Lint clean, no compile errors
+
+Stage Summary:
+- New founder portrait: public/founder/founder-at-work.png — "at work" composition (seated at desk, documents/calculator/laptop), 9/10 realism, new filename busts browser cache.
+- Footer completely redesigned: dark navy (bg-ink) with gold accents — premium consultancy pattern, unmistakable visual contrast with warm-paper body. All legal pages linked in dedicated Legal column. DPDP grievance officer band preserved. Mobile-responsive.
+- ReopenConsentTrigger component now accepts className prop for dark/light mode flexibility.
+- Dev server restarted with cleared Turbopack cache.
+- All changes verified live via Agent Browser + VLM on desktop and mobile.

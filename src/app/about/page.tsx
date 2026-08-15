@@ -105,7 +105,7 @@ export default function AboutPage() {
               <div className="relative mx-auto max-w-sm lg:max-w-none lg:sticky lg:top-28">
                 <div className="duotone-navy relative overflow-hidden rounded-xl border border-border shadow-[0_30px_60px_-30px_rgba(14,42,71,0.45)]">
                   <Image
-                    src="/founder/founder-portrait.png"
+                    src="/founder/founder-at-work.png"
                     alt={`Portrait of ${SITE.founder}, ${SITE.founderRole} of Yaara Consultancy Services`}
                     width={864}
                     height={1152}

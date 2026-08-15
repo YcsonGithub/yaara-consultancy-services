@@ -13,6 +13,7 @@ import {
   ArrowUpRight,
   UserCheck,
   ArrowRight,
+  Clock,
 } from "lucide-react";
 import { CONTACT, NAV_LINKS, SITE, GRIEVANCE_OFFICER, LEGAL_PAGES } from "@/lib/site";
 import { SERVICES } from "@/lib/services";
@@ -31,53 +32,53 @@ const RESOURCE_LINKS = [
 ];
 
 /**
- * SiteFooter — redesigned for clarity and trust.
+ * SiteFooter — premium dark-navy footer with gold accents.
+ *
+ * The footer uses a deep navy (`bg-ink`) background — a deliberate contrast
+ * with the warm-paper body — to create a strong visual "anchor" at the bottom
+ * of every page. This is a classic high-end consultancy / editorial pattern
+ * (think Goldman Sachs, McKinsey, boutique advisory firms) and signals
+ * authority + permanence.
  *
  * Structure (top → bottom):
- *  1. Main grid — brand + contact (left) and a 4-column sitemap (right).
- *  2. DPDP §8(9) grievance officer strip — single gold-tinted row, required
- *     to be "easily accessible" under the DPDP Act.
- *  3. Bottom bar — copyright, social, cookie preferences.
- *  4. Disclaimer line — "not a CA firm" honesty disclosure.
- *
- * The previous footer had 5 stacked sections (brand, sitemap, contact strip,
- * registered address, grievance card, social row, bottom bar) which felt
- * cluttered and buried the legal links. This version consolidates to 4
- * clearly-separated bands with stronger visual hierarchy.
+ *  1. Main grid — brand + sitemap on dark navy, with gold accents.
+ *  2. DPDP §8(9) grievance officer band — gold-tinted inset within the navy.
+ *  3. Bottom bar — copyright, social, registered office, disclaimer.
  */
 export function SiteFooter() {
   return (
-    <footer className="mt-auto border-t border-border bg-surface/50">
-      <div className="gold-rule" />
+    <footer className="mt-auto bg-ink text-paper">
+      {/* Gold hairline at the very top — brand signature */}
+      <div className="h-0.5 bg-gradient-to-r from-transparent via-gold to-transparent" />
 
-      {/* ============ MAIN GRID ============ */}
+      {/* ============ MAIN GRID (dark navy) ============ */}
       <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-16">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-10">
-          {/* ---------- Brand + contact (left) ---------- */}
+          {/* ---------- Brand column ---------- */}
           <div className="lg:col-span-4">
-            <YaaraLogo height={44} />
-            <p className="mt-5 max-w-xs font-sans text-[0.92rem] leading-relaxed text-body">
+            <YaaraLogo height={44} onDark />
+            <p className="mt-5 max-w-xs font-sans text-[0.92rem] leading-relaxed text-paper/70">
               The accounting and compliance partner for Indian founders and
               small businesses who want a real person handling their numbers.
             </p>
 
-            <p className="mt-4 font-mono text-[0.72rem] uppercase tracking-[0.2em] text-gold-ink">
+            <p className="mt-4 font-mono text-[0.72rem] uppercase tracking-[0.2em] text-gold-light">
               {SITE.tagline}
             </p>
 
             {/* Trust badges */}
             <div className="mt-5 flex flex-wrap gap-2">
-              <span className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-2.5 py-1.5 font-sans text-[0.72rem] text-muted-foreground">
+              <span className="inline-flex items-center gap-1.5 rounded-md border border-paper/15 bg-paper/5 px-2.5 py-1.5 font-sans text-[0.72rem] text-paper/80">
                 <Lock className="h-3.5 w-3.5 text-success" strokeWidth={1.5} />
                 Encrypted uploads
               </span>
-              <span className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-2.5 py-1.5 font-sans text-[0.72rem] text-muted-foreground">
-                <ShieldCheck className="h-3.5 w-3.5 text-gold-ink" strokeWidth={1.5} />
+              <span className="inline-flex items-center gap-1.5 rounded-md border border-paper/15 bg-paper/5 px-2.5 py-1.5 font-sans text-[0.72rem] text-paper/80">
+                <ShieldCheck className="h-3.5 w-3.5 text-gold-light" strokeWidth={1.5} />
                 DPDP compliant
               </span>
             </div>
 
-            {/* Compact contact rows */}
+            {/* Contact rows */}
             <div className="mt-6 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-1">
               <ContactRow
                 icon={Phone}
@@ -107,7 +108,7 @@ export function SiteFooter() {
             </div>
           </div>
 
-          {/* ---------- Sitemap (right) — 4 columns ---------- */}
+          {/* ---------- Sitemap (4 columns) ---------- */}
           <div className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4 lg:col-span-8">
             <FooterColumn
               label="Company"
@@ -121,7 +122,7 @@ export function SiteFooter() {
                 {
                   label: "View all services",
                   href: "/services",
-                  icon: "arrow",
+                  icon: "arrow" as const,
                 },
               ]}
             />
@@ -129,7 +130,7 @@ export function SiteFooter() {
             <FooterColumn label="Resources" links={RESOURCE_LINKS} />
 
             <div>
-              <h3 className="font-sans text-[0.78rem] font-semibold uppercase tracking-wider text-ink">
+              <h3 className="font-sans text-[0.78rem] font-semibold uppercase tracking-wider text-gold-light">
                 Legal
               </h3>
               <ul className="mt-4 space-y-2.5">
@@ -137,14 +138,18 @@ export function SiteFooter() {
                   <li key={l.slug}>
                     <Link
                       href={`/legal/${l.slug}`}
-                      className="font-sans text-[0.88rem] text-body transition-colors hover:text-ink hover:underline hover:decoration-gold hover:decoration-1 hover:underline-offset-4"
+                      className="font-sans text-[0.88rem] text-paper/70 transition-colors hover:text-paper hover:underline hover:decoration-gold-light hover:decoration-1 hover:underline-offset-4"
                     >
                       {l.label}
                     </Link>
                   </li>
                 ))}
                 <li>
-                  <ReopenConsentTrigger>Cookie preferences</ReopenConsentTrigger>
+                  <ReopenConsentTrigger
+                    className="font-sans text-[0.88rem] text-paper/70 transition-colors hover:text-paper hover:underline hover:decoration-gold-light hover:decoration-1 hover:underline-offset-4"
+                  >
+                    Cookie preferences
+                  </ReopenConsentTrigger>
                 </li>
               </ul>
             </div>
@@ -152,85 +157,94 @@ export function SiteFooter() {
         </div>
       </div>
 
-      {/* ============ DPDP GRIEVANCE OFFICER STRIP ============ */}
-      <div className="border-t border-gold/20 bg-gold/[0.04]">
-        <div className="mx-auto max-w-7xl px-5 py-5 sm:px-8">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-start gap-3 sm:items-center">
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-gold/30 bg-card text-gold-ink">
-                <UserCheck className="h-4 w-4" strokeWidth={1.5} />
+      {/* ============ DPDP GRIEVANCE OFFICER BAND (gold-tinted inset) ============ */}
+      <div className="border-t border-paper/10 bg-paper/[0.03]">
+        <div className="mx-auto max-w-7xl px-5 py-6 sm:px-8">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-12 lg:items-center">
+            {/* Left: officer identity */}
+            <div className="flex items-start gap-3 lg:col-span-5">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-gold-light/30 bg-gold-light/10 text-gold-light">
+                <UserCheck className="h-5 w-5" strokeWidth={1.5} />
               </span>
               <div className="min-w-0">
-                <p className="font-mono text-[0.66rem] font-medium uppercase tracking-[0.16em] text-gold-ink">
+                <p className="font-mono text-[0.66rem] font-medium uppercase tracking-[0.16em] text-gold-light">
                   Grievance Officer · DPDP Act §8(9)
                 </p>
-                <p className="mt-0.5 font-sans text-[0.88rem] font-medium text-ink">
+                <p className="mt-1 font-serif text-[1.05rem] font-medium text-paper">
                   {GRIEVANCE_OFFICER.name}
-                  <span className="font-normal text-muted-foreground">
-                    {" "}&middot; {GRIEVANCE_OFFICER.role}
-                  </span>
+                </p>
+                <p className="font-sans text-[0.82rem] text-paper/60">
+                  {GRIEVANCE_OFFICER.role}
                 </p>
               </div>
             </div>
 
-            <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-5">
+            {/* Middle: contact */}
+            <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-x-6 lg:col-span-5">
               <a
                 href={`mailto:${GRIEVANCE_OFFICER.email}`}
-                className="inline-flex items-center gap-1.5 font-sans text-[0.84rem] text-ink underline-offset-2 hover:text-gold-ink hover:underline"
+                className="inline-flex items-center gap-1.5 font-sans text-[0.86rem] text-paper/85 underline-offset-2 hover:text-gold-light hover:underline"
               >
-                <Mail className="h-3.5 w-3.5 text-gold-ink" strokeWidth={1.5} />
+                <Mail className="h-3.5 w-3.5 text-gold-light" strokeWidth={1.5} />
                 <span className="break-all">{GRIEVANCE_OFFICER.email}</span>
               </a>
               <a
                 href={GRIEVANCE_OFFICER.phoneHref}
-                className="inline-flex items-center gap-1.5 font-sans text-[0.84rem] text-ink underline-offset-2 hover:text-gold-ink hover:underline"
+                className="inline-flex items-center gap-1.5 font-sans text-[0.86rem] text-paper/85 underline-offset-2 hover:text-gold-light hover:underline"
               >
-                <Phone className="h-3.5 w-3.5 text-gold-ink" strokeWidth={1.5} />
+                <Phone className="h-3.5 w-3.5 text-gold-light" strokeWidth={1.5} />
                 {GRIEVANCE_OFFICER.phone}
               </a>
+            </div>
+
+            {/* Right: SLA + full policy */}
+            <div className="flex flex-col gap-2 lg:col-span-2 lg:items-end">
               <Link
                 href="/legal/privacy"
-                className="inline-flex items-center gap-1 font-sans text-[0.82rem] font-medium text-gold-ink hover:underline"
+                className="inline-flex items-center gap-1 font-sans text-[0.82rem] font-medium text-gold-light hover:underline"
               >
                 Full policy
                 <ArrowUpRight className="h-3 w-3" />
               </Link>
             </div>
           </div>
-          <p className="mt-2.5 font-sans text-[0.74rem] leading-relaxed text-muted-foreground">
+
+          {/* SLA caption — full width */}
+          <p className="mt-3 flex items-center gap-1.5 font-sans text-[0.76rem] text-paper/55">
+            <Clock className="h-3.5 w-3.5 text-gold-light/70" strokeWidth={1.5} />
             {GRIEVANCE_OFFICER.responseWindow}
           </p>
         </div>
       </div>
 
       {/* ============ BOTTOM BAR ============ */}
-      <div className="border-t border-border bg-surface/70">
+      <div className="border-t border-paper/10">
         <div className="mx-auto max-w-7xl px-5 py-6 sm:px-8">
-          {/* Top row: copyright + social */}
+          {/* Top row: copyright + CTA + social */}
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-              <p className="font-mono text-[0.74rem] text-muted-foreground">
+              <p className="font-mono text-[0.74rem] text-paper/55">
                 &copy; {new Date().getFullYear()}{" "}
-                <span className="text-ink">{SITE.name}</span>
+                <span className="text-paper">{SITE.name}</span>
               </p>
-              <span className="hidden text-border sm:inline" aria-hidden="true">
+              <span className="hidden text-paper/20 sm:inline" aria-hidden="true">
                 &middot;
               </span>
-              <p className="font-sans text-[0.76rem] text-muted-foreground">
+              <p className="font-sans text-[0.76rem] text-paper/55">
                 Founded by{" "}
                 <Link
                   href="/about"
-                  className="font-medium text-ink underline-offset-2 hover:text-gold-ink hover:underline"
+                  className="font-medium text-paper underline-offset-2 hover:text-gold-light hover:underline"
                 >
                   {SITE.founder}
                 </Link>
               </p>
-              <span className="hidden text-border sm:inline" aria-hidden="true">
+              <span className="hidden text-paper/20 sm:inline" aria-hidden="true">
                 &middot;
               </span>
               <Link
                 href="/book"
-                className="inline-flex items-center gap-1 font-sans text-[0.78rem] font-medium text-ink hover:text-gold-ink"
+                className="inline-flex items-center gap-1 font-sans text-[0.78rem] font-medium text-gold-light hover:underline"
               >
                 Book a consultation
                 <ArrowRight className="h-3 w-3" />
@@ -256,9 +270,9 @@ export function SiteFooter() {
             </div>
           </div>
 
-          {/* Registered office — compact one-liner */}
-          <p className="mt-4 font-sans text-[0.76rem] leading-relaxed text-muted-foreground">
-            <span className="font-mono text-[0.68rem] uppercase tracking-wider text-gold-ink">
+          {/* Registered office */}
+          <p className="mt-4 font-sans text-[0.76rem] leading-relaxed text-paper/50">
+            <span className="font-mono text-[0.68rem] uppercase tracking-wider text-gold-light/80">
               Registered office:&nbsp;
             </span>
             {CONTACT.address.line1}, {CONTACT.address.line2},{" "}
@@ -268,13 +282,15 @@ export function SiteFooter() {
           </p>
 
           {/* Honesty disclaimer */}
-          <p className="mt-3 max-w-3xl font-sans text-[0.74rem] leading-relaxed text-muted-foreground">
-            <span className="font-medium text-body">Not a Chartered Accountancy firm.</span>{" "}
+          <p className="mt-3 max-w-3xl font-sans text-[0.74rem] leading-relaxed text-paper/45">
+            <span className="font-medium text-paper/70">
+              Not a Chartered Accountancy firm.
+            </span>{" "}
             Statutory audit &amp; certification work is signed off via our
             empanelled CA partner network. See our{" "}
             <Link
               href="/legal/disclaimer"
-              className="font-medium text-ink underline-offset-2 hover:text-gold-ink hover:underline"
+              className="font-medium text-paper/80 underline-offset-2 hover:text-gold-light hover:underline"
             >
               disclaimer
             </Link>{" "}
@@ -297,7 +313,7 @@ function FooterColumn({
 }) {
   return (
     <nav aria-label={label}>
-      <h3 className="font-sans text-[0.78rem] font-semibold uppercase tracking-wider text-ink">
+      <h3 className="font-sans text-[0.78rem] font-semibold uppercase tracking-wider text-gold-light">
         {label}
       </h3>
       <ul className="mt-4 space-y-2.5">
@@ -305,11 +321,11 @@ function FooterColumn({
           <li key={l.href}>
             <Link
               href={l.href}
-              className="inline-flex items-center gap-1 font-sans text-[0.88rem] text-body transition-colors hover:text-ink hover:underline hover:decoration-gold hover:decoration-1 hover:underline-offset-4"
+              className="inline-flex items-center gap-1 font-sans text-[0.88rem] text-paper/70 transition-colors hover:text-paper hover:underline hover:decoration-gold-light hover:decoration-1 hover:underline-offset-4"
             >
               {l.label}
               {l.icon === "arrow" && (
-                <ArrowUpRight className="h-3 w-3 text-gold-ink" strokeWidth={2} />
+                <ArrowUpRight className="h-3 w-3 text-gold-light" strokeWidth={2} />
               )}
             </Link>
           </li>
@@ -334,14 +350,14 @@ function ContactRow({
 }) {
   const inner = (
     <div className="flex items-center gap-2.5">
-      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-border bg-card text-ink">
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-paper/15 bg-paper/5 text-gold-light">
         <Icon className="h-3.5 w-3.5" strokeWidth={1.5} />
       </span>
       <div className="min-w-0">
-        <p className="font-mono text-[0.6rem] uppercase tracking-wider text-muted-foreground">
+        <p className="font-mono text-[0.6rem] uppercase tracking-wider text-paper/45">
           {label}
         </p>
-        <p className="font-sans text-[0.84rem] font-medium text-ink break-words leading-tight">
+        <p className="font-sans text-[0.84rem] font-medium text-paper break-words leading-tight">
           {value}
         </p>
       </div>
@@ -383,7 +399,7 @@ function SocialLink({
     <a
       href={href}
       aria-label={label}
-      className="flex h-9 w-9 items-center justify-center rounded-md border border-border bg-card text-ink transition-colors hover:border-gold/40 hover:bg-paper hover:text-gold-ink"
+      className="flex h-9 w-9 items-center justify-center rounded-md border border-paper/15 bg-paper/5 text-paper/80 transition-colors hover:border-gold-light/40 hover:bg-gold-light/10 hover:text-gold-light"
     >
       <Icon className="h-4 w-4" strokeWidth={1.5} />
     </a>

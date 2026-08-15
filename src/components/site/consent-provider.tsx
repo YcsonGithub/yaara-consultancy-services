@@ -146,7 +146,13 @@ export function ConsentProvider() {
  * Footer "Cookie preferences" trigger — clears the stored decision and
  * reloads so the banner reappears and Consent Mode resets to denied.
  */
-export function ReopenConsentTrigger({ children }: { children: React.ReactNode }) {
+export function ReopenConsentTrigger({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   const clear = () => {
     if (typeof window === "undefined") return;
     try {
@@ -160,7 +166,10 @@ export function ReopenConsentTrigger({ children }: { children: React.ReactNode }
     <button
       type="button"
       onClick={clear}
-      className="font-sans text-[0.86rem] text-body transition-colors hover:text-ink hover:underline hover:decoration-gold hover:underline-offset-4"
+      className={
+        className ??
+        "font-sans text-[0.86rem] text-body transition-colors hover:text-ink hover:underline hover:decoration-gold hover:underline-offset-4"
+      }
     >
       {children}
     </button>

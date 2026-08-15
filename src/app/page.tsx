@@ -220,7 +220,7 @@ export default function Home() {
             <Reveal className="lg:col-span-5" y={24}>
               <div className="relative mx-auto max-w-sm lg:max-w-none">
                 <div className="duotone-navy relative overflow-hidden rounded-xl border border-border shadow-[0_30px_60px_-30px_rgba(14,42,71,0.45)]">
-                  <Image src="/founder/founder-portrait.png" alt={`Portrait of ${SITE.founder}, ${SITE.founderRole} of Yaara Consultancy Services`} width={864} height={1152} className="h-full w-full object-cover" />
+                  <Image src="/founder/founder-at-work.png" alt={`Portrait of ${SITE.founder}, ${SITE.founderRole} of Yaara Consultancy Services`} width={864} height={1152} className="h-full w-full object-cover" />
                 </div>
                 <div className="absolute -bottom-5 -right-3 max-w-[16rem] rotate-1 rounded-lg border border-border bg-paper px-4 py-3 shadow-[0_14px_30px_-16px_rgba(14,42,71,0.4)] sm:-right-5">
                   <p className="font-serif text-[1rem] font-semibold text-ink">{SITE.founder}</p>
