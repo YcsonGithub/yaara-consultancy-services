@@ -106,10 +106,10 @@ export default function ContactPage() {
                         <Icon className="h-5 w-5" strokeWidth={1.5} />
                       </span>
                       <div className="min-w-0 flex-1">
-                        <p className="font-mono text-[0.66rem] font-medium uppercase tracking-wider text-muted-foreground">
+                        <p className="font-mono text-[0.68rem] font-medium uppercase tracking-wider text-muted-foreground">
                           {row.label}
                         </p>
-                        <p className="mt-0.5 font-serif text-[1.05rem] font-medium text-ink break-words">
+                        <p className="mt-0.5 font-serif text-[1.02rem] font-medium text-ink break-all sm:text-[1.05rem]">
                           {row.value}
                         </p>
                         <p className="mt-1 font-sans text-[0.82rem] text-body">

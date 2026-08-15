@@ -63,7 +63,7 @@ export default function PricingPage() {
       />
 
       {/* ============ RETAINER TIERS ============ */}
-      <section className="paper-grain py-20 sm:py-28">
+      <section className="paper-grain py-16 sm:py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <Reveal>
             <div className="max-w-2xl">
@@ -214,7 +214,7 @@ export default function PricingPage() {
       </section>
 
       {/* ============ FLAT-FEE TABLE ============ */}
-      <section className="border-y border-border bg-surface/50 py-20 sm:py-28">
+      <section className="border-y border-border bg-surface/50 py-16 sm:py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <Reveal>
             <div className="max-w-2xl">
@@ -300,7 +300,7 @@ export default function PricingPage() {
       </section>
 
       {/* ============ WHAT'S INCLUDED / FAQ-ISH ============ */}
-      <section className="paper-grain py-20 sm:py-28">
+      <section className="paper-grain py-16 sm:py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <Reveal>
             <div className="max-w-2xl">

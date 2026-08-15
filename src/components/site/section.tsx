@@ -52,7 +52,7 @@ export function PageHero({
   return (
     <section className="relative overflow-hidden border-b border-border paper-grain">
       <div className="gold-rule absolute inset-x-0 top-0" />
-      <div className="mx-auto max-w-7xl px-5 pb-16 pt-14 sm:px-8 sm:pb-20 sm:pt-20">
+      <div className="mx-auto max-w-7xl px-5 pb-14 pt-12 sm:px-8 sm:pb-20 sm:pt-16">
         <Reveal>
           {eyebrow && (
             <span className="font-mono text-[0.72rem] font-medium uppercase tracking-[0.22em] text-gold-ink">
@@ -84,7 +84,7 @@ export function CtaBand({
   desc?: string;
 }) {
   return (
-    <section className="relative overflow-hidden bg-ink py-16 text-paper sm:py-20">
+    <section className="relative overflow-hidden bg-ink py-14 text-paper sm:py-20 lg:py-24">
       <div className="gold-rule absolute inset-x-0 top-0" />
       <div
         className="pointer-events-none absolute -right-32 -top-24 h-96 w-96 rounded-full opacity-30"

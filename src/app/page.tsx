@@ -38,7 +38,7 @@ export default function Home() {
       {/* ============ HERO ============ */}
       <section className="relative overflow-hidden paper-grain">
         <div className="gold-rule absolute inset-x-0 top-0" />
-        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-5 pb-20 pt-14 sm:px-8 sm:pt-20 lg:grid-cols-12 lg:gap-10 lg:pb-28 lg:pt-24">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-5 pb-16 pt-12 sm:px-8 sm:pb-20 sm:pt-16 lg:grid-cols-12 lg:items-center lg:gap-10 lg:pb-28 lg:pt-24">
           <div className="lg:col-span-7 lg:pr-6">
             <Reveal>
               <span className="inline-flex items-center gap-2.5 font-mono text-[0.72rem] font-medium uppercase tracking-[0.22em] text-gold">
@@ -110,7 +110,7 @@ export default function Home() {
       </section>
 
       {/* ============ SERVICES TEASER ============ */}
-      <section className="paper-grain py-20 sm:py-28">
+      <section className="paper-grain py-16 sm:py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <Reveal>
             <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
@@ -182,7 +182,7 @@ export default function Home() {
       </section>
 
       {/* ============ PROCESS TEASER ============ */}
-      <section className="border-y border-border bg-surface/50 py-20 sm:py-28">
+      <section className="border-y border-border bg-surface/50 py-16 sm:py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <Reveal>
             <div className="max-w-2xl">
@@ -214,7 +214,7 @@ export default function Home() {
       </section>
 
       {/* ============ FOUNDER NOTE TEASER ============ */}
-      <section id="about" className="paper-grain py-20 sm:py-28">
+      <section id="about" className="paper-grain py-16 sm:py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
             <Reveal className="lg:col-span-5" y={24}>
@@ -259,7 +259,7 @@ export default function Home() {
       </section>
 
       {/* ============ INDUSTRIES TEASER ============ */}
-      <section className="py-20 sm:py-28">
+      <section className="py-16 sm:py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <Reveal>
             <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
@@ -304,7 +304,7 @@ export default function Home() {
       </section>
 
       {/* ============ CALENDAR + PRICING TEASER ============ */}
-      <section className="border-y border-border bg-surface/50 py-20 sm:py-28">
+      <section className="border-y border-border bg-surface/50 py-16 sm:py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
             <Reveal>
@@ -338,7 +338,7 @@ export default function Home() {
       </section>
 
       {/* ============ FAQ TEASER ============ */}
-      <section className="py-20 sm:py-28">
+      <section className="py-16 sm:py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
             <Reveal className="lg:col-span-5">
@@ -370,7 +370,7 @@ export default function Home() {
       </section>
 
       {/* ============ BOOKING CTA ============ */}
-      <section className="relative overflow-hidden bg-ink py-20 text-paper sm:py-28">
+      <section className="relative overflow-hidden bg-ink py-16 text-paper sm:py-24 lg:py-28">
         <div className="gold-rule absolute inset-x-0 top-0" />
         <div className="pointer-events-none absolute -right-32 -top-24 h-96 w-96 rounded-full opacity-30" style={{ background: "radial-gradient(circle, rgba(184,135,59,0.5), transparent 70%)" }} />
         <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:gap-16">

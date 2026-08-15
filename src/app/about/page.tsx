@@ -97,7 +97,7 @@ export default function AboutPage() {
       />
 
       {/* ============ FOUNDER'S STORY ============ */}
-      <section className="paper-grain py-20 sm:py-28">
+      <section className="paper-grain py-16 sm:py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
             {/* Portrait */}
@@ -109,6 +109,7 @@ export default function AboutPage() {
                     alt={`Portrait of ${SITE.founder}, ${SITE.founderRole} of Yaara Consultancy Services`}
                     width={864}
                     height={1152}
+                    priority
                     className="h-full w-full object-cover"
                   />
                 </div>
@@ -192,7 +193,7 @@ export default function AboutPage() {
       </section>
 
       {/* ============ WHY YAARA — differentiator cards (varied layouts) ============ */}
-      <section className="border-y border-border bg-surface/50 py-20 sm:py-28">
+      <section className="border-y border-border bg-surface/50 py-16 sm:py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <Reveal>
             <div className="max-w-2xl">
@@ -321,7 +322,7 @@ export default function AboutPage() {
       </section>
 
       {/* ============ CA / CS PARTNER NETWORK ============ */}
-      <section className="paper-grain py-20 sm:py-28">
+      <section className="paper-grain py-16 sm:py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <Reveal>
             <div className="max-w-2xl">
@@ -430,7 +431,7 @@ export default function AboutPage() {
       </section>
 
       {/* ============ VALUES ============ */}
-      <section className="border-y border-border bg-surface/50 py-20 sm:py-28">
+      <section className="border-y border-border bg-surface/50 py-16 sm:py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <Reveal>
             <div className="max-w-2xl">
@@ -479,7 +480,7 @@ export default function AboutPage() {
       </section>
 
       {/* ============ STATS BAND ============ */}
-      <section className="paper-grain py-16 sm:py-20">
+      <section className="paper-grain py-12 sm:py-16">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <Reveal>
             <div className="grid grid-cols-2 divide-x divide-y divide-border border border-border sm:divide-y-0 lg:grid-cols-4">

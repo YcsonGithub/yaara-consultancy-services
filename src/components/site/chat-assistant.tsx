@@ -171,7 +171,7 @@ export function ChatAssistant() {
   return (
     <>
       {/* Trigger button — sits above the WhatsApp float */}
-      <div className="fixed bottom-24 right-5 z-40 sm:bottom-28 sm:right-6">
+      <div className="fixed bottom-[6.5rem] right-4 z-40 sm:bottom-[7rem] sm:right-6">
         <button
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Close Yaara assistant" : "Open Yaara assistant"}
@@ -209,7 +209,7 @@ export function ChatAssistant() {
           ref={panelRef}
           role="dialog"
           aria-label="Yaara assistant chat"
-          className="fixed inset-x-3 bottom-44 z-40 flex max-h-[calc(100vh-16rem)] flex-col overflow-hidden rounded-2xl border border-border bg-paper shadow-[0_30px_70px_-20px_rgba(14,42,71,0.5)] sm:inset-x-auto sm:bottom-44 sm:right-6 sm:w-[400px]"
+          className="fixed inset-x-3 bottom-[12rem] z-40 flex max-h-[calc(100vh-14rem)] flex-col overflow-hidden rounded-2xl border border-border bg-paper shadow-[0_30px_70px_-20px_rgba(14,42,71,0.5)] sm:inset-x-auto sm:bottom-48 sm:right-6 sm:w-[400px]"
         >
           {/* Header */}
           <div className="relative shrink-0 bg-ink px-4 py-3.5 text-paper">

@@ -90,8 +90,8 @@ export function ConsultationForm({ variant = "light" }: { variant?: "light" | "d
     <div
       className={
         onDark
-          ? "rounded-xl border border-paper/15 bg-paper p-6 text-ink shadow-[0_30px_70px_-30px_rgba(0,0,0,0.6)] sm:p-8"
-          : "rounded-xl border border-border bg-card p-6 shadow-[0_18px_44px_-26px_rgba(14,42,71,0.3)] sm:p-8"
+          ? "mx-auto w-full max-w-2xl rounded-xl border border-paper/15 bg-paper p-5 text-ink shadow-[0_30px_70px_-30px_rgba(0,0,0,0.6)] sm:p-8"
+          : "mx-auto w-full max-w-2xl rounded-xl border border-border bg-card p-5 shadow-[0_18px_44px_-26px_rgba(14,42,71,0.3)] sm:p-8"
       }
     >
       {done ? (

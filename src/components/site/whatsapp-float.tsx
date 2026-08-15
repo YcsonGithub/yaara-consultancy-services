@@ -39,7 +39,7 @@ export function WhatsAppFloat() {
   }, []);
 
   return (
-    <div className="fixed bottom-5 right-5 z-40 flex items-end gap-3 sm:bottom-6 sm:right-6">
+    <div className="fixed bottom-5 right-4 z-40 flex items-end gap-3 sm:bottom-6 sm:right-6">
       {expanded && (
         <div id="whatsapp-card" className="mb-1 max-w-[17rem] animate-in fade-in slide-in-from-bottom-2 duration-200 rounded-xl border border-border bg-card p-4 shadow-[0_18px_44px_-16px_rgba(14,42,71,0.4)]">
           <div className="flex items-start justify-between gap-2">

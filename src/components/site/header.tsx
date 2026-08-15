@@ -13,6 +13,7 @@ import {
   SheetTrigger,
   SheetClose,
   SheetTitle,
+  SheetDescription,
 } from "@/components/ui/sheet";
 
 export function SiteHeader() {
@@ -39,17 +40,17 @@ export function SiteHeader() {
           : "bg-paper/40 backdrop-blur-sm"
       )}
     >
-      <div className="mx-auto flex h-[4.75rem] max-w-7xl items-center justify-between px-5 sm:px-8">
+      <div className="mx-auto flex h-[4.75rem] max-w-7xl items-center justify-between gap-4 px-5 sm:px-8">
         <Link
           href="/"
-          className="flex items-center transition-opacity hover:opacity-90"
+          className="flex shrink-0 items-center transition-opacity hover:opacity-90"
           aria-label="Yaara Consultancy Services — home"
         >
           <YaaraLogo height={42} />
         </Link>
 
-        {/* Desktop nav — visible at lg+ (1024px and up) */}
-        <nav aria-label="Primary" className="hidden items-center gap-5 lg:flex xl:gap-6">
+        {/* Desktop nav — centered, visible at lg+ (1024px and up) */}
+        <nav aria-label="Primary" className="hidden flex-1 items-center justify-center gap-5 lg:flex xl:gap-6">
           {NAV_LINKS.map((item) => (
             <Link
               key={item.href}
@@ -62,7 +63,7 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden shrink-0 items-center gap-3 lg:flex">
           <a
             href={CONTACT.phoneHref}
             className="hidden items-center gap-1.5 font-sans text-[0.84rem] font-medium text-body hover:text-ink transition-colors xl:inline-flex"
@@ -94,6 +95,9 @@ export function SiteHeader() {
           >
             {/* Visually-hidden title gives the dialog an accessible name (WCAG 4.1.2) */}
             <SheetTitle className="sr-only">Site navigation</SheetTitle>
+            <SheetDescription className="sr-only">
+              Navigate to any page on the Yaara Consultancy Services website.
+            </SheetDescription>
             <div className="flex items-center justify-between border-b border-border px-5 py-4">
               <YaaraLogo height={38} />
               <SheetClose asChild>
