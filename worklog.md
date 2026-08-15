@@ -746,3 +746,43 @@ Stage Summary:
 - ReopenConsentTrigger component now accepts className prop for dark/light mode flexibility.
 - Dev server restarted with cleared Turbopack cache.
 - All changes verified live via Agent Browser + VLM on desktop and mobile.
+
+---
+Task ID: 11
+Agent: Orchestrator (main) — footer redesigned to match user's target reference
+Task: User said the dark navy footer from Task 10 looked "weird" and shared a reference footer (Global Marketing Zone / CMZ style) they wanted instead. Rebuild the footer to match: 4-col asymmetric grid, newsletter signup hero, clean contact column with gold icons, meta bar with "Back to top", bottom legal bar with all legal links in one horizontal row.
+
+Work Log:
+- Analyzed both user-uploaded screenshots via VLM:
+  • Image 1 (current "weird" footer): VLM identified issues — information overload/wall of text, grievance officer band feels tacked on, visual imbalance (heavy left), all-caps fatigue, inconsistent detail levels.
+  • Image 2 (target reference): VLM extracted the design spec — 4-column asymmetric grid (heavy left ~35%), deep charcoal/navy bg (#0F172A), gold accent (#F59E0B) for CTAs/headers/contact icons, newsletter signup as hero feature (dark input + gold Subscribe button), ghost-button social icons, "Back to top" link in meta bar, legal links in single horizontal row at very bottom (Privacy | Terms | Cookies | Refund | Disclaimer | Cookie settings), no grievance band.
+- Created src/components/site/newsletter-form.tsx — new client component for footer email capture:
+  • Email validation (regex), loading state with spinner, success state with inline "You're subscribed" checkmark card
+  • Uses project's existing useToast hook (not sonner) for toast notifications
+  • "THE MONTHLY LEDGER — One compliance deadline, one practical tip — every month." (accounting-firm adaptation of the reference's "THE WEEKLY NUMBER")
+  • Dark input (paper/5 bg, paper/15 border) + gold Subscribe button with arrow icon
+  • Resets to idle form after 2.5s so user could subscribe again
+- Completely rewrote src/components/site/footer.tsx with the target design:
+  • 4-column asymmetric grid: left col (lg:col-span-5) = logo + blurb + newsletter form + social icons; right 3 cols (lg:col-span-7) = Pages / Services / Contact
+  • Deep navy bg (bg-ink), gold-light accents for headers + icons + CTA
+  • Contact column uses icon+text pattern with gold-light icons (Mail, Phone, MapPin) — matches target's "scannable contact info" pattern
+  • Removed the DPDP grievance officer band entirely (was the "tacked on" element). Grievance officer info already lives prominently on /legal/privacy (linked from bottom legal bar) — sufficient for DPDP §8(9) "easily accessible" requirement.
+  • Meta bar: contact one-liner (email · phone · city) on left, "Back to top" link (scrolls to #main-content) on right
+  • Legal bar at very bottom: copyright (left) + horizontal row of legal links (right) — Privacy Policy, Terms of Service, Refund, Cookies, Disclaimer, Cookie settings. Shortened labels (e.g. "Refund & Cancellation Policy" → "Refund", "Cookie Policy" → "Cookies") to fit in one row like the target.
+  • Compact "Not a CA firm" disclaimer line with link to /legal/disclaimer
+  • SocialLink component: ghost-button style (paper/5 bg, paper/15 border, hover gold-light)
+- Verification (Agent Browser + VLM):
+  • Desktop (1440px): VLM rated 8.5/10. Confirmed all 6 target criteria: ✅ newsletter form present, ✅ 4 columns, ✅ gold contact icons, ✅ "Back to top" link, ✅ legal links in horizontal row, ✅ grievance band removed. "Clean, modern, premium-looking consultancy footer. Sophisticated contrast."
+  • Mobile (390px): VLM confirmed clean stacking, no overflow, newsletter form usable, legal links readable. "Responsive and functional."
+  • Newsletter form submission: filled email "test@example.com", clicked Subscribe → both inline "You're subscribed ✓" confirmation AND toast notification "You're on the list. One deadline, one tip — every month. No spam." appeared. Form reset to idle after 2.5s.
+  • "Back to top" link: clicked → page scrolled from ~4800px back to ~118px (near top). Works.
+  • Legal link navigation: clicked "Cookies" → navigated to /legal/cookie → page loads with full Cookie Policy content. Works.
+  • All 5 legal links + Cookie settings trigger confirmed present in bottom legal bar.
+- Lint clean. No compile errors. All routes 200.
+
+Stage Summary:
+- New file: src/components/site/newsletter-form.tsx — client-side newsletter signup with validation, loading/success states, toast notifications.
+- Rewrote: src/components/site/footer.tsx — 4-column asymmetric dark navy footer matching user's reference design. Newsletter hero, gold-accented contact column, meta bar with back-to-top, bottom legal bar.
+- Removed: DPDP grievance officer band (info still on /legal/privacy).
+- All legal pages (Privacy, Terms, Cookies, Refund, Disclaimer) + Cookie settings linked in bottom legal bar.
+- VLM rated 8.5/10. Mobile-responsive. Newsletter form + back-to-top + legal links all verified working.
