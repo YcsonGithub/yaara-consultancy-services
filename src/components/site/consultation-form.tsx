@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useId } from "react";
 import { ArrowRight, ShieldCheck, Clock, MessageCircle, CheckCircle2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Input } from "@/components/ui/input";
@@ -100,44 +100,49 @@ export function ConsultationForm({ variant = "light" }: { variant?: "light" | "d
         <form onSubmit={onSubmit} className="space-y-5" noValidate>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <Field label="Your name" required>
-              <Input name="name" placeholder="e.g. Priya Sharma" autoComplete="name" required className="h-11" />
+              {(id) => <Input id={id} name="name" placeholder="e.g. Priya Sharma" autoComplete="name" required className="h-11" />}
             </Field>
             <Field label="Email" required>
-              <Input name="email" type="email" placeholder="you@business.in" autoComplete="email" required className="h-11" />
+              {(id) => <Input id={id} name="email" type="email" placeholder="you@business.in" autoComplete="email" required className="h-11" />}
             </Field>
           </div>
 
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <Field label="Phone (optional)">
-              <Input name="phone" type="tel" placeholder="+91 90000 00000" autoComplete="tel" className="h-11" />
+              {(id) => <Input id={id} name="phone" type="tel" placeholder="+91 90000 00000" autoComplete="tel" className="h-11" />}
             </Field>
             <Field label="Business name (optional)">
-              <Input name="business" placeholder="e.g. Sharma & Co." autoComplete="organization" className="h-11" />
+              {(id) => <Input id={id} name="business" placeholder="e.g. Sharma & Co." autoComplete="organization" className="h-11" />}
             </Field>
           </div>
 
           <Field label="What do you need help with?">
-            <Select value={service} onValueChange={setService}>
-              <SelectTrigger className="h-11 w-full">
-                <SelectValue placeholder="Pick the closest match" />
-              </SelectTrigger>
-              <SelectContent>
-                {SERVICE_OPTIONS.map((s) => (
-                  <SelectItem key={s} value={s}>
-                    {s}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            {(id) => (
+              <Select value={service} onValueChange={setService}>
+                <SelectTrigger id={id} className="h-11 w-full">
+                  <SelectValue placeholder="Pick the closest match" />
+                </SelectTrigger>
+                <SelectContent>
+                  {SERVICE_OPTIONS.map((s) => (
+                    <SelectItem key={s} value={s}>
+                      {s}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
           </Field>
 
           <Field label="Anything we should know before the call? (optional)">
-            <Textarea
-              name="message"
-              placeholder="e.g. We're a 6-person agency, GST registered, missed last month's filing."
-              rows={4}
-              className="resize-none"
-            />
+            {(id) => (
+              <Textarea
+                id={id}
+                name="message"
+                placeholder="e.g. We're a 6-person agency, GST registered, missed last month's filing."
+                rows={4}
+                className="resize-none"
+              />
+            )}
           </Field>
 
           <button
@@ -151,7 +156,7 @@ export function ConsultationForm({ variant = "light" }: { variant?: "light" | "d
 
           <div className="flex flex-wrap gap-x-5 gap-y-2 pt-1">
             <span className="inline-flex items-center gap-1.5 font-mono text-[0.7rem] text-muted-foreground">
-              <Clock className="h-3 w-3 text-gold" /> 1-day reply
+              <Clock className="h-3 w-3 text-gold-ink" /> 1-day reply
             </span>
             <span className="inline-flex items-center gap-1.5 font-mono text-[0.7rem] text-muted-foreground">
               <ShieldCheck className="h-3 w-3 text-gold" /> Encrypted & private
@@ -173,15 +178,19 @@ function Field({
 }: {
   label: string;
   required?: boolean;
-  children: React.ReactNode;
+  children: (id: string) => React.ReactNode;
 }) {
+  // Programmatic label association (WCAG 1.3.1 / 3.3.2 / 4.1.2).
+  // Render-prop so the same id reaches Input, Textarea, AND the Radix
+  // SelectTrigger (which renders the focusable button).
+  const id = useId();
   return (
     <div className="space-y-1.5">
-      <Label className="font-sans text-[0.82rem] font-medium text-ink">
+      <Label htmlFor={id} className="font-sans text-[0.82rem] font-medium text-ink">
         {label}
-        {required && <span className="ml-0.5 text-gold">*</span>}
+        {required && <span className="ml-0.5 text-gold-ink">*</span>}
       </Label>
-      {children}
+      {children(id)}
     </div>
   );
 }

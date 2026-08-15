@@ -302,7 +302,7 @@ export function ChatAssistant() {
                 rows={1}
                 placeholder="Ask about a service, deadline, or price…"
                 aria-label="Type your message"
-                className="scroll-fine max-h-28 min-h-[2.75rem] flex-1 resize-none rounded-lg border border-border bg-paper px-3 py-2.5 font-sans text-[0.88rem] text-ink placeholder:text-muted-foreground focus:border-gold focus:outline-none"
+                className="scroll-fine max-h-28 min-h-[2.75rem] flex-1 resize-none rounded-lg border border-border bg-paper px-3 py-2.5 font-sans text-[0.88rem] text-ink placeholder:text-muted-foreground focus-visible:border-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
               />
               <button
                 type="submit"

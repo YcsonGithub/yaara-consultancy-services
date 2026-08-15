@@ -12,6 +12,7 @@ import {
   SheetContent,
   SheetTrigger,
   SheetClose,
+  SheetTitle,
 } from "@/components/ui/sheet";
 
 export function SiteHeader() {
@@ -48,12 +49,12 @@ export function SiteHeader() {
         </Link>
 
         {/* Desktop nav — visible at lg+ (1024px and up) */}
-        <nav className="hidden items-center gap-5 lg:flex xl:gap-6">
+        <nav aria-label="Primary" className="hidden items-center gap-5 lg:flex xl:gap-6">
           {NAV_LINKS.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              data-active={isActive(item.href)}
+              aria-current={isActive(item.href) ? "page" : undefined}
               className="nav-underline font-sans text-[0.86rem] font-medium text-body hover:text-ink transition-colors xl:text-[0.9rem]"
             >
               {item.label}
@@ -66,7 +67,7 @@ export function SiteHeader() {
             href={CONTACT.phoneHref}
             className="hidden items-center gap-1.5 font-sans text-[0.84rem] font-medium text-body hover:text-ink transition-colors xl:inline-flex"
           >
-            <Phone className="h-3.5 w-3.5 text-gold" />
+            <Phone className="h-3.5 w-3.5 text-gold-ink" />
             {CONTACT.phone}
           </a>
           <Link
@@ -91,6 +92,8 @@ export function SiteHeader() {
             side="right"
             className="w-[85vw] max-w-sm border-border bg-paper p-0"
           >
+            {/* Visually-hidden title gives the dialog an accessible name (WCAG 4.1.2) */}
+            <SheetTitle className="sr-only">Site navigation</SheetTitle>
             <div className="flex items-center justify-between border-b border-border px-5 py-4">
               <YaaraLogo height={38} />
               <SheetClose asChild>
@@ -102,11 +105,12 @@ export function SiteHeader() {
                 </button>
               </SheetClose>
             </div>
-            <nav className="flex flex-col px-3 py-4">
+            <nav aria-label="Mobile" className="flex flex-col px-3 py-4">
               {NAV_LINKS.map((item) => (
                 <SheetClose asChild key={item.href}>
                   <Link
                     href={item.href}
+                    aria-current={isActive(item.href) ? "page" : undefined}
                     className={cn(
                       "rounded-md px-3 py-3 font-sans text-[1rem] font-medium",
                       isActive(item.href)
@@ -126,7 +130,7 @@ export function SiteHeader() {
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 rounded-md border border-border px-4 py-2.5 font-sans text-[0.92rem] font-medium text-ink"
               >
-                <MessageCircle className="h-4 w-4 text-gold" />
+                <MessageCircle className="h-4 w-4 text-gold-ink" />
                 WhatsApp us
               </a>
               <SheetClose asChild>

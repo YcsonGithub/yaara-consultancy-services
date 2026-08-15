@@ -9,6 +9,8 @@ import { PageHero, CtaBand } from "@/components/site/section";
 import { Reveal } from "@/components/site/reveal";
 import { INDUSTRIES } from "@/lib/site";
 import { cn } from "@/lib/utils";
+import { breadcrumbSchema } from "@/lib/schema";
+import { JsonLd } from "@/components/site/json-ld";
 
 export const metadata = {
   title: "Industries we serve",
@@ -19,6 +21,12 @@ export const metadata = {
 export default function IndustriesPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Industries", path: "/industries" },
+        ])}
+      />
       {/* ============ HERO ============ */}
       <PageHero
         eyebrow="Industries we serve"

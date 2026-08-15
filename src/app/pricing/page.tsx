@@ -12,6 +12,8 @@ import { PageHero, CtaBand } from "@/components/site/section";
 import { Reveal } from "@/components/site/reveal";
 import { PRICING_TIERS, FLAT_FEES } from "@/lib/site";
 import { cn } from "@/lib/utils";
+import { breadcrumbSchema } from "@/lib/schema";
+import { JsonLd } from "@/components/site/json-ld";
 
 export const metadata = {
   title: "Pricing — transparent fees, no quote walls",
@@ -40,6 +42,12 @@ const FAQ_PRICE = [
 export default function PricingPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Pricing", path: "/pricing" },
+        ])}
+      />
       {/* ============ HERO ============ */}
       <PageHero
         eyebrow="Pricing"

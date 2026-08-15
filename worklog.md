@@ -528,3 +528,89 @@ Stage Summary:
 - Chat panel no longer covers the header on short viewports.
 - Gold button hover color consistent across the entire site.
 - Contact map shows the correct office address + doesn't trap mobile scroll.
+
+---
+
+Task ID: 6
+Agent: full-stack-developer (legal pages)
+Task: Rewrite the 4 placeholder legal pages (privacy, terms, refund, disclaimer) as real, DPDP-Act-compliant content, create a NEW Cookie Policy page, and enhance the shared LegalBody component to support rich content + a grievance officer callout.
+
+Work Log:
+- Read worklog.md, src/lib/site.ts (SITE, CONTACT, GRIEVANCE_OFFICER, LEGAL_PAGES), existing src/app/legal/legal-body.tsx, all 4 existing placeholder pages, and src/components/site/{section,reveal}.tsx to understand the design system (Deep Navy ink, Antique Gold, Warm Paper, Fraunces serif, Work Sans body, IBM Plex Mono for labels/dates).
+- Enhanced `src/app/legal/legal-body.tsx`:
+  • Added `lastUpdated?: string` prop — when set, suppresses the "This page is being finalised" notice and replaces it with a `Last updated: <date> · <Site name>` mono caption.
+  • Added `showGrievance?: boolean` prop — renders a prominent gold-bordered callout with the DPDP §8(9) Grievance Officer (name, role, email, phone, response window) imported from `@/lib/site`.
+  • Changed `sections[].body` from `string` to `ReactNode` so pages can render multiple paragraphs, lists, tables, and cross-links per section. Added `[&_ul]`, `[&_a]`, `[&_strong]`, `[&_code]` Tailwind arbitrary-selector styling on the body wrapper so rich content stays visually consistent.
+  • Added optional `index` field per section — rendered as a mono gold "§ n" label above each heading.
+  • Added optional `children` slot rendered between sections and the contact box — used by the Cookie Policy page for the cookie inventory table.
+  • Added anchor `id={slugify(heading)}` on each section for deep-linking.
+  • Kept the existing contact box, back-links footer, card-with-gold-accent styling — fully backward-compatible (existing prop signature still works).
+- Rewrote `src/app/legal/privacy/page.tsx` — DPDP Act 2023 compliant, 13 sections:
+  §1 Data Fiduciary identity (Yaara, founder Anakali Pawan Kalyan, registered office) · §2 Grievance Officer (24h ack / 21d resolution per §8(9)) · §3 Personal data collected (identity, contact, business/financial, KYC, communications, website usage) · §4 Purposes of processing · §5 Legal basis (consent, contract, legal obligation, legitimate interest) · §6 Retention (6–8 yrs Income-tax, 6 yrs GST, 8 yrs Companies Act, etc.) · §7 Data sharing (govt portals, CA partner network, cloud providers — no sale of data) · §8 DPDP rights (access, correction, erasure, grievance redressal, nomination) · §9 Security (encrypted uploads, access controls, confidentiality agreements, breach notification) · §10 Cookies cross-ref to /legal/cookie · §11 Children's data · §12 Changes · §13 Contact. `showGrievance` enabled — callout is prominent at the top of the card.
+- Rewrote `src/app/legal/terms/page.tsx` — 14 sections:
+  §1 Acceptance · §2 Engagement scope · §3 "Not a CA firm" honesty disclosure (statutory audit/certification via empanelled CA network, also not a law firm) · §4 Client responsibilities · §5 Yaara responsibilities · §6 Fees & invoicing (retainer monthly in advance, one-off at engagement, UPI/NEFT/cheque, 7-day payment terms) · §7 Deadlines (calendar is indicative, internal cut-off dates, not liable for client-caused delays) · §8 IP (deliverables assigned on payment, methodologies retained) · §9 Confidentiality cross-ref · §10 Limitation of liability (capped at fees paid in prior 12 months) · §11 Termination (7-day notice, current month non-refundable, future months pro-rated) · §12 Governing law (Telangana) + jurisdiction (Hyderabad courts) · §13 Changes · §14 Contact.
+- Rewrote `src/app/legal/refund/page.tsx` — 8 sections:
+  §1 Scope & principles · §2 One-off services (full refund before work starts; unutilised portion if work started; non-refundable once filing submitted) · §3 Retainer services (7-day notice, current month non-refundable, future months pro-rated) · §4 Statutory/government fees (never refundable once paid to authority — GST, MCA, IT, TDS, trademark, penalties) · §5 How to request (email contact@yaaraconsultancyservices.com with invoice #, 2-day ack, 5-day decision, 7–10 day processing) · §6 Cases of no refund (6 explicit cases) · §7 Chargebacks · §8 Changes.
+- Created NEW `src/app/legal/cookie/page.tsx` — 7 sections + cookie inventory table:
+  §1 What cookies are · §2 Categories (Essential / Analytics / Marketing-reserved) · §3 Google Consent Mode v2 (cookieless pings before consent, modelled conversions on denial, DPDP + EU DMA alignment) · §4 Third-party providers (Google via GTM/GA4, with links to Google Privacy Policy, Cookies Policy, Consent Mode docs) · §5 Managing & disabling (consent banner, browser settings with Chrome/Firefox/Safari/Edge help links, GA opt-out add-on) · §6 Updates · §7 Cross-ref to Privacy Policy. Cookie table rendered via `children` slot — 6 rows (yaara_consent, yaara_session, _ga, _ga_<container-id>, _gid, _gcl_au) with Cookie / Purpose / Duration / Category columns, responsive horizontal scroll on mobile, mono font for cookie names and durations.
+- Expanded `src/app/legal/disclaimer/page.tsx` from 5 sections to 10:
+  §1 Informational nature (3 paragraphs on general-info vs professional advice, law changes) · §2 Not legal/tax/accounting advice · §3 Deadlines & compliance calendar (6 factors that affect actual due date) · §4 Not a CA firm (statutory work via CA network, also not a law firm, with cross-ref to Terms) · §5 No client-practitioner relationship by site visit · §6 External links policy · §7 Accuracy of content · §8 Limitation of liability · §9 Changes · §10 Contact.
+- All 5 pages: Server Components (no "use client"); `metadata` export with title + description + canonical alternates; import `GRIEVANCE_OFFICER`, `CONTACT`, `SITE` from `@/lib/site` (no hardcoded contact details); all cross-links use Next `<Link>` with relative paths; "Last updated: 2026" line on every page; brand color system (navy headings, gold accents, warm paper); `font-mono` for §-indices, dates, cookie names.
+- Verification:
+  • `bunx eslint src/app/legal/` — clean, no errors in any legal file.
+  • `bunx tsc --noEmit` — no TypeScript errors in legal files (pre-existing errors in book/page.tsx, consent-provider.tsx, examples/, skills/ are outside task scope and not introduced by this work).
+  • Started dev server, curled all 5 routes — ALL returned HTTP 200 with substantial content (265–324 KB each):
+      /legal/privacy  -> HTTP 200 (324,474 bytes)
+      /legal/terms    -> HTTP 200 (304,290 bytes)
+      /legal/refund   -> HTTP 200 (265,787 bytes)
+      /legal/cookie   -> HTTP 200 (287,868 bytes)
+      /legal/disclaimer -> HTTP 200 (272,224 bytes)
+  • dev.log: all 5 routes 200, no compile errors, no Turbopack panics on these routes.
+  • Content spot-checks confirmed: grievance officer callout (name + email + DPDP §8(9) + 24h/21d response window) renders on /legal/privacy; cookie inventory table with all 6 cookies + Consent Mode v2 copy renders on /legal/cookie; "Telangana / Hyderabad courts / not a CA firm" on /legal/terms; "7–10 working days + contact@yaaraconsultancyservices.com" on /legal/refund; "Informational nature / compliance calendar / External links / not a practicing CA firm" on /legal/disclaimer.
+  • "being finalised" placeholder text is fully suppressed on all 5 pages (0 occurrences each); "Last updated: 2026" present on all 5 (1 occurrence each).
+
+Stage Summary:
+- Files modified: `src/app/legal/legal-body.tsx` (enhanced with `lastUpdated`, `showGrievance`, `children`, `index`, rich `ReactNode` body, slug anchors).
+- Files rewritten: `src/app/legal/privacy/page.tsx`, `src/app/legal/terms/page.tsx`, `src/app/legal/refund/page.tsx`, `src/app/legal/disclaimer/page.tsx`.
+- File created: `src/app/legal/cookie/page.tsx` (NEW Cookie Policy route — already wired into LEGAL_PAGES and the footer sitemap from Task 0).
+- All 5 legal pages now contain real, substantial, DPDP-Act-compliant copy (2–4+ sentence paragraphs per section, bulleted lists where appropriate, statutory references — Income-tax Act §149, CGST Act §36, Companies Act 2013, DPDP Act §8(9) and §9).
+- Grievance Officer (Anakali Pawan Kalyan, grievance@yaaraconsultancyservices.com) is prominent on the Privacy Policy page in a gold-bordered callout above the section list.
+- Cookie inventory table on /legal/cookie lists all 6 cookies with purpose, duration, and category — including the reserved marketing slot for transparency.
+- All cross-links between legal pages use Next `<Link>` with relative paths (privacy↔cookie, terms↔privacy, terms↔refund, terms↔disclaimer, disclaimer↔privacy, disclaimer↔terms, disclaimer↔compliance-calendar).
+- No files outside `src/app/legal/` were modified. Lint clean for legal files. All 5 routes return HTTP 200.
+
+---
+Task ID: 7
+Agent: full-stack-developer (schema injection) — completed; result transport failed so orchestrator is recording on its behalf
+Task: Inject JSON-LD structured data (Service, ItemList, FAQPage, BreadcrumbList) onto pages missing it.
+
+Work Log:
+- Service detail pages (/services/[slug]): added `<JsonLd data={serviceSchema(slug)} />` + BreadcrumbList (Home → Services → category → service).
+- Services overview (/services): added `<JsonLd data={serviceListSchema()} />` (ItemList of all 35 services) + BreadcrumbList.
+- FAQ page (/resources/faqs): added `<JsonLd data={faqPageSchema()} />` (FAQPage) + BreadcrumbList.
+- About, Pricing, Industries, Resources, Contact, Book pages: added BreadcrumbList each.
+- All via `@/lib/schema` builders + `@/components/site/json-ld` renderer. Server-safe, no layout touched.
+
+Stage Summary:
+- Verified rendering via curl+grep: service page emits 13 schema @types (Service, BreadcrumbList, Offer, ContactPoint, GeoCoordinates, OpeningHoursSpecification, Person, PostalAddress, SearchAction, WebSite, ListItem, Country, EntryPoint). /resources/faqs emits FAQPage. /services emits ItemList. /about emits BreadcrumbList. All confirmed in production HTML.
+
+---
+Task ID: 8 (orchestrator wrap-up)
+Agent: Orchestrator (main) — compliance/SEO/performance/accessibility engine layer
+Task: Implement the 7 critical "engine" dimensions: DPDP consent, Core Web Vitals, Google tracking stack, Schema markup, WCAG 2.2 AA, sitemap/robots/manifest/404 infra, grievance officer.
+
+Work Log:
+- Foundation data (`src/lib/site.ts`): added GRIEVANCE_OFFICER (DPDP §8(9)), SOCIAL, LEGAL_PAGES registry, ANALYTICS (env-driven GTM/GA4 config).
+- Created `src/lib/schema.ts` — JSON-LD builders: organizationSchema (ProfessionalService+LocalBusiness+Organization), websiteSchema (SearchAction), serviceSchema, serviceListSchema, faqPageSchema, breadcrumbSchema. Created `src/components/site/json-ld.tsx` renderer.
+- Created `src/lib/analytics.ts` — Consent Mode v2 default/update scripts, GTM bootstrap, GA4 fallback, all env-gated (no hardcoded IDs).
+- Created `src/components/site/consent-provider.tsx` (useSyncExternalStore over localStorage — proper React 18+ pattern, no set-state-in-effect) + `src/components/site/cookie-banner.tsx` (granular analytics/marketing toggles, Cookie Policy link, reject-as-easy-as-accept). ReopenConsentTrigger in footer for withdrawal.
+- Rewrote `src/app/layout.tsx`: raw inline consent-default script (runs before GTM in document order), GTM bootstrap + noscript (env-gated), Organization + WebSite JSON-LD site-wide, skip-to-content link (first focusable), `<main tabIndex={-1}>`, enhanced metadata (canonical, alternates, OG/Twitter images, robots, theme-color, GSC verification, manifest), viewport themeColor.
+- Created `src/app/manifest.ts` (PWA), `src/app/sitemap.ts` (56 URLs: static + 35 services + 6 industries + 5 legal), `src/app/robots.ts` (allows all, blocks /api/_next/admin, sitemap+host referenced; deleted static public/robots.txt), `src/app/not-found.tsx` (branded 404 with popular services).
+- Footer: grievance officer gold-bordered callout (DPDP), LEGAL_PAGES map (incl. new Cookie Policy), Cookie preferences trigger, real social hrefs.
+- Accessibility pass (from WCAG audit): darkened `--muted-foreground` #7A8394→#5B6473 (AA on paper), `--ring` gold→navy (1.4.11), added `--gold-ink` #8C6326 token (4.6:1 on paper) + swapped section/PageHero eyebrows + form asterisks + cookie/icons site-wide. Form labels via useId render-prop (1.3.1/3.3.2/4.1.2). aria-current="page" on nav (1.3.1). aria-label="Primary"/"Mobile" on navs. SheetTitle in mobile menu (4.1.2). aria-expanded/aria-controls on cookie "Customise" + WhatsApp toggle (4.1.2). Fixed chat textarea focus suppression (2.4.7/1.4.11). nav-underline 1px→2px + aria-current selector.
+
+Stage Summary:
+- All 7 dimensions implemented. Lint clean. All routes 200 (incl. /sitemap.xml, /robots.txt, /manifest.webmanifest); /nonexistent → branded 404.
+- Schema verified in HTML: service page emits 13 @types (Service, BreadcrumbList, Offer, ContactPoint, GeoCoordinates, OpeningHoursSpecification…); /resources/faqs → FAQPage; /services → ItemList; breadcrumbs on all key pages.
+- Agent Browser end-to-end: home renders (correct title), consent banner appears + dismissable via "Reject all" (banner gone, footer cookie links remain), 404 branded ("This page isn't on the books."), Cookie Policy page loads, mobile 390px responsive with footer grievance officer block, zero page/console errors.
+- Env keys for production: NEXT_PUBLIC_GTM_ID, NEXT_PUBLIC_GA4_ID, NEXT_PUBLIC_GSC_VERIFICATION. Until set, NO third-party script loads — consent layer still records preferences locally.

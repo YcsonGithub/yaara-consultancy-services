@@ -10,6 +10,8 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import { FAQS, CONTACT, SITE } from "@/lib/site";
+import { faqPageSchema, breadcrumbSchema } from "@/lib/schema";
+import { JsonLd } from "@/components/site/json-ld";
 
 export const metadata: Metadata = {
   title: "Frequently Asked Questions — Yaara Consultancy Services",
@@ -21,6 +23,14 @@ export const metadata: Metadata = {
 export default function FaqsPage() {
   return (
     <>
+      <JsonLd data={faqPageSchema()} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Resources", path: "/resources" },
+          { name: "FAQs", path: "/resources/faqs" },
+        ])}
+      />
       <PageHero
         eyebrow="Resources · FAQs"
         title={

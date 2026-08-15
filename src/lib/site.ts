@@ -31,6 +31,53 @@ export const CONTACT = {
   },
 } as const;
 
+/**
+ * DPDP Act — designated Grievance Officer.
+ * Section 8(9) of the Digital Personal Data Protection Act, 2023 requires
+ * every Data Fiduciary to publish the name and contact details of a
+ * Grievance Officer who acknowledges complaints within 24 hours and
+ * resolves them within 21 days (maximum 2 months).
+ */
+export const GRIEVANCE_OFFICER = {
+  name: "Anakali Pawan Kalyan",
+  role: "Grievance Officer & Founder",
+  email: "grievance@yaaraconsultancyservices.com",
+  phone: CONTACT.phone,
+  phoneHref: CONTACT.phoneHref,
+  responseWindow: "Acknowledgement within 24 hours · Resolution within 21 days (DPDP Act §8(9))",
+} as const;
+
+/** Social profiles (used in footer + schema `sameAs`). */
+export const SOCIAL = [
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/yaara-consultancy-services", icon: "Linkedin" },
+  { label: "Instagram", href: "https://www.instagram.com/yaara.consultancy", icon: "Instagram" },
+  { label: "WhatsApp", href: CONTACT.whatsappHref, icon: "MessageCircle" },
+] as const;
+
+/** Legal pages registry — order used in footer + sitemap. */
+export const LEGAL_PAGES = [
+  { slug: "privacy", label: "Privacy Policy" },
+  { slug: "terms", label: "Terms of Service" },
+  { slug: "refund", label: "Refund & Cancellation Policy" },
+  { slug: "cookie", label: "Cookie Policy" },
+  { slug: "disclaimer", label: "Disclaimer" },
+] as const;
+
+/**
+ * Analytics configuration — env-driven so the build ships with NO
+ * hardcoded IDs. In production, set NEXT_PUBLIC_GTM_ID and
+ * NEXT_PUBLIC_GA4_ID in the deployment environment. Until set, all
+ * tracking scripts are suppressed (the consent layer still records
+ * preferences locally, but no third-party scripts ever load).
+ */
+export const ANALYTICS = {
+  gtmId: process.env.NEXT_PUBLIC_GTM_ID ?? "",
+  ga4Id: process.env.NEXT_PUBLIC_GA4_ID ?? "",
+  /** GA4 measurement ID for the gtag.js fallback when GTM isn't used. */
+  gtmEnabled: Boolean(process.env.NEXT_PUBLIC_GTM_ID),
+  ga4Enabled: Boolean(process.env.NEXT_PUBLIC_GA4_ID),
+} as const;
+
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },

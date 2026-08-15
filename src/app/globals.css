@@ -39,6 +39,7 @@
   --color-ink-dark: var(--ink-dark);
   --color-gold: var(--gold);
   --color-gold-light: var(--gold-light);
+  --color-gold-ink: var(--gold-ink);
   --color-paper: var(--paper);
   --color-surface: var(--surface);
   --color-body: var(--body);
@@ -85,12 +86,13 @@
   --ink-dark: #0B1F3A;      /* Midnight — hover / dark sections */
   --foreground: #0E2A47;    /* default text reads navy-on-paper */
   --body: #3D4654;          /* Slate — body copy */
-  --muted-foreground: #7A8394; /* Cool Gray — captions, metadata */
+  --muted-foreground: #5B6473; /* Cool Gray — captions, metadata (WCAG AA on paper) */
 
   /* Brand */
   --primary: #0E2A47;       /* Navy */
   --primary-foreground: #FAF7F1;
-  --gold: #B8873B;          /* Antique Gold — used sparingly */
+  --gold: #B8873B;          /* Antique Gold — dark sections + large/decorative (4.56:1 on navy) */
+  --gold-ink: #8C6326;      /* Darker gold — text on light surfaces (4.6:1 on paper, AA) */
   --gold-light: #D4A855;    /* Brighter gold for dark sections */
   --accent: #B8873B;
   --accent-foreground: #0E2A47;
@@ -103,7 +105,7 @@
   /* Lines */
   --border: #DCD9CF;        /* Soft Slate hairlines */
   --input: #DCD9CF;
-  --ring: #B8873B;          /* Gold focus ring */
+  --ring: #0E2A47;          /* Navy focus ring — 13.6:1 on paper (WCAG 1.4.11) */
 
   /* Status — muted-earth family */
   --success: #2F6B4F;       /* Muted Emerald */
@@ -272,19 +274,19 @@
   position: absolute;
   left: 0;
   bottom: -4px;
-  height: 1px;
+  height: 2px;
   width: 0;
-  background: var(--gold);
+  background: var(--gold-ink);
   transition: width 300ms ease-out;
 }
 .nav-underline:hover::after,
-.nav-underline[data-active="true"]::after {
+.nav-underline[aria-current="page"]::after {
   width: 100%;
 }
 
-/* Focus-visible ring in brand gold */
+/* Focus-visible ring — high-contrast navy on light surfaces (WCAG 1.4.11) */
 :where(a, button, input, textarea, select, [tabindex]):focus-visible {
-  outline: 2px solid var(--gold);
+  outline: 2px solid var(--ring);
   outline-offset: 2px;
   border-radius: 2px;
 }

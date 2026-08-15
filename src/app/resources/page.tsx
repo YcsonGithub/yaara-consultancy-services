@@ -11,6 +11,8 @@ import {
 import { PageHero, CtaBand } from "@/components/site/section";
 import { Reveal } from "@/components/site/reveal";
 import { SITE } from "@/lib/site";
+import { breadcrumbSchema } from "@/lib/schema";
+import { JsonLd } from "@/components/site/json-ld";
 
 export const metadata: Metadata = {
   title: "Resources — Compliance Calendar, FAQs & Knowledge Center",
@@ -55,6 +57,12 @@ const KNOWLEDGE_ARTICLES = [
 export default function ResourcesPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Resources", path: "/resources" },
+        ])}
+      />
       <PageHero
         eyebrow="Resources"
         title={

@@ -8,6 +8,8 @@ import {
 } from "@/lib/services";
 import { Reveal } from "@/components/site/reveal";
 import { SectionHeading, PageHero, CtaBand } from "@/components/site/section";
+import { serviceListSchema, breadcrumbSchema } from "@/lib/schema";
+import { JsonLd } from "@/components/site/json-ld";
 
 /** Slugify a category name for anchor IDs and #hash nav */
 function slugify(s: string): string {
@@ -26,6 +28,13 @@ export const metadata = {
 export default function ServicesPage() {
   return (
     <>
+      <JsonLd data={serviceListSchema()} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Services", path: "/services" },
+        ])}
+      />
       {/* ============ HERO ============ */}
       <PageHero
         eyebrow="Services"

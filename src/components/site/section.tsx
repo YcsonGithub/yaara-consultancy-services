@@ -22,7 +22,7 @@ export function SectionHeading({
   return (
     <Reveal className={cn("max-w-2xl", align === "center" && "mx-auto text-center", className)}>
       {eyebrow && (
-        <span className="font-mono text-[0.72rem] font-medium uppercase tracking-[0.22em] text-gold">
+        <span className="font-mono text-[0.72rem] font-medium uppercase tracking-[0.22em] text-gold-ink">
           {index ? `${index} — ` : ""}
           {eyebrow}
         </span>
@@ -55,8 +55,8 @@ export function PageHero({
       <div className="mx-auto max-w-7xl px-5 pb-16 pt-14 sm:px-8 sm:pb-20 sm:pt-20">
         <Reveal>
           {eyebrow && (
-            <span className="font-mono text-[0.72rem] font-medium uppercase tracking-[0.22em] text-gold">
-              <span className="mr-2 inline-block h-px w-7 align-middle bg-gold" />
+            <span className="font-mono text-[0.72rem] font-medium uppercase tracking-[0.22em] text-gold-ink">
+              <span className="mr-2 inline-block h-px w-7 align-middle bg-gold-ink" />
               {eyebrow}
             </span>
           )}

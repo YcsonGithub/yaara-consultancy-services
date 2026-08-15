@@ -11,6 +11,8 @@ import {
 import { Reveal } from "@/components/site/reveal";
 import { ConsultationForm } from "@/components/site/consultation-form";
 import { CONTACT, SITE } from "@/lib/site";
+import { breadcrumbSchema } from "@/lib/schema";
+import { JsonLd } from "@/components/site/json-ld";
 
 export const metadata: Metadata = {
   title: "Book a Free 20-Minute Consultation",
@@ -62,6 +64,12 @@ const ALT_CHANNELS = [
 export default function BookPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Book a consultation", path: "/book" },
+        ])}
+      />
       {/* ============ BOOKING (navy) ============ */}
       <section className="relative overflow-hidden bg-ink text-paper">
         <div className="gold-rule absolute inset-x-0 top-0" />

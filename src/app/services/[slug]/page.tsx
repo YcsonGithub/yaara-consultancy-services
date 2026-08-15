@@ -16,6 +16,8 @@ import { SERVICES, getService, type Service } from "@/lib/services";
 import { CONTACT } from "@/lib/site";
 import { Reveal } from "@/components/site/reveal";
 import { PageHero, CtaBand } from "@/components/site/section";
+import { serviceSchema, breadcrumbSchema } from "@/lib/schema";
+import { JsonLd } from "@/components/site/json-ld";
 import {
   Accordion,
   AccordionItem,
@@ -67,6 +69,18 @@ export default async function ServiceDetailPage({
 
   return (
     <>
+      <JsonLd data={serviceSchema(slug)} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Services", path: "/services" },
+          {
+            name: service.category,
+            path: `/services#${slugify(service.category)}`,
+          },
+          { name: service.title, path: `/services/${slug}` },
+        ])}
+      />
       {/* ============ HERO ============ */}
       <PageHero
         eyebrow={service.category}

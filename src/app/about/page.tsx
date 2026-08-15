@@ -19,6 +19,8 @@ import { PageHero, CtaBand } from "@/components/site/section";
 import { Reveal } from "@/components/site/reveal";
 import { FounderSignature } from "@/components/site/logo";
 import { SITE, CONTACT, STATS } from "@/lib/site";
+import { breadcrumbSchema } from "@/lib/schema";
+import { JsonLd } from "@/components/site/json-ld";
 
 export const metadata = {
   title: "About — A real person, not a portal",
@@ -76,6 +78,12 @@ export default function AboutPage() {
   const [YouGetMe, ExpHonest, CaNetwork, WhatsappFirst] = WHY_YAARA.map((w) => w.icon);
   return (
     <>
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "About", path: "/about" },
+        ])}
+      />
       {/* ============ HERO ============ */}
       <PageHero
         eyebrow="About Yaara"

@@ -12,6 +12,8 @@ import { PageHero } from "@/components/site/section";
 import { Reveal } from "@/components/site/reveal";
 import { ConsultationForm } from "@/components/site/consultation-form";
 import { CONTACT, SITE } from "@/lib/site";
+import { breadcrumbSchema } from "@/lib/schema";
+import { JsonLd } from "@/components/site/json-ld";
 
 export const metadata: Metadata = {
   title: "Contact — Yaara Consultancy Services",
@@ -51,6 +53,12 @@ const CONTACT_ROWS = [
 export default function ContactPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ])}
+      />
       <PageHero
         eyebrow="Contact"
         title={

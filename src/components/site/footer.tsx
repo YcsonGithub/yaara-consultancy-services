@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { YaaraLogo } from "./logo";
+import { ReopenConsentTrigger } from "./consent-provider";
 import {
   Phone,
   Mail,
@@ -10,8 +11,9 @@ import {
   ShieldCheck,
   Lock,
   ArrowUpRight,
+  UserCheck,
 } from "lucide-react";
-import { CONTACT, NAV_LINKS, SITE } from "@/lib/site";
+import { CONTACT, NAV_LINKS, SITE, GRIEVANCE_OFFICER, LEGAL_PAGES } from "@/lib/site";
 import { SERVICES } from "@/lib/services";
 
 const SERVICE_LINKS = SERVICES.slice(0, 8).map((s) => ({
@@ -116,10 +118,19 @@ export function SiteFooter() {
                 Legal
               </h3>
               <ul className="mt-4 space-y-2.5">
-                <li><Link href="/legal/privacy" className="font-sans text-[0.86rem] text-body hover:text-ink hover:underline hover:decoration-gold hover:underline-offset-4">Privacy policy</Link></li>
-                <li><Link href="/legal/terms" className="font-sans text-[0.86rem] text-body hover:text-ink hover:underline hover:decoration-gold hover:underline-offset-4">Terms of service</Link></li>
-                <li><Link href="/legal/refund" className="font-sans text-[0.86rem] text-body hover:text-ink hover:underline hover:decoration-gold hover:underline-offset-4">Refund policy</Link></li>
-                <li><Link href="/legal/disclaimer" className="font-sans text-[0.86rem] text-body hover:text-ink hover:underline hover:decoration-gold hover:underline-offset-4">Disclaimer</Link></li>
+                {LEGAL_PAGES.map((l) => (
+                  <li key={l.slug}>
+                    <Link
+                      href={`/legal/${l.slug}`}
+                      className="font-sans text-[0.86rem] text-body hover:text-ink hover:underline hover:decoration-gold hover:underline-offset-4"
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+                <li>
+                  <ReopenConsentTrigger>Cookie preferences</ReopenConsentTrigger>
+                </li>
               </ul>
             </nav>
           </div>
@@ -134,20 +145,55 @@ export function SiteFooter() {
         </div>
 
         {/* registered address */}
-        <div className="mt-8 rounded-lg border border-border bg-card/60 p-5">
-          <p className="font-mono text-[0.66rem] uppercase tracking-wider text-muted-foreground">
-            Registered office
-          </p>
-          <p className="mt-1.5 font-sans text-[0.86rem] leading-relaxed text-body">
-            {CONTACT.address.line1}, {CONTACT.address.line2}, {CONTACT.address.line3}, {CONTACT.address.line4}, {CONTACT.address.city}, {CONTACT.address.state} {CONTACT.address.pincode}, {CONTACT.address.country}
-          </p>
+        <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-2">
+          <div className="rounded-lg border border-border bg-card/60 p-5">
+            <p className="font-mono text-[0.66rem] uppercase tracking-wider text-muted-foreground">
+              Registered office
+            </p>
+            <p className="mt-1.5 font-sans text-[0.86rem] leading-relaxed text-body">
+              {CONTACT.address.line1}, {CONTACT.address.line2}, {CONTACT.address.line3}, {CONTACT.address.line4}, {CONTACT.address.city}, {CONTACT.address.state} {CONTACT.address.pincode}, {CONTACT.address.country}
+            </p>
+          </div>
+
+          {/* DPDP Act grievance officer */}
+          <div className="rounded-lg border border-gold/30 bg-gold/[0.04] p-5">
+            <p className="flex items-center gap-1.5 font-mono text-[0.66rem] uppercase tracking-wider text-gold">
+              <UserCheck className="h-3.5 w-3.5" strokeWidth={1.5} />
+              Grievance officer · DPDP Act
+            </p>
+            <p className="mt-1.5 font-sans text-[0.86rem] font-medium text-ink">
+              {GRIEVANCE_OFFICER.name}
+            </p>
+            <p className="font-sans text-[0.78rem] text-body">
+              {GRIEVANCE_OFFICER.role}
+            </p>
+            <div className="mt-2 flex flex-col gap-1 font-sans text-[0.82rem]">
+              <a
+                href={`mailto:${GRIEVANCE_OFFICER.email}`}
+                className="inline-flex items-center gap-1.5 text-ink underline-offset-2 hover:text-gold hover:underline"
+              >
+                <Mail className="h-3.5 w-3.5 text-gold" strokeWidth={1.5} />
+                {GRIEVANCE_OFFICER.email}
+              </a>
+              <a
+                href={GRIEVANCE_OFFICER.phoneHref}
+                className="inline-flex items-center gap-1.5 text-ink underline-offset-2 hover:text-gold hover:underline"
+              >
+                <Phone className="h-3.5 w-3.5 text-gold" strokeWidth={1.5} />
+                {GRIEVANCE_OFFICER.phone}
+              </a>
+            </div>
+            <p className="mt-2 font-sans text-[0.72rem] leading-relaxed text-muted-foreground">
+              {GRIEVANCE_OFFICER.responseWindow}
+            </p>
+          </div>
         </div>
 
         {/* social + registered details */}
         <div className="mt-8 flex flex-col gap-6 border-t border-border pt-8 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex items-center gap-3">
-            <SocialLink icon={Linkedin} label="LinkedIn" />
-            <SocialLink icon={Instagram} label="Instagram" />
+            <SocialLink icon={Linkedin} label="LinkedIn" href="https://www.linkedin.com/company/yaara-consultancy-services" />
+            <SocialLink icon={Instagram} label="Instagram" href="https://www.instagram.com/yaara.consultancy" />
             <SocialLink icon={MessageCircle} label="WhatsApp" href={CONTACT.whatsappHref} />
           </div>
 

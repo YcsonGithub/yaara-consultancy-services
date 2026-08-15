@@ -41,7 +41,7 @@ export function WhatsAppFloat() {
   return (
     <div className="fixed bottom-5 right-5 z-40 flex items-end gap-3 sm:bottom-6 sm:right-6">
       {expanded && (
-        <div className="mb-1 max-w-[17rem] animate-in fade-in slide-in-from-bottom-2 duration-200 rounded-xl border border-border bg-card p-4 shadow-[0_18px_44px_-16px_rgba(14,42,71,0.4)]">
+        <div id="whatsapp-card" className="mb-1 max-w-[17rem] animate-in fade-in slide-in-from-bottom-2 duration-200 rounded-xl border border-border bg-card p-4 shadow-[0_18px_44px_-16px_rgba(14,42,71,0.4)]">
           <div className="flex items-start justify-between gap-2">
             <div className="flex items-center gap-2">
               <span className="flex h-8 w-8 items-center justify-center rounded-full bg-success/10 text-success">
@@ -81,6 +81,8 @@ export function WhatsAppFloat() {
       <button
         onClick={() => setExpanded((v) => !v)}
         aria-label="Chat on WhatsApp"
+        aria-expanded={expanded}
+        aria-controls="whatsapp-card"
         title="Chat on WhatsApp"
         className={`group relative flex h-14 w-14 items-center justify-center rounded-full bg-success text-paper shadow-[0_12px_30px_-8px_rgba(47,107,79,0.6)] transition-transform hover:scale-105 ${
           pinged && !expanded ? "animate-[pulse_2.5s_ease-in-out_1]" : ""
