@@ -123,7 +123,7 @@ export default function OpengraphImage() {
                 opacity: 0.8,
               }}
             >
-              Founder & CEO
+              Managing Partner &amp; Business Setup Specialist
             </div>
             <div
               style={{

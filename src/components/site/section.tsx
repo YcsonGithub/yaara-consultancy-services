@@ -43,33 +43,55 @@ export function PageHero({
   title,
   intro,
   children,
+  aside,
 }: {
   eyebrow?: string;
   title: React.ReactNode;
   intro?: React.ReactNode;
   children?: React.ReactNode;
+  /** Optional bespoke artwork panel rendered beside the copy on lg+ screens. */
+  aside?: React.ReactNode;
 }) {
   return (
     <section className="relative overflow-hidden border-b border-border paper-grain">
       <div className="gold-rule absolute inset-x-0 top-0" />
       <div className="mx-auto max-w-7xl px-5 pb-14 pt-12 sm:px-8 sm:pb-20 sm:pt-16">
-        <Reveal>
-          {eyebrow && (
-            <span className="font-mono text-[0.72rem] font-medium uppercase tracking-[0.22em] text-gold-ink">
-              <span className="mr-2 inline-block h-px w-7 align-middle bg-gold-ink" />
-              {eyebrow}
-            </span>
+        <div
+          className={cn(
+            "grid grid-cols-1",
+            aside && "lg:grid-cols-12 lg:items-center lg:gap-12"
           )}
-          <h1 className="mt-5 max-w-4xl font-serif text-[2.4rem] font-medium leading-[1.08] tracking-[-0.02em] text-ink sm:text-[3.2rem] lg:text-[3.6rem]">
-            {title}
-          </h1>
-          {intro && (
-            <p className="mt-6 max-w-2xl font-sans text-[1.05rem] leading-[1.7] text-body">
-              {intro}
-            </p>
+        >
+          <Reveal className={cn(aside && "lg:col-span-7")}>
+            {eyebrow && (
+              <span className="font-mono text-[0.72rem] font-medium uppercase tracking-[0.22em] text-gold-ink">
+                <span className="mr-2 inline-block h-px w-7 align-middle bg-gold-ink" />
+                {eyebrow}
+              </span>
+            )}
+            <h1 className="mt-5 max-w-4xl font-serif text-[2.4rem] font-medium leading-[1.08] tracking-[-0.02em] text-ink sm:text-[3.2rem] lg:text-[3.6rem]">
+              {title}
+            </h1>
+            {intro && (
+              <p className="mt-6 max-w-2xl font-sans text-[1.05rem] leading-[1.7] text-body">
+                {intro}
+              </p>
+            )}
+            {children && <div className="mt-8">{children}</div>}
+          </Reveal>
+
+          {aside && (
+            <Reveal className="mt-10 lg:col-span-5 lg:mt-0" delay={0.12} y={20}>
+              <div className="relative">
+                <div className="overflow-hidden rounded-xl border border-border shadow-[0_28px_60px_-34px_rgba(14,42,71,0.45)]">
+                  {aside}
+                </div>
+                {/* gold corner accent — brand signature */}
+                <div className="pointer-events-none absolute -left-3 -top-3 h-10 w-10 rounded-tl-lg border-l-2 border-t-2 border-gold" />
+              </div>
+            </Reveal>
           )}
-          {children && <div className="mt-8">{children}</div>}
-        </Reveal>
+        </div>
       </div>
     </section>
   );

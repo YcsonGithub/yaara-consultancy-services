@@ -26,6 +26,12 @@ import {
   GraduationCap,
   HeartPulse,
   Calculator,
+  UsersRound,
+  IdCard,
+  PiggyBank,
+  Umbrella,
+  FileSpreadsheet,
+  Coins,
   type LucideIcon,
 } from "lucide-react";
 
@@ -79,7 +85,8 @@ export const SERVICES: Service[] = [
   // ---------- Tax & Statutory Compliance ----------
   {
     slug: "gst-registration-filing",
-    title: "GST Registration & Filing",
+    title: "GST Registration & Filings",
+    shortTitle: "GST",
     icon: Receipt,
     category: "Tax & Statutory Compliance",
     tagline: "Your GSTIN, monthly returns and reconciliations — all on time.",
@@ -137,7 +144,8 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "tds-compliance",
-    title: "TDS Compliance",
+    title: "TDS Filings & Compliance",
+    shortTitle: "TDS Filings",
     icon: Percent,
     category: "Tax & Statutory Compliance",
     tagline: "Deduct, deposit, and file quarterly — without the scramble.",
@@ -164,7 +172,8 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "professional-tax",
-    title: "Professional Tax",
+    title: "Professional Tax Registration & Filings",
+    shortTitle: "Professional Tax",
     icon: Briefcase,
     category: "Tax & Statutory Compliance",
     tagline: "State-wise registration and returns, handled in the background.",
@@ -672,4 +681,631 @@ export const SERVICES: Service[] = [
     ],
   },
 
-]
+  /* ============================================================
+     Visiting-card catalog — company & firm registrations
+     ============================================================ */
+  {
+    slug: "private-limited-company-registration",
+    title: "Private Limited Company Registration",
+    shortTitle: "Pvt Ltd Registration",
+    icon: Building2,
+    category: "Business Registration & Corporate",
+    tagline: "The structure investors expect — incorporated and compliant from day one.",
+    summary:
+      "End-to-end Pvt Ltd incorporation on the MCA SPICe+ route: name approval, director DIN/DSC, MOA & AOA drafting, PAN, TAN, and the first board resolutions — with a bank account ready to open.",
+    whoNeeds: [
+      "Founders planning to raise angel or VC money",
+      "Two or more people starting a business together",
+      "Any business that needs limited liability and a real cap table",
+    ],
+    process: [
+      { step: "Name & structure", desc: "Check name availability on MCA and confirm the authorised/paid-up capital you actually need." },
+      { step: "Prepare", desc: "DSC and DIN for each director, with MOA/AOA drafted around your business objects and shareholding." },
+      { step: "File SPICe+", desc: "Single integrated filing for incorporation, PAN, TAN, EPFO, ESIC and the bank account." },
+      { step: "Hand over", desc: "Certificate of Incorporation, PAN, TAN, and a calendar for your first board meeting and filings." },
+    ],
+    documents: ["PAN & Aadhaar of all directors", "Passport-size photographs", "Address proof (bank statement / utility bill)", "Registered office address proof + NOC from owner", "Digital Signature Certificate (DSC) for each director"],
+    timeline: "7–10 working days (subject to MCA processing).",
+    pricing: "₹6,999 (+ govt. fees)",
+    faqs: [
+      { q: "Pvt Ltd or LLP for a startup?", a: "If you plan to raise external equity, a Pvt Ltd is almost always the answer — investors and ESOPs need shares. If you want limited liability with lighter compliance and two partners, an LLP is cheaper to run." },
+      { q: "Are government fees included?", a: "No — MCA/ROC stamp duty and filing fees are charged at actuals and shown separately, so you always see what went to the government and what came to us." },
+      { q: "How many directors do I need?", a: "A minimum of two directors and two shareholders. The same person can hold both roles, and at least one director must be an Indian resident." },
+    ],
+  },
+
+  {
+    slug: "llp-registration",
+    title: "LLP Firm Registration",
+    shortTitle: "LLP Registration",
+    icon: Handshake,
+    category: "Business Registration & Corporate",
+    tagline: "Partner-friendly structure: limited liability, lighter compliance.",
+    summary:
+      "LLP incorporation with the MCA — FiLLiP filing, LLP agreement drafting and stamping, PAN and TAN, plus the annual filings that keep the LLP active.",
+    whoNeeds: [
+      "Two or more partners sharing profits without forming a company",
+      "Professional firms that want liability protection",
+      "Businesses that want fewer ROC formalities than a Pvt Ltd",
+    ],
+    process: [
+      { step: "Name reserve", desc: "Reserve the LLP name on MCA (RUN-LLP) after checking name and trademark rules." },
+      { step: "Incorporate", desc: "File FiLLiP with partner DPIN/DSC and registered office details." },
+      { step: "Draft agreement", desc: "Prepare and stamp the LLP agreement covering capital, profit sharing and exit — within the statutory 30 days." },
+      { step: "Activate", desc: "PAN, TAN, bank account support and the Form 11 / Form 8 filing calendar." },
+    ],
+    documents: ["PAN & Aadhaar of all partners", "Photographs and address proof of partners", "Registered office address proof + NOC", "Digital Signature Certificate (DSC) of designated partners", "Capital contribution and profit-sharing ratio"],
+    timeline: "10–15 working days (stamp duty varies by state).",
+    pricing: "₹5,499 (+ govt. fees & stamp duty)",
+    faqs: [
+      { q: "What does the LLP agreement need to cover?", a: "Capital contribution, profit-sharing ratio, decision-making, admission and exit of partners, and dispute resolution. It must be filed within 30 days of incorporation — a missing or generic agreement is the most common LLP problem we fix." },
+      { q: "What are the annual LLP filings?", a: "Form 11 (Annual Return) and Form 8 (Statement of Account & Solvency), plus the ITR. Audit applies only once turnover crosses ₹40 lakh or contribution crosses ₹25 lakh." },
+    ],
+  },
+
+  {
+    slug: "partnership-firm-registration",
+    title: "Partnership Firm Registration",
+    shortTitle: "Partnership Firm",
+    icon: UsersRound,
+    category: "Business Registration & Corporate",
+    tagline: "A deed that protects both partners — registered with the Registrar of Firms.",
+    summary:
+      "Partnership deed drafting, stamping and registration with the Registrar of Firms, plus the firm's PAN, current account support and ongoing compliance.",
+    whoNeeds: [
+      "Family businesses and trading firms running on a handshake",
+      "Two or more partners who need a legally enforceable deed",
+      "Firms that need registered status for banking or tenders",
+    ],
+    process: [
+      { step: "Structure the terms", desc: "We turn your commercial understanding into clauses — capital, profit share, duties, exit and dissolution." },
+      { step: "Stamp & sign", desc: "Deed printed on stamp paper of the right value and signed by every partner." },
+      { step: "Register", desc: "File with the Registrar of Firms for your state and obtain the registration certificate." },
+      { step: "Set up", desc: "Firm PAN, bank current account with the deed on record, and a compliance calendar." },
+    ],
+    documents: ["PAN & Aadhaar of all partners", "Proposed firm name and business activity", "Capital contribution of each partner", "Address proof of the firm's place of business", "Stamp paper / e-stamp of the applicable value"],
+    timeline: "5–10 working days (state registration timelines vary).",
+    pricing: "₹2,499 (+ stamp duty)",
+    faqs: [
+      { q: "Is registration mandatory for a partnership firm?", a: "Registration is optional in practice, but an unregistered firm cannot enforce its contractual rights in court, and banks and tenders usually insist on the certificate. We recommend registering." },
+      { q: "Can I convert the firm to an LLP or Pvt Ltd later?", a: "Yes. We draft the deed clauses now so a later conversion doesn't create a tax or stamp-duty problem." },
+    ],
+  },
+
+  {
+    slug: "business-pan-registration",
+    title: "Business PAN Registration",
+    shortTitle: "Business PAN",
+    icon: IdCard,
+    category: "Business Registration & Corporate",
+    tagline: "The tax identity your firm or company legally has to hold.",
+    summary:
+      "PAN application on Form 49A for firms, LLPs, companies, trusts and societies — with the correct constitution, so TDS, GST and banking records all link to one number.",
+    whoNeeds: [
+      "Newly incorporated companies, LLPs or firms without a PAN",
+      "Trusts, societies and associations applying for exemption",
+      "Entities whose PAN shows a wrong name or constitution",
+    ],
+    process: [
+      { step: "Verify", desc: "Confirm the exact name and constitution from your incorporation or registration certificate." },
+      { step: "Apply", desc: "File Form 49A through the authorised agency, with DSC or physical KYC as applicable." },
+      { step: "Track", desc: "Follow the acknowledgement number through to allotment and share the PAN digitally." },
+      { step: "Correct", desc: "Fix name, date or constitution mismatches before they block a TDS or GST filing." },
+    ],
+    documents: ["Certificate of Incorporation / Registration", "Partnership deed or trust deed", "Address proof of the entity", "Authorised signatory's ID and authority letter", "Existing PAN, if this is a correction"],
+    timeline: "5–10 working days after application.",
+    pricing: "₹999",
+    faqs: [
+      { q: "Does a business need a PAN separate from the owner's?", a: "Yes. Every entity that files a return, deducts TDS or opens a business bank account needs its own PAN. Using an individual's PAN for firm income is a common — and avoidable — mistake." },
+      { q: "The PAN card has a spelling mistake. Can it be fixed?", a: "Yes, through a correction application. Bring it to us early — mismatched PAN details hold up TDS credit, GST matching and loan applications." },
+    ],
+  },
+
+  {
+    slug: "business-tan-registration",
+    title: "Business TAN Registration",
+    shortTitle: "Business TAN",
+    icon: Landmark,
+    category: "Business Registration & Corporate",
+    tagline: "Required before you deduct or deposit a single rupee of TDS.",
+    summary:
+      "TAN application on Form 49B for every entity that deducts tax at source — so quarterly TDS returns and Form 16 / 16A are filed under the correct number from day one.",
+    whoNeeds: [
+      "Employers paying salary with TDS",
+      "Businesses paying rent, contractor, professional or commission amounts above threshold",
+      "New companies and firms setting up payroll for the first time",
+    ],
+    process: [
+      { step: "Check", desc: "Confirm whether a TAN already exists for the entity in the same or another state." },
+      { step: "Apply", desc: "File Form 49B with entity PAN and authorised signatory details." },
+      { step: "Allot", desc: "TAN allotted and registered on TRACES for returns and challan mapping." },
+      { step: "Integrate", desc: "Map TAN into your payroll and vendor-payment process so every deduction lands on the right return." },
+    ],
+    documents: ["Entity PAN", "Incorporation / registration certificate", "Address proof of the deductor", "Authorised signatory's ID and contact details"],
+    timeline: "5–10 working days after application.",
+    pricing: "₹999",
+    faqs: [
+      { q: "What happens if I deduct TDS without a TAN?", a: "The deduction is still due, and no return can be filed without a TAN — late filing fees and interest follow. It is a small fix now versus penalties later." },
+      { q: "One TAN or one per state?", a: "One TAN per deductor is the norm, and branch offices quote the registered TAN. We set it up so multi-state clients file cleanly." },
+    ],
+  },
+
+  /* ============================================================
+     Visiting-card catalog — payroll, PF & ESI
+     ============================================================ */
+  {
+    slug: "epfo-registration",
+    title: "EPFO Registration",
+    shortTitle: "EPFO Registration",
+    icon: PiggyBank,
+    category: "Payroll & HR Compliance",
+    tagline: "PF registration for your establishment — compliant from hire number one.",
+    summary:
+      "Establishment registration with the Employees' Provident Fund Organisation — EPFO portal registration, employer code allotment, employee UAN generation and the KYC that makes PF fully online.",
+    whoNeeds: [
+      "Employers who have crossed (or are about to cross) 20 employees",
+      "Establishments registering voluntarily below the 20-employee threshold",
+      "Contractors who must register the workforce deployed at a client site",
+    ],
+    process: [
+      { step: "Assess", desc: "Confirm the applicability date, employee count and whether the establishment is covered mandatorily or voluntarily." },
+      { step: "Register", desc: "Create the establishment on the EPFO portal with entity and bank details under DSC or e-sign." },
+      { step: "Enrol", desc: "Generate UANs for employees and seed Aadhaar, PAN and bank details for KYC." },
+      { step: "Hand over", desc: "First ECR schedule, contribution rates and a monthly calendar you can hand to payroll." },
+    ],
+    documents: ["Entity registration proof (PAN, incorporation / partnership deed)", "Employer PAN and cancelled cheque", "Employee list with date of joining", "Salary structure and CTC break-up", "DSC / e-sign of the authorised signatory"],
+    timeline: "5–10 working days.",
+    pricing: "₹1,499",
+    faqs: [
+      { q: "When does EPFO become mandatory?", a: "For most establishments once headcount reaches 20. Certain classes are covered from the first employee, and voluntary registration is possible earlier — which is often wise if you're hiring fast." },
+      { q: "What is a UAN and why does every employee need one?", a: "The Universal Account Number is a permanent employee ID that holds every PF account across jobs. With Aadhaar, PAN and bank KYC seeded, transfers and withdrawals happen online instead of on paper." },
+    ],
+  },
+
+  {
+    slug: "esic-registration",
+    title: "ESIC Registration",
+    shortTitle: "ESIC Registration",
+    icon: Umbrella,
+    category: "Payroll & HR Compliance",
+    tagline: "Medical, sickness and maternity cover for your team — registered correctly.",
+    summary:
+      "Employer code registration with the Employees' State Insurance Corporation, employee-wise ESIC IP registration, and the contribution schedule your establishment is expected to maintain.",
+    whoNeeds: [
+      "Factories with 10 or more employees (2 or more in some states)",
+      "Establishments where wages fall within the ESIC wage ceiling",
+      "Employers already deducting ESI without a valid employer code",
+    ],
+    process: [
+      { step: "Assess", desc: "Check headcount, wage ceiling and state applicability, including the retail and service-sector coverage rules." },
+      { step: "Register", desc: "Obtain the employer code on the ESIC portal and register the establishment's bank and address details." },
+      { step: "Enrol employees", desc: "Register each insured person, issue the IP number and capture family details for benefits." },
+      { step: "Schedule", desc: "Contribution rates, monthly filing dates and the registers to maintain." },
+    ],
+    documents: ["Entity registration proof and PAN", "Employer bank details and cancelled cheque", "Employee list with wages, date of joining and family details", "Salary register / CTC structure", "Address proof of the factory / establishment"],
+    timeline: "5–10 working days.",
+    pricing: "₹1,499",
+    faqs: [
+      { q: "EPFO and ESIC — do I need both?", a: "Usually yes, if you cross the employee thresholds for both. EPFO covers provident fund; ESIC covers medical, sickness and maternity benefits. The two registrations are separate, and we handle them together." },
+      { q: "What if wages rise above the ESIC ceiling later?", a: "Coverage continues while the employee remains insured, and the rules on continuing contributions are specific — we review the position each year so you don't over- or under-deduct." },
+    ],
+  },
+
+  {
+    slug: "epfo-filings",
+    title: "EPFO Filings (ECR)",
+    shortTitle: "EPFO Filings",
+    icon: FileSpreadsheet,
+    category: "Payroll & HR Compliance",
+    tagline: "Monthly ECR, on time, with every UAN mapped and every rupee reconciled.",
+    summary:
+      "Monthly Electronic Challan-cum-Return preparation and filing, contribution reconciliation against payroll, and the corrections that keep your establishment's records clean.",
+    whoNeeds: [
+      "Registered establishments filing PF month after month",
+      "Employers with pending, short-paid or mismatched ECRs",
+      "Payroll teams dealing with joiners, exits and salary changes",
+    ],
+    process: [
+      { step: "Collect", desc: "Take the month's salary register and map every member, including new joiners and exits." },
+      { step: "Prepare", desc: "Build the ECR text file with correct wages, contribution and admin charges." },
+      { step: "File & pay", desc: "Upload the ECR and generate the challan before the 15th, with the payment reference recorded." },
+      { step: "Reconcile", desc: "Match the challan to your books and fix any mismatch in the next cycle." },
+    ],
+    documents: ["Monthly salary register", "New joiner KYC details (UAN / Aadhaar / PAN / bank)", "Exit dates and full-and-final notes", "Previous ECR / challan references"],
+    timeline: "Monthly — ECR and payment due by the 15th.",
+    pricing: "From ₹499/month (up to 20 employees)",
+    faqs: [
+      { q: "What is an ECR?", a: "The Electronic Challan-cum-Return is the monthly PF return that lists each member's wages and contributions. Filing it generates the payment challan — one document, two obligations." },
+      { q: "What happens if the ECR is late?", a: "Damages and interest accrue on late payment, and repeated delays invite notices. More importantly, employees' passbooks stop updating, which blocks their loans and withdrawals." },
+    ],
+  },
+
+  {
+    slug: "esic-filings",
+    title: "ESIC Filings",
+    shortTitle: "ESIC Filings",
+    icon: ClipboardCheck,
+    category: "Payroll & HR Compliance",
+    tagline: "Monthly contribution returns and employee records — filed and archived.",
+    summary:
+      "ESIC monthly contribution filing, insured-person registrations, exit records and issue resolution, so your establishment stays compliant and your team stays covered.",
+    whoNeeds: [
+      "Establishments filing ESI contributions every month",
+      "Employers with unregistered or wrongly-registered employees",
+      "HR teams managing hospitalisation claims that need clean records",
+    ],
+    process: [
+      { step: "Inputs", desc: "Take the monthly salary register and flag new joiners, exits and wage changes." },
+      { step: "Register & update", desc: "Register new insured persons and update exits on the ESIC portal." },
+      { step: "File & pay", desc: "File the monthly contribution return and pay before the 15th." },
+      { step: "Support claims", desc: "Keep records claim-ready so employees' medical and maternity claims aren't held up." },
+    ],
+    documents: ["Monthly salary register", "Employee KYC and family details for new registrations", "Exit dates", "Previous ESIC return and challan references"],
+    timeline: "Monthly — return and payment due by the 15th.",
+    pricing: "From ₹499/month",
+    faqs: [
+      { q: "What records do ESIC claims depend on?", a: "The employer's contribution record and the insured person's registration. If a month is short-filed or an employee was never registered, the claim is rejected — and the employee blames you, not the portal." },
+      { q: "Can you clean up past ESIC periods?", a: "Yes. We review what's been filed, register omissions, file the missing periods where the portal allows, and tell you honestly what cannot be corrected." },
+    ],
+  },
+
+  {
+    slug: "payroll-processing",
+    title: "Payroll Processing & Payslips",
+    shortTitle: "Payroll",
+    icon: Coins,
+    category: "Payroll & HR Compliance",
+    tagline: "Salaries, TDS, PF, ESI and payslips — one dependable monthly run.",
+    summary:
+      "End-to-end payroll: salary structuring, monthly computation, statutory deductions, payslip generation and the registers your accountant and auditor will ask for.",
+    whoNeeds: [
+      "Small businesses still running payroll on a spreadsheet",
+      "Startups with 1–50 employees and no HR function",
+      "Employers who want payslips and registers audit-ready",
+    ],
+    process: [
+      { step: "Set up", desc: "Structure CTC, build the payroll master and confirm PF/ESI/PT applicability for each employee." },
+      { step: "Run", desc: "Compute the month's payroll with attendance, leave, overtime, bonuses and reimbursements." },
+      { step: "Deduct & file", desc: "TDS, PF, ESI and PT deductions computed, deposited and returned on time." },
+      { step: "Deliver", desc: "Payslips released to employees, salary register and bank transfer file handed over." },
+    ],
+    documents: ["Employee master (CTC, date of joining, PAN, bank, UAN / ESIC numbers)", "Attendance and leave data for the month", "Bonus, incentive and overtime inputs", "Investment declarations and previous employment income"],
+    timeline: "Payroll run within 2 working days of receiving inputs.",
+    pricing: "From ₹99/employee/month",
+    faqs: [
+      { q: "Do you handle payslips and registers too?", a: "Yes — payslips, the salary register, the statutory deduction summary and the bank transfer file come as part of the monthly run, in formats an auditor or lender can read." },
+      { q: "Can you take over mid-year with existing employees?", a: "Yes. We rebuild the employee master from your previous registers, reconcile opening balances for PF/ESI, and continue without a break in contributions." },
+    ],
+  },
+
+  /* ============================================================
+     Accounting & Bookkeeping
+     ============================================================ */
+  {
+    slug: "bookkeeping-accounting",
+    title: "Bookkeeping & Accounting",
+    shortTitle: "Bookkeeping",
+    icon: BookOpen,
+    category: "Accounting & Bookkeeping",
+    tagline: "Clean books every month — not a scramble at year end.",
+    summary:
+      "Monthly recording of sales, purchases, expenses, bank and GST entries in the accounting software of your choice, closed with a trial balance you can rely on.",
+    whoNeeds: [
+      "Startups with investors or lenders watching the numbers",
+      "Businesses filing returns without clean books behind them",
+      "Owners whose accountant only appears in the last week of the year",
+    ],
+    process: [
+      { step: "Set up", desc: "Chart of accounts, opening balances and the software configured around how you actually bill." },
+      { step: "Record", desc: "Sales, purchases, expenses, payroll and journals posted from your documents each month." },
+      { step: "Reconcile", desc: "Bank, GST, TDS and party ledgers matched — differences explained, not buried." },
+      { step: "Close", desc: "Monthly close with a trial balance, P&L and balance sheet you can act on." },
+    ],
+    documents: ["Sales and purchase invoices", "Bank statements for every account", "Expense bills and payment proof", "Loan, lease and EMI details", "GST returns filed for the period"],
+    timeline: "Books closed by the 10th of the following month.",
+    pricing: "From ₹2,999/month",
+    faqs: [
+      { q: "Which accounting software do you work on?", a: "Whichever suits you — Tally, Zoho Books, QuickBooks or a spreadsheet for very small volumes. If you have no system yet, we recommend one based on your turnover and whether you bill on GST." },
+      { q: "Why does monthly bookkeeping cost more than a yearly filing?", a: "Because it prevents the expensive part — a year-end reconstruction that hides missed input credit, unreconciled banks and pending TDS. Monthly books cost less than fixing annual chaos." },
+    ],
+  },
+
+  {
+    slug: "mis-reporting",
+    title: "MIS Reporting & Financial Statements",
+    shortTitle: "MIS Reporting",
+    icon: PieChart,
+    category: "Accounting & Bookkeeping",
+    tagline: "Numbers a founder can actually act on.",
+    summary:
+      "Monthly P&L, balance sheet, receivables and payables ageing and budget-versus-actual reporting — prepared for decisions, not just for filing.",
+    whoNeeds: [
+      "Owners making pricing, hiring or expansion decisions",
+      "Businesses preparing for funding or a bank loan",
+      "Companies with more than one revenue stream or location",
+    ],
+    process: [
+      { step: "Agree metrics", desc: "Decide what matters for your business — margins, per-unit economics, working capital, department spend." },
+      { step: "Build", desc: "Prepare the statements from closed books, with prior-period comparison." },
+      { step: "Review", desc: "Walk through the numbers with you and flag what changed and why." },
+      { step: "Improve", desc: "Refine the format each quarter as your questions get sharper." },
+    ],
+    documents: ["Closed books for the month", "Sales and purchase summaries", "Receivables and payables lists", "Bank balances and loan schedules"],
+    timeline: "MIS delivered by the 12th of each month.",
+    pricing: "From ₹1,999/month",
+    faqs: [
+      { q: "What is different about MIS versus a normal P&L?", a: "A filed P&L answers the tax department. MIS answers you: which product is actually profitable, where cash is stuck, what the month's fixed cost looked like against plan. Same books, different question." },
+      { q: "Can you give it to my investor or bank?", a: "Yes. We prepare investor- and lender-ready packs — including the schedules and notes a diligence team will ask for." },
+    ],
+  },
+
+  {
+    slug: "bank-reconciliation",
+    title: "Bank & Ledger Reconciliation",
+    shortTitle: "Reconciliation",
+    icon: Search,
+    category: "Accounting & Bookkeeping",
+    tagline: "Find the gap between what the bank says and what the books say.",
+    summary:
+      "Account-by-account reconciliation of bank, cash and ledger balances, with a plain-English explanation of every mismatch — and the corrections posted in your books.",
+    whoNeeds: [
+      "Businesses whose books have never matched the bank",
+      "Owners switching accountants mid-year",
+      "Anyone heading into a loan application, audit or due diligence",
+    ],
+    process: [
+      { step: "Pull", desc: "Collect statements for every bank, cash and payment-gateway account for the period." },
+      { step: "Match", desc: "Line-by-line matching of receipts, payments, charges, interest and unsettled items." },
+      { step: "Explain", desc: "A written note on what caused each difference — timing, missed entries, or a real error." },
+      { step: "Correct", desc: "Post the corrections and hand you a reconciled trial balance." },
+    ],
+    documents: ["Bank statements for all accounts", "Payment gateway settlement reports", "Cash book / petty cash records", "Current books (ledger export)"],
+    timeline: "3–7 working days depending on volume of transactions.",
+    pricing: "From ₹1,499/month",
+    faqs: [
+      { q: "Why do books drift even with an accountant?", a: "Almost always timing and information gaps — statements that never reached the accountant, gateway settlements net of fees, or auto-debits nobody recorded. Reconciling monthly closes those gaps while they are still small." },
+      { q: "Do you reconcile old years too?", a: "Yes. Historical clean-up is common before a funding round or loan. We do it in slabs so you can see progress month by month instead of waiting for one large project." },
+    ],
+  },
+
+  /* ============================================================
+     Advisory & Growth
+     ============================================================ */
+  {
+    slug: "virtual-cfo",
+    title: "Virtual CFO",
+    shortTitle: "Virtual CFO",
+    icon: TrendingUp,
+    category: "Advisory & Growth",
+    tagline: "CFO-grade judgement without a CFO salary.",
+    summary:
+      "A senior finance partner on call — monthly performance review, pricing and margin analysis, cash planning, board-ready reporting and help with the big money decisions.",
+    whoNeeds: [
+      "Founders past ₹1–5 crore of revenue with no senior finance person",
+      "Companies preparing for a funding round or bank facility",
+      "Businesses whose margins have moved and nobody knows why",
+    ],
+    process: [
+      { step: "Diagnose", desc: "A first review of books, margins, cash and compliance to find what needs attention." },
+      { step: "Plan", desc: "A 90-day plan: reporting fixes, cost levers, pricing review and cash discipline." },
+      { step: "Run monthly", desc: "Standing review call, MIS pack, variance analysis and decisions logged." },
+      { step: "Escalate", desc: "Quarterly deep-dives — unit economics, budgets, funding preparation or cost restructuring." },
+    ],
+    documents: ["Access to books and bank statements", "Sales, purchase and cost data", "Existing budgets or forecasts", "Loan and investor documents"],
+    timeline: "Monthly cadence, with a standing review call.",
+    pricing: "From ₹24,999/month",
+    faqs: [
+      { q: "How is a Virtual CFO different from an accountant?", a: "Your accountant records what happened and files it. A Virtual CFO decides what to do about it — pricing, cost structure, hiring capacity, when to borrow, what the numbers must show before you raise." },
+      { q: "Do you attend board or investor meetings?", a: "Yes, when needed. We prepare the pack, flag the risks early and can join the call to answer finance questions directly." },
+    ],
+  },
+
+  {
+    slug: "business-valuation",
+    title: "Business Valuation",
+    shortTitle: "Business Valuation",
+    icon: Calculator,
+    category: "Advisory & Growth",
+    tagline: "A defensible number — not a guess dressed as a report.",
+    summary:
+      "Valuation of your business using income, market and asset approaches as appropriate, documented for fundraising, ESOP pricing, partner buyout or a bank and regulatory requirement.",
+    whoNeeds: [
+      "Founders pricing an ESOP pool or a new funding round",
+      "Partners separating or buying each other out",
+      "Companies needing a valuation report for a bank or authority",
+    ],
+    process: [
+      { step: "Scope", desc: "Confirm the purpose of the valuation — it decides the method, the date and the level of scrutiny." },
+      { step: "Gather", desc: "Historical financials, projections, asset details and comparables." },
+      { step: "Value", desc: "Apply the appropriate methods, test the assumptions and triangulate a fair range." },
+      { step: "Document", desc: "A written report with workings that survives an investor or authority's questions." },
+    ],
+    documents: ["3 years of financial statements (or since inception)", "Current management accounts", "Business projections and assumptions", "Asset and liability schedules", "Purpose statement for the valuation"],
+    timeline: "7–14 working days after data collection.",
+    pricing: "From ₹19,999",
+    faqs: [
+      { q: "Which valuation method will you use?", a: "It depends on the purpose. Fundraising usually needs a discounted cash-flow or revenue-multiple view; partner buyouts often need a net-asset view as a floor. We usually present a range, not a single heroic number." },
+      { q: "Is a valuation report legally required anywhere?", a: "For certain MCA filings, ESOP issuance, and some bank and FEMA situations, a valuation from a qualified valuer is required. Where a registered valuer's sign-off is mandatory, we bring in our CA partner network." },
+    ],
+  },
+
+  {
+    slug: "financial-health-checkup",
+    title: "Financial Health Checkup",
+    shortTitle: "Health Checkup",
+    icon: Stethoscope,
+    category: "Advisory & Growth",
+    tagline: "A full check-up of your books, compliance and cash — in one report.",
+    summary:
+      "A one-time deep review of your accounting records, filing status, tax positions and cash cycle, delivered as a written report with a fix-list in priority order.",
+    whoNeeds: [
+      "Owners who inherited books from a previous accountant",
+      "Businesses that suspect missed filings or input credits",
+      "Anyone preparing for funding, a loan, or a sale",
+    ],
+    process: [
+      { step: "Review", desc: "Examine ledgers, bank reconciliations, GST and TDS filings, and statutory registers." },
+      { step: "Score", desc: "Assess liquidity, profitability, compliance exposure and record hygiene." },
+      { step: "Report", desc: "A written report: what is healthy, what is risky, and what to fix first." },
+      { step: "Fix", desc: "Optional — we fix the priority items, or hand the list to your team." },
+    ],
+    documents: ["Last 2–3 years of financial statements", "GST, TDS and ITR acknowledgements", "Bank statements and loan schedules", "Current accounting file / software export"],
+    timeline: "5–10 working days.",
+    pricing: "From ₹9,999",
+    faqs: [
+      { q: "Is this useful if my books are already clean?", a: "Yes — the checkup also looks forward: input credit leaking, TDS rate errors, cash-cycle strain, and structures that will cost you tax next year. Clean books still hide expensive habits." },
+      { q: "Will you talk to my existing accountant?", a: "Happily. We work with your team, share findings factually, and leave the records and explanations in place." },
+    ],
+  },
+
+  {
+    slug: "startup-india-registration",
+    title: "Startup India (DPIIT) Registration",
+    shortTitle: "Startup India",
+    icon: BadgeCheck,
+    category: "Advisory & Growth",
+    tagline: "Get the recognition — and the benefits that come with it.",
+    summary:
+      "DPIIT recognition for your entity: eligibility check, Startup India portal registration, and guidance on the tax and tender benefits you can actually claim.",
+    whoNeeds: [
+      "Young companies wanting DPIIT-recognised startup status",
+      "Founders applying for the 80-IAC tax holiday or angel-tax exemption",
+      "Startups bidding for tenders and MSME-linked benefits",
+    ],
+    process: [
+      { step: "Check eligibility", desc: "Entity age, turnover, innovation and structure — confirmed against the current DPIIT rules." },
+      { step: "Prepare", desc: "Pitch note, incorporation documents, website and product description assembled in the required format." },
+      { step: "Apply", desc: "File on the Startup India portal under the right entity and sector classification." },
+      { step: "Claim", desc: "Guidance on what recognition unlocks — and the applications (80-IAC, exemptions) that follow." },
+    ],
+    documents: ["Certificate of Incorporation / registration", "PAN and GST (if applicable)", "Brief write-up on the product or service and its innovation", "Website / app links and branding materials", "Founder details and entity structure"],
+    timeline: "7–20 working days (dependent on DPIIT processing rounds).",
+    pricing: "₹4,999",
+    faqs: [
+      { q: "What does DPIIT recognition actually give me?", a: "Access to tenders and government schemes, self-certification on labour law compliance, easier IBC protection, and eligibility to apply for the income-tax holiday and angel-tax relief under the prescribed conditions." },
+      { q: "Is the 80-IAC tax holiday automatic?", a: "No. DPIIT recognition is only the first gate — the 80-IAC application goes to an inter-ministerial board with its own criteria. We tell you honestly whether your business has a realistic case before you spend on it." },
+    ],
+  },
+
+  {
+    slug: "startup-fundraising-support",
+    title: "Startup Fundraising Support",
+    shortTitle: "Fundraising Support",
+    icon: Briefcase,
+    category: "Advisory & Growth",
+    tagline: "So due diligence doesn't stall your round.",
+    summary:
+      "Diligence-ready data room, clean cap table, financial model and negotiation support — the financial backbone of an equity round, prepared before investors ask.",
+    whoNeeds: [
+      "Startups going into their first institutional round",
+      "Founders whose diligence keeps raising uncomfortable questions",
+      "Companies managing ESOP allocations across a growing team",
+    ],
+    process: [
+      { step: "Prepare", desc: "Clean up books, cap table, statutory registers and contracts into an organised data room." },
+      { step: "Model", desc: "Build the financial model, unit economics and use-of-funds plan investors will test." },
+      { step: "Manage queries", desc: "Own the diligence tracker — answer investor questions with documents, not promises." },
+      { step: "Document", desc: "Support on valuation notes, board approvals, share issuance and statutory filings after the round." },
+    ],
+    documents: ["Incorporation documents and statutory registers", "Cap table with ESOP details", "Financial statements and management accounts", "Contracts, IP and compliance records", "Business plan and projections"],
+    timeline: "Data-room readiness in 2–4 weeks; round timeline depends on investors.",
+    pricing: "Scoped per round — quote after a review",
+    faqs: [
+      { q: "Do you raise money for us?", a: "No — we are not a fundraise brokerage. We make your finance function survive diligence: the numbers, the records and the answers. The introductions are yours to make." },
+      { q: "What kills diligence most often?", a: "Messy cap tables, ESOP promises with no paperwork, unreconciled books, and unfiled statutory returns. All fixable — if they are fixed before the term sheet, not after." },
+    ],
+  },
+
+  {
+    slug: "cash-flow-management",
+    title: "Cash Flow Management",
+    shortTitle: "Cash Flow",
+    icon: Banknote,
+    category: "Advisory & Growth",
+    tagline: "Know what leaves the bank before it leaves.",
+    summary:
+      "A rolling 13-week cash forecast, receivables follow-up plan and working-capital levers, reviewed with you monthly so shortfalls stop being surprises.",
+    whoNeeds: [
+      "Businesses with lumpy customer payments",
+      "Owners who make decisions without knowing next month's cash position",
+      "Companies funding growth from working capital",
+    ],
+    process: [
+      { step: "Map", desc: "Model every inflow and outflow — customer terms, vendor cycles, EMIs, statutory dues and salaries." },
+      { step: "Forecast", desc: "Build the rolling 13-week cash forecast and keep it updated each month." },
+      { step: "Act", desc: "Receivables escalation plan, vendor terms, and the levers to pull before a crunch." },
+      { step: "Review", desc: "Monthly walk-through of actual versus forecast, with the next quarter's funding gaps flagged." },
+    ],
+    documents: ["Bank statements for all accounts", "Receivables and payables ageing", "Loan / EMI schedules", "Fixed cost and salary details", "Customer payment terms"],
+    timeline: "First forecast in 5–7 working days, then monthly.",
+    pricing: "From ₹4,999/month",
+    faqs: [
+      { q: "How is this different from my P&L?", a: "Profit is an opinion; cash is a fact. A business can be profitable and still miss salaries because GST, TDS and receivables timing stacked up. The forecast shows that before it happens." },
+      { q: "Will you follow up with my customers for payment?", a: "We prepare the ageing, the letters and the escalation sequence, and can handle the follow-up with your approval. You keep the customer relationship — we handle the uncomfortable part." },
+    ],
+  },
+
+  {
+    slug: "project-finance",
+    title: "Project Finance & Loan Support",
+    shortTitle: "Project Finance",
+    icon: LineChart,
+    category: "Advisory & Growth",
+    tagline: "Bank-ready project reports, CMA data and documentation.",
+    summary:
+      "Project reports, CMA data, ratio workings and documentation for term loans, working-capital limits and subsidy schemes — prepared to the format banks actually evaluate.",
+    whoNeeds: [
+      "Businesses financing machinery, premises or expansion",
+      "Companies seeking working-capital limits or CGTMSE-backed loans",
+      "MSMEs applying for subsidy and state incentive schemes",
+    ],
+    process: [
+      { step: "Assess", desc: "Understand the requirement and the lender's expectations — term loan, CC limit or scheme-based." },
+      { step: "Prepare", desc: "Projected financials, CMA data, ratio analysis and the report in the bank's format." },
+      { step: "Submit", desc: "Assemble the documentation pack and respond to the bank's queries through sanction." },
+      { step: "Track", desc: "Follow the sanction conditions — insurance, security creation, and end-use reporting." },
+    ],
+    documents: ["Last 3 years of financial statements and ITRs", "GST returns and bank statements", "Cost estimate / quotations for the project", "Collateral and guarantor details", "Entity and KYC documents"],
+    timeline: "7–15 working days depending on the lender's format.",
+    pricing: "From ₹14,999",
+    faqs: [
+      { q: "Do you guarantee sanction?", a: "No — the lender decides, always. What we control is the paperwork: projections that reconcile, ratios the bank can rely on, and answers prepared before they're asked. Sloppy CMA data is the most common reason a good case is rejected." },
+      { q: "Can you help with subsidy schemes?", a: "Yes. Several central and state schemes offer capital or interest support to MSMEs. We check which you qualify for and prepare the application alongside the loan file." },
+    ],
+  },
+];
+
+/* ================================================================
+   Catalog helpers
+   ================================================================ */
+
+/** Live size of the service catalog — use this instead of hard-coded counts. */
+export const SERVICE_COUNT = SERVICES.length;
+
+/** All services in a category, in catalog order. */
+export function servicesByCategory(category: ServiceCategory): Service[] {
+  return SERVICES.filter((s) => s.category === category);
+}
+
+/** Services flagged `featured` — used on the home page and the services hero. */
+export function featuredServices(): Service[] {
+  return SERVICES.filter((s) => s.featured);
+}
+
+/** Look up a single service by slug. */
+export function getService(slug: string): Service | undefined {
+  return SERVICES.find((s) => s.slug === slug);
+}
+
+/** Category name → URL-safe anchor (shared by /services and breadcrumbs). */
+export function slugifyCategory(category: string): string {
+  return category
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+/** True when the service has an indicative price to show. */
+export function hasPublishedPrice(service: Service): boolean {
+  return Boolean(service.pricing?.trim());
+}

@@ -39,7 +39,13 @@ const PROMISES = [
   },
 ] as const;
 
-const ALT_CHANNELS = [
+const ALT_CHANNELS: {
+  icon: typeof Phone;
+  label: string;
+  value: string;
+  href: string;
+  external?: boolean;
+}[] = [
   {
     icon: Phone,
     label: "Call",

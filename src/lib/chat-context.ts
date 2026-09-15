@@ -2,7 +2,15 @@
 // Kept tight on purpose — enough for accurate routing, not enough to bloat tokens.
 
 import { SERVICES, CATEGORY_ORDER, CATEGORY_DESCRIPTIONS } from "./services";
-import { SITE, CONTACT, PRICING_TIERS, FLAT_FEES, INDUSTRIES, FAQS } from "./site";
+import {
+  SITE,
+  CONTACT,
+  PRICING_TIERS,
+  FLAT_FEES,
+  INDUSTRIES,
+  FAQS,
+  PRICING,
+} from "./site";
 
 /**
  * Builds the system prompt for the website assistant.
@@ -31,6 +39,26 @@ export function buildAssistantSystemPrompt(): string {
     .map((f) => `- ${f.service}: ₹${f.fee} (${f.note})`)
     .join("\n");
 
+  /*
+    Fee knowledge block. When fees are hidden site-wide
+    (NEXT_PUBLIC_SHOW_PRICING is off) the assistant is given no numbers at
+    all and is told explicitly never to guess one.
+  */
+  const pricingBlock = PRICING.visible
+    ? `# PRICING — RETAINERS (monthly)
+${pricingLines}
+See /pricing for the full breakdown.
+
+# PRICING — COMMON ONE-OFF FEES
+${flatFeeLines}
+(All fees exclude government fees where applicable. See /pricing.)`
+    : `# FEES
+Fees are NOT published on the website at the moment, and you must not quote,
+estimate or guess any amount — not even a "from" range. Say that the fee depends
+on the entity type, turnover and how much is pending, and that Yaara puts every
+quote in writing before work starts. Point the visitor to /book for a quote, or
+to /pricing which explains how quoting works.`;
+
   const industryLines = INDUSTRIES.map(
     (i) => `- ${i.title} → /industries#${i.slug} — ${i.blurb}`
   ).join("\n");
@@ -42,8 +70,8 @@ Help visitors find the right service, understand pricing, check deadlines, and c
 
 # HARD RULES
 1. Never compute a visitor's tax liability, claim a deduction is "available", or tell them which ITR form to file. Route them to book a call instead.
-2. Never invent a price that isn't listed below. If unsure, say "from" and link to /pricing.
-3. Never share the founder's personal number. Use the official ${CONTACT.phone} and WhatsApp link.
+2. Never invent a price. If fees are listed below, quote only those; if no fees are listed, say fees are quoted in writing and never state a number.
+3. Never share the founder's personal number. Use only the official numbers listed below and the WhatsApp link.
 4. Keep replies short — 2 to 5 sentences, or a short bullet list. No long essays.
 5. Use markdown sparingly: **bold** for key terms, bullets for lists, and inline links like [Book a free call](/book).
 6. If the visitor seems frustrated or has a deadline emergency, prioritise the WhatsApp handoff: ${CONTACT.whatsappHref}
@@ -52,7 +80,7 @@ Help visitors find the right service, understand pricing, check deadlines, and c
 
 # CONTACT (share when relevant)
 - Email: ${CONTACT.email}
-- Phone: ${CONTACT.phone}
+- Phone: ${CONTACT.phone} (also ${CONTACT.phoneAlt})
 - WhatsApp: ${CONTACT.whatsappHref}
 - Office: ${CONTACT.address.line1}, ${CONTACT.address.line2}, ${CONTACT.address.line3}, ${CONTACT.address.line4}, ${CONTACT.address.city}, ${CONTACT.address.state} ${CONTACT.address.pincode}, ${CONTACT.address.country}
 - Working hours: Mon–Sat, 10:00 AM – 7:00 PM IST
@@ -67,13 +95,7 @@ ${categoryLines}
 # INDUSTRIES WE SERVE
 ${industryLines}
 
-# PRICING — RETAINERS (monthly)
-${pricingLines}
-See /pricing for the full breakdown.
-
-# PRICING — COMMON ONE-OFF FEES
-${flatFeeLines}
-(All fees exclude government fees where applicable. See /pricing.)
+${pricingBlock}
 
 # PROCESS
 1. Consult — free 20-minute call

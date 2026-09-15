@@ -16,10 +16,14 @@ import { FounderSignature } from "@/components/site/logo";
 import { ConsultationForm } from "@/components/site/consultation-form";
 import {
   SERVICES,
+  SERVICE_COUNT,
   featuredServices,
   CATEGORY_ORDER,
   CATEGORY_DESCRIPTIONS,
 } from "@/lib/services";
+import { CategoryArt } from "@/components/art/service-art";
+import { ComplianceCalendarArt } from "@/components/art/section-art";
+import { Price } from "@/components/site/price";
 import {
   INDUSTRIES,
   FAQS,
@@ -27,6 +31,7 @@ import {
   PROCESS_STEPS,
   SITE,
   CONTACT,
+  PRICING,
 } from "@/lib/site";
 
 export default function Home() {
@@ -121,7 +126,7 @@ export default function Home() {
                   <span className="italic font-light">compliant and current</span>.
                 </h2>
                 <p className="mt-4 font-sans text-[1rem] leading-relaxed text-body">
-                  40+ services across tax, registrations, accounting, payroll and advisory &mdash; one partner, one point of contact.
+                  {SERVICE_COUNT} services across tax, registrations, PF &amp; ESI, accounting and advisory &mdash; one partner, one point of contact.
                 </p>
               </div>
               <Link href="/services" className="group inline-flex items-center gap-1.5 font-sans text-[0.92rem] font-medium text-ink hover:text-gold">
@@ -137,26 +142,54 @@ export default function Home() {
               const Icon = s.icon;
               return (
                 <Reveal key={s.slug} delay={i * 0.06}>
-                  <Link href={`/services/${s.slug}`} className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card p-7 transition-all hover:border-ink/25 hover:shadow-[0_18px_44px_-26px_rgba(14,42,71,0.4)] sm:p-9">
-                    <div className="flex items-start justify-between">
-                      <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-surface text-ink ring-1 ring-border">
-                        <Icon className="h-6 w-6" strokeWidth={1.5} />
+                  <Link href={`/services/${s.slug}`} className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-all hover:border-ink/25 hover:shadow-[0_18px_44px_-26px_rgba(14,42,71,0.4)]">
+                    {/* category artwork — drawn for the category, not stock */}
+                    <div className="relative overflow-hidden border-b border-border">
+                      <CategoryArt
+                        category={s.category}
+                        className="h-[9.5rem] sm:h-[11rem]"
+                        label={`${s.category} — Yaara Consultancy Services`}
+                      />
+                      <span className="absolute bottom-3 left-4 rounded-full bg-paper/90 px-3 py-1 font-mono text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-ink backdrop-blur">
+                        {s.category}
                       </span>
-                      {s.comingSoon && (
-                        <span className="font-mono text-[0.62rem] uppercase tracking-wider text-gold">Coming soon</span>
-                      )}
                     </div>
-                    <h3 className="mt-6 inline-block font-serif text-[1.5rem] font-medium text-ink">
-                      <span className="relative">
-                        {s.title}
-                        <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gold transition-all duration-300 group-hover:w-full" />
+
+                    <div className="flex flex-1 flex-col p-7 sm:p-8">
+                      <div className="flex items-start justify-between">
+                        <span className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-lg bg-ink text-gold-light">
+                          <span
+                            className="pointer-events-none absolute inset-0 opacity-60"
+                            style={{
+                              background:
+                                "radial-gradient(120% 120% at 20% 0%, rgba(212,168,85,0.35), transparent 60%)",
+                            }}
+                          />
+                          <Icon className="relative h-6 w-6" strokeWidth={1.6} />
+                        </span>
+                        {s.comingSoon && (
+                          <span className="font-mono text-[0.62rem] uppercase tracking-wider text-gold">Coming soon</span>
+                        )}
+                      </div>
+                      <h3 className="mt-6 inline-block font-serif text-[1.5rem] font-medium text-ink">
+                        <span className="relative">
+                          {s.title}
+                          <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gold transition-all duration-300 group-hover:w-full" />
+                        </span>
+                      </h3>
+                      <p className="mt-3 font-sans text-[0.95rem] leading-relaxed text-body">{s.summary}</p>
+                      <span className="mt-auto inline-flex flex-wrap items-baseline gap-x-2 pt-6">
+                        <span className="font-sans text-[0.86rem] font-medium text-ink">
+                          Learn more
+                        </span>
+                        <ArrowUpRight className="h-4 w-4 text-gold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                        <Price
+                          value={s.pricing}
+                          className="ml-auto font-mono text-[0.78rem] font-medium text-ink"
+                          hiddenClassName="text-muted-foreground"
+                        />
                       </span>
-                    </h3>
-                    <p className="mt-3 font-sans text-[0.95rem] leading-relaxed text-body">{s.summary}</p>
-                    <span className="mt-auto inline-flex items-center gap-1.5 pt-6 font-sans text-[0.86rem] font-medium text-ink">
-                      Learn more
-                      <ArrowUpRight className="h-4 w-4 text-gold transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </span>
+                    </div>
                   </Link>
                 </Reveal>
               );
@@ -308,7 +341,10 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
             <Reveal>
-              <span className="font-mono text-[0.72rem] font-medium uppercase tracking-[0.22em] text-gold">05 — Compliance calendar</span>
+              <div className="overflow-hidden rounded-xl border border-border shadow-[0_22px_50px_-34px_rgba(14,42,71,0.4)]">
+                <ComplianceCalendarArt className="h-[10rem] sm:h-[12rem]" />
+              </div>
+              <span className="mt-8 block font-mono text-[0.72rem] font-medium uppercase tracking-[0.22em] text-gold">05 — Compliance calendar</span>
               <h2 className="mt-3 font-serif text-[1.8rem] font-medium leading-tight text-ink sm:text-[2.2rem]">
                 Deadlines you can&apos;t afford to miss.
               </h2>
@@ -321,15 +357,29 @@ export default function Home() {
               </Link>
             </Reveal>
             <Reveal delay={0.08}>
-              <span className="font-mono text-[0.72rem] font-medium uppercase tracking-[0.22em] text-gold">06 — Pricing</span>
+              <span className="font-mono text-[0.72rem] font-medium uppercase tracking-[0.22em] text-gold">
+                {PRICING.visible ? "06 — Pricing" : "06 — Fees"}
+              </span>
               <h2 className="mt-3 font-serif text-[1.8rem] font-medium leading-tight text-ink sm:text-[2.2rem]">
-                Transparent. No &ldquo;get a quote&rdquo; walls.
+                {PRICING.visible ? (
+                  <>Transparent. No &ldquo;get a quote&rdquo; walls.</>
+                ) : (
+                  <>Quoted upfront. <span className="italic font-light">In writing.</span></>
+                )}
               </h2>
               <p className="mt-4 font-sans text-[0.96rem] leading-relaxed text-body">
-                Retainers from <span className="font-mono font-semibold text-ink">&#8377;1,999/mo</span> and flat-fee one-offs. What you see is what you pay.
+                {PRICING.visible ? (
+                  <>
+                    Retainers from <span className="font-mono font-semibold text-ink">&#8377;1,999/mo</span> and flat-fee one-offs. What you see is what you pay.
+                  </>
+                ) : (
+                  <>
+                    Fees depend on your entity, turnover and how much is pending — so we quote in writing before any work starts. No hour-meter surprises.
+                  </>
+                )}
               </p>
               <Link href="/pricing" className="mt-6 inline-flex h-11 items-center gap-2 rounded-md border border-ink px-6 font-sans text-[0.92rem] font-medium text-ink transition-colors hover:bg-ink hover:text-paper">
-                See all pricing
+                {PRICING.visible ? "See all pricing" : "How we quote"}
                 <ArrowUpRight className="h-4 w-4" />
               </Link>
             </Reveal>

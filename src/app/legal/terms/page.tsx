@@ -66,9 +66,10 @@ export default function TermsPage() {
                 &amp; HR Compliance, and (v) Advisory &amp; Growth. Services
                 may be engaged individually on a one-off basis or as a monthly
                 retainer covering a defined set of recurring deliverables. The
-                full catalog of services and indicative pricing is published on
-                our <Link href="/services">Services</Link> and{" "}
-                <Link href="/pricing">Pricing</Link> pages.
+                full catalog of services is published on our{" "}
+                <Link href="/services">Services</Link> page, and our{" "}
+                <Link href="/pricing">Fees</Link> page explains how we scope and
+                quote: every engagement is priced in writing before work begins.
               </p>
               <p>
                 Any service not expressly included in the written scope of work

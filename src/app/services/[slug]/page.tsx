@@ -16,6 +16,8 @@ import { SERVICES, getService, type Service } from "@/lib/services";
 import { CONTACT } from "@/lib/site";
 import { Reveal } from "@/components/site/reveal";
 import { PageHero, CtaBand } from "@/components/site/section";
+import { CategoryArt } from "@/components/art/service-art";
+import { Price, PriceNote } from "@/components/site/price";
 import { serviceSchema, breadcrumbSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/site/json-ld";
 import {
@@ -86,6 +88,7 @@ export default async function ServiceDetailPage({
         eyebrow={service.category}
         title={service.title}
         intro={service.tagline}
+        aside={<CategoryArt category={service.category} className="h-[13rem] sm:h-[15rem] lg:h-[17rem]" />}
       >
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
           <Link
@@ -320,8 +323,12 @@ function SummaryCard({
             Pricing
           </p>
           <p className="mt-1.5 font-mono text-[1.05rem] font-semibold leading-snug text-ink">
-            {service.pricing}
+            <Price
+              value={service.pricing}
+              hiddenClassName="text-[0.92rem] font-medium text-muted-foreground"
+            />
           </p>
+          <PriceNote className="mt-2 text-[0.78rem]" />
         </div>
         {service.comingSoon && (
           <div className="px-5 py-3">

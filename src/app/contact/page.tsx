@@ -11,6 +11,7 @@ import {
 import { PageHero } from "@/components/site/section";
 import { Reveal } from "@/components/site/reveal";
 import { ConsultationForm } from "@/components/site/consultation-form";
+import { LedgerDeskArt } from "@/components/art/section-art";
 import { CONTACT, SITE } from "@/lib/site";
 import { breadcrumbSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/site/json-ld";
@@ -29,6 +30,14 @@ const CONTACT_ROWS = [
     value: CONTACT.phone,
     href: CONTACT.phoneHref,
     note: "Mon–Sat, 10 AM – 7 PM IST",
+    iconBg: "bg-ink/8 text-ink",
+  },
+  {
+    icon: Phone,
+    label: "Alternate line",
+    value: CONTACT.phoneAlt,
+    href: CONTACT.phoneAltHref,
+    note: "If the first number is busy — same person answers",
     iconBg: "bg-ink/8 text-ink",
   },
   {
@@ -67,6 +76,7 @@ export default function ContactPage() {
           </>
         }
         intro="Call, WhatsApp, email, or use the form below. Whichever works for you — we usually respond within one working day."
+        aside={<LedgerDeskArt className="h-[13rem] sm:h-[15rem] lg:h-[17rem]" />}
       />
 
       {/* Contact details + form */}

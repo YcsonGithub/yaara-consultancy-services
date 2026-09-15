@@ -10,15 +10,21 @@ import {
 } from "lucide-react";
 import { PageHero, CtaBand } from "@/components/site/section";
 import { Reveal } from "@/components/site/reveal";
-import { PRICING_TIERS, FLAT_FEES } from "@/lib/site";
+import { GrowthArcArt } from "@/components/art/section-art";
+import { PriceNote, PRICES_VISIBLE } from "@/components/site/price";
+import { PRICING_TIERS, FLAT_FEES, PRICING } from "@/lib/site";
+import { SERVICE_COUNT } from "@/lib/services";
 import { cn } from "@/lib/utils";
 import { breadcrumbSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/site/json-ld";
 
 export const metadata = {
-  title: "Pricing — transparent fees, no quote walls",
-  description:
-    "Transparent starting fees for Yaara Consultancy Services: three monthly retainer tiers (Starter ₹1,999, Growing ₹4,999, Established custom) plus a flat-fee reference table for 15 common one-off services. No 'get a quote' walls.",
+  title: PRICES_VISIBLE
+    ? "Pricing — transparent fees, no quote walls"
+    : "Fees — quoted upfront, in writing",
+  description: PRICES_VISIBLE
+    ? `Transparent starting fees for Yaara Consultancy Services: three monthly retainer tiers plus a flat-fee reference table for common one-off services. No 'get a quote' walls.`
+    : `How Yaara Consultancy Services quotes: three monthly engagement tiers, itemised written quotes before any work starts, and government fees always at actuals. Ask for a quote on any of our ${SERVICE_COUNT} services.`,
 };
 
 const FAQ_PRICE = [
@@ -30,7 +36,7 @@ const FAQ_PRICE = [
   {
     icon: Receipt,
     q: "Are there hidden charges?",
-    a: "No. The price you see is the price you pay, plus government fees where they apply. If a filing needs an additional form, an amendment, or a notice response, we tell you the cost before doing the work — never after. Every invoice is itemised, in plain English.",
+    a: "No. Whatever we quote is what you pay, plus government fees where they apply. If a filing needs an additional form, an amendment, or a notice response, we tell you the cost before doing the work — never after. Every invoice is itemised, in plain English.",
   },
   {
     icon: CreditCard,
@@ -50,16 +56,28 @@ export default function PricingPage() {
       />
       {/* ============ HERO ============ */}
       <PageHero
-        eyebrow="Pricing"
+        eyebrow={PRICING.visible ? "Pricing" : "Fees"}
         title={
-          <>
-            Transparent pricing.{" "}
-            <span className="italic font-light">
-              No &ldquo;get a quote&rdquo; walls.
-            </span>
-          </>
+          PRICING.visible ? (
+            <>
+              Transparent pricing.{" "}
+              <span className="italic font-light">
+                No &ldquo;get a quote&rdquo; walls.
+              </span>
+            </>
+          ) : (
+            <>
+              Our fees.{" "}
+              <span className="italic font-light">Quoted before work starts.</span>
+            </>
+          )
         }
-        intro="Most compliance portals hide pricing behind a form. Here are our real starting fees — what you see is what you pay, plus government fees where they apply."
+        intro={
+          PRICING.visible
+            ? "Most compliance portals hide pricing behind a form. Here are our real starting fees — what you see is what you pay, plus government fees where they apply."
+            : "We don't publish a rate card, because the honest price depends on your entity, turnover and what is already pending. Tell us the work and you'll get an itemised quote in writing — before anything begins."
+        }
+        aside={<GrowthArcArt className="h-[13rem] sm:h-[15rem] lg:h-[17rem]" />}
       />
 
       {/* ============ RETAINER TIERS ============ */}
@@ -126,32 +144,45 @@ export default function PricingPage() {
                           : "var(--border)",
                       }}
                     >
-                      {tier.price !== "Custom" && (
+                      {PRICING.visible ? (
+                        <>
+                          {tier.price !== "Custom" && (
+                            <span
+                              className={cn(
+                                "font-sans text-[1.4rem] font-medium",
+                                featured ? "text-paper/80" : "text-muted-foreground"
+                              )}
+                            >
+                              ₹
+                            </span>
+                          )}
+                          <span
+                            className={cn(
+                              "font-mono text-[2.4rem] font-semibold leading-none",
+                              featured ? "text-paper" : "text-ink"
+                            )}
+                          >
+                            {tier.price}
+                          </span>
+                          {tier.period && (
+                            <span
+                              className={cn(
+                                "ml-1 font-mono text-[0.95rem]",
+                                featured ? "text-paper/70" : "text-muted-foreground"
+                              )}
+                            >
+                              {tier.period}
+                            </span>
+                          )}
+                        </>
+                      ) : (
                         <span
                           className={cn(
-                            "font-sans text-[1.4rem] font-medium",
-                            featured ? "text-paper/80" : "text-muted-foreground"
+                            "font-serif text-[1.3rem] font-medium italic",
+                            featured ? "text-paper/85" : "text-muted-foreground"
                           )}
                         >
-                          ₹
-                        </span>
-                      )}
-                      <span
-                        className={cn(
-                          "font-mono text-[2.4rem] font-semibold leading-none",
-                          featured ? "text-paper" : "text-ink"
-                        )}
-                      >
-                        {tier.price}
-                      </span>
-                      {tier.period && (
-                        <span
-                          className={cn(
-                            "ml-1 font-mono text-[0.95rem]",
-                            featured ? "text-paper/70" : "text-muted-foreground"
-                          )}
-                        >
-                          {tier.period}
+                          {PRICING.hiddenLabel}
                         </span>
                       )}
                     </div>
@@ -209,6 +240,7 @@ export default function PricingPage() {
               All retainers exclude government fees, charged at actuals. Cancel
               anytime with one month&apos;s notice — no lock-in, no penalty.
             </p>
+            <PriceNote className="mt-2 text-[0.82rem]" />
           </Reveal>
         </div>
       </section>
@@ -219,14 +251,15 @@ export default function PricingPage() {
           <Reveal>
             <div className="max-w-2xl">
               <span className="font-mono text-[0.72rem] font-medium uppercase tracking-[0.22em] text-gold">
-                02 — One-off fees
+                02 — One-off work
               </span>
               <h2 className="mt-3 font-serif text-[2rem] font-medium leading-tight text-ink sm:text-[2.6rem]">
-                Flat-fee reference table
+                {PRICING.visible ? "Flat-fee reference table" : "What a quote covers"}
               </h2>
               <p className="mt-4 font-sans text-[1rem] leading-relaxed text-body">
-                Starting prices for the services we get asked about most. Quoted
-                upfront, itemised on every invoice — no surprises.
+                {PRICING.visible
+                  ? "Starting prices for the services we get asked about most. Quoted upfront, itemised on every invoice — no surprises."
+                  : "The one-off jobs we're asked for most. Send us the details and you'll get an itemised quote in writing — scope, deliverables, government fees and our fee, separately."}
               </p>
             </div>
           </Reveal>
@@ -235,13 +268,15 @@ export default function PricingPage() {
             <div className="mt-10 overflow-hidden rounded-xl border border-border bg-card shadow-[0_18px_44px_-30px_rgba(14,42,71,0.25)]">
               {/* Header row */}
               <div className="hidden grid-cols-12 gap-4 border-b border-border bg-surface/70 px-6 py-4 sm:grid sm:px-8">
-                <div className="col-span-6 font-mono text-[0.66rem] uppercase tracking-[0.18em] text-muted-foreground">
+                <div className={cn("font-mono text-[0.66rem] uppercase tracking-[0.18em] text-muted-foreground", PRICING.visible ? "col-span-6" : "col-span-7")}>
                   Service
                 </div>
-                <div className="col-span-3 text-right font-mono text-[0.66rem] uppercase tracking-[0.18em] text-muted-foreground">
-                  Fee (₹)
-                </div>
-                <div className="col-span-3 font-mono text-[0.66rem] uppercase tracking-[0.18em] text-muted-foreground">
+                {PRICING.visible && (
+                  <div className="col-span-3 text-right font-mono text-[0.66rem] uppercase tracking-[0.18em] text-muted-foreground">
+                    Fee (₹)
+                  </div>
+                )}
+                <div className={cn("font-mono text-[0.66rem] uppercase tracking-[0.18em] text-muted-foreground", PRICING.visible ? "col-span-3" : "col-span-5")}>
                   Notes
                 </div>
               </div>
@@ -257,13 +292,15 @@ export default function PricingPage() {
                       i !== FLAT_FEES.length - 1 && "border-b border-border"
                     )}
                   >
-                    <div className="col-span-6 font-sans text-[0.95rem] font-medium text-ink">
+                    <div className={cn("font-sans text-[0.95rem] font-medium text-ink", PRICING.visible ? "col-span-6" : "col-span-7")}>
                       {row.service}
                     </div>
-                    <div className="col-span-3 font-mono text-[0.95rem] font-semibold text-ink sm:text-right">
-                      {row.fee}
-                    </div>
-                    <div className="col-span-3 font-sans text-[0.85rem] leading-snug text-muted-foreground">
+                    {PRICING.visible && (
+                      <div className="col-span-3 font-mono text-[0.95rem] font-semibold text-ink sm:text-right">
+                        {row.fee}
+                      </div>
+                    )}
+                    <div className={cn("font-sans text-[0.85rem] leading-snug text-muted-foreground", PRICING.visible ? "col-span-3" : "col-span-5")}>
                       {row.note}
                     </div>
                   </div>
@@ -273,11 +310,23 @@ export default function PricingPage() {
               {/* Footer note */}
               <div className="border-t border-border bg-surface/30 px-6 py-4 sm:px-8">
                 <p className="font-sans text-[0.8rem] leading-relaxed text-muted-foreground">
-                  &ldquo;+ govt. fees&rdquo; = MCA / ROC / GST portal / trademark
-                  fees charged at actuals. &ldquo;from&rdquo; = starting price for
-                  standard cases; complex situations are scoped and quoted in
-                  writing before any work begins.
+                  {PRICING.visible ? (
+                    <>
+                      &ldquo;+ govt. fees&rdquo; = MCA / ROC / GST portal / trademark
+                      fees charged at actuals. &ldquo;from&rdquo; = starting price for
+                      standard cases; complex situations are scoped and quoted in
+                      writing before any work begins.
+                    </>
+                  ) : (
+                    <>
+                      Government fees (MCA / ROC / GST portal / trademark) are
+                      always charged at actuals and shown separately on the
+                      invoice. Complex situations are scoped in advance — never
+                      billed by surprise.
+                    </>
+                  )}
                 </p>
+                <PriceNote className="mt-2 text-[0.8rem]" />
               </div>
             </div>
           </Reveal>
@@ -291,7 +340,7 @@ export default function PricingPage() {
                 href="/services"
                 className="group inline-flex h-11 items-center justify-center gap-2 rounded-md border border-ink bg-transparent px-6 font-sans text-[0.9rem] font-medium text-ink transition-colors hover:bg-ink hover:text-paper"
               >
-                See all 40+ services
+                See all {SERVICE_COUNT} services
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
             </div>

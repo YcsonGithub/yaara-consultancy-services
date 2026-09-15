@@ -1,6 +1,8 @@
 // Central site configuration for Yaara Consultancy Services
 // Single source of truth for nav, contact, industries, pricing, FAQs.
 
+import { SERVICES, SERVICE_COUNT } from "./services";
+
 export const SITE = {
   name: "Yaara Consultancy Services",
   shortName: "Yaara",
@@ -8,7 +10,10 @@ export const SITE = {
   domain: "yaaraconsultancyservices.com",
   url: "https://www.yaaraconsultancyservices.com",
   founder: "Anakali Pawan Kalyan",
-  founderRole: "Founder & CEO",
+  // Title as printed on the visiting card.
+  founderRole: "Managing Partner & Business Setup Specialist",
+  founderTitleLong:
+    "Managing Partner | Startup Advisor & Business Setup Specialist",
   foundedYear: 2024,
   experienceYears: 5,
 } as const;
@@ -17,6 +22,9 @@ export const CONTACT = {
   email: "pawan.ycs001@gmail.com",
   phone: "+91 83091 27360",
   phoneHref: "tel:+918309127360",
+  // Second line printed on the visiting card ("Call Now for Free Consultation").
+  phoneAlt: "+91 70978 56737",
+  phoneAltHref: "tel:+917097856737",
   whatsapp: "918309127360",
   whatsappHref: "https://wa.me/918309127360",
   address: {
@@ -40,7 +48,7 @@ export const CONTACT = {
  */
 export const GRIEVANCE_OFFICER = {
   name: "Anakali Pawan Kalyan",
-  role: "Grievance Officer & Founder",
+  role: "Grievance Officer & Managing Partner",
   email: "pawan.ycs001@gmail.com",
   phone: CONTACT.phone,
   phoneHref: CONTACT.phoneHref,
@@ -78,12 +86,51 @@ export const ANALYTICS = {
   ga4Enabled: Boolean(process.env.NEXT_PUBLIC_GA4_ID),
 } as const;
 
+/**
+ * ============================================================
+ *  PRICE VISIBILITY SWITCH  (site-wide)
+ * ============================================================
+ * Every fee shown anywhere on this website is INDICATIVE — it is not a
+ * final, binding quote. Until the real fee card is published, fees can be
+ * hidden site-wide from a single place.
+ *
+ * Control it from `.env.local` (loaded automatically by Next.js in dev and
+ * in `next build` / `next start`):
+ *
+ *   NEXT_PUBLIC_SHOW_PRICING=true    → publish the fees in
+ *                                      `src/lib/site.ts` (PRICING_TIERS,
+ *                                      FLAT_FEES) and in the `pricing` field
+ *                                      of every service in
+ *                                      `src/lib/services.ts`.
+ *   NEXT_PUBLIC_SHOW_PRICING=false   → (default when unset) every fee is
+ *                                      replaced by "Price on request" copy,
+ *                                      and the assistant is told never to
+ *                                      quote a number.
+ *
+ * Because it is a NEXT_PUBLIC_* value it is inlined at build time — toggle it
+ * and rebuild (or restart `next dev`) for the change to take effect.
+ */
+const PRICING_FLAG = (process.env.NEXT_PUBLIC_SHOW_PRICING ?? "")
+  .trim()
+  .toLowerCase();
+export const PRICING = {
+  /** true → fees are rendered. Anything else (incl. unset) → hidden. */
+  visible: ["true", "1", "yes", "on"].includes(PRICING_FLAG),
+  /** Shown wherever a fee would have been. */
+  hiddenLabel: "Price on request",
+  /** The "how you get a price" line used in place of fee tables. */
+  hiddenNote:
+    "Fees depend on your entity type, turnover and how much is pending. We put every quote in writing — before any work starts.",
+  /** Short label for the nav / CTAs when fees are hidden. */
+  hiddenCta: "Ask for a written quote",
+} as const;
+
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
   { label: "About", href: "/about" },
   { label: "Industries", href: "/industries" },
-  { label: "Pricing", href: "/pricing" },
+  { label: PRICING.visible ? "Pricing" : "Fees", href: "/pricing" },
   { label: "Resources", href: "/resources" },
   { label: "Contact", href: "/contact" },
 ] as const;
@@ -302,7 +349,11 @@ export const FAQS: Faq[] = [
 
 export const STATS = [
   { value: "5", unit: "yrs", label: "hands-on accounting experience" },
-  { value: "40", unit: "+", label: "compliance services under one roof" },
+  {
+    value: String(SERVICE_COUNT),
+    unit: "",
+    label: `services across our five practice areas`,
+  },
   { value: "1", unit: "day", label: "typical response time, working days" },
   { value: "CA", unit: "network", label: "empanelled partners for statutory sign-off" },
 ];

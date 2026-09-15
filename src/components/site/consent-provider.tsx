@@ -26,6 +26,13 @@ import {
 } from "@/lib/analytics";
 import { ANALYTICS } from "@/lib/site";
 
+/* Google Tag Manager / gtag.js pushes into `window.dataLayer`. */
+declare global {
+  interface Window {
+    dataLayer?: unknown[];
+  }
+}
+
 /* ---------- store ---------- */
 
 let cached: ConsentState | null | undefined = undefined; // undefined = stale
@@ -91,8 +98,8 @@ function applyConsentUpdate(choices: ConsentGranular) {
     /* gtag may not be defined yet — GTM will read the dataLayer state on load. */
   }
   if (typeof window !== "undefined") {
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
+    const dataLayer: unknown[] = (window.dataLayer ??= []);
+    dataLayer.push({
       event: "consent_update",
       consent_analytics: choices.analytics ? "granted" : "denied",
       consent_marketing: choices.marketing ? "granted" : "denied",

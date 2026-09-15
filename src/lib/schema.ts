@@ -9,7 +9,7 @@
  * Reference: https://schema.org / https://developers.google.com/search/docs/appearance/structured-data
  */
 
-import { SITE, CONTACT, GRIEVANCE_OFFICER, SOCIAL } from "@/lib/site";
+import { SITE, CONTACT, GRIEVANCE_OFFICER, SOCIAL, PRICING } from "@/lib/site";
 import { SERVICES, getService } from "@/lib/services";
 import { FAQS } from "@/lib/site";
 
@@ -117,15 +117,22 @@ export function serviceSchema(slug: string) {
     provider: { "@id": `${BASE_URL}/#organization` },
     areaServed: { "@type": "Country", name: "India" },
     url: `${BASE_URL}/services/${slug}`,
-    offers: service.pricing
-      ? {
-          "@type": "Offer",
-          priceCurrency: "INR",
-          price: "0",
-          availability: "https://schema.org/InStock",
-          description: service.pricing,
-        }
-      : undefined,
+    /*
+      Fees are only published to search engines when the site-wide
+      NEXT_PUBLIC_SHOW_PRICING switch is on — shipping indicative-only
+      numbers as structured data would be misleading.
+    */
+    offers:
+      PRICING.visible && service.pricing
+        ? {
+            "@type": "Offer",
+            priceCurrency: "INR",
+            price: "0",
+            availability: "https://schema.org/InStock",
+            description: service.pricing,
+            url: `${BASE_URL}/pricing`,
+          }
+        : undefined,
   };
 }
 
