@@ -291,7 +291,7 @@ export default function PricingPage() {
                 href="/services"
                 className="group inline-flex h-11 items-center justify-center gap-2 rounded-md border border-ink bg-transparent px-6 font-sans text-[0.9rem] font-medium text-ink transition-colors hover:bg-ink hover:text-paper"
               >
-                See all 30+ services
+                See all 40+ services
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
             </div>

@@ -2,7 +2,7 @@
 
 A multi-page Next.js 16 marketing website for **Yaara Consultancy Services**, an Indian
 accounting, tax, and compliance consultancy based in Hyderabad, founded by
-**Anakali Pawan Kalyan**. The site presents 30+ service offerings across five
+**Anakali Pawan Kalyan**. The site presents 40+ service offerings across five
 practice areas, six industry verticals, transparent pricing, a compliance calendar,
 and a DPDP Act–compliant consent layer — all wrapped in an editorial,
 trust-first design system that deliberately avoids the generic SaaS template look.

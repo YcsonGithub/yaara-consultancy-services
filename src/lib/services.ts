@@ -288,6 +288,88 @@ export const SERVICES: Service[] = [
     ],
   },
 
+  // ---------- From visiting card: portal registrations & LUT ----------
+  {
+    slug: "income-tax-portal-registration",
+    title: "Income Tax Portal Registration",
+    icon: FileText,
+    category: "Tax & Statutory Compliance",
+    tagline: "Your gateway to the income tax e-filing portal.",
+    summary:
+      "Register your business or individual profile on the income tax e-filing portal — enabling ITR submission, TDS credit view, and all other tax compliance activities.",
+    whoNeeds: [
+      "New businesses needing ITR filing access",
+      "Professionals without an active portal account",
+      "Entities needing to view TDS credit statements",
+    ],
+    process: [
+      { step: "Verify", desc: "Confirm PAN-Aadhaar linking and registered mobile number." },
+      { step: "Register", desc: "Create the portal profile and activate via OTP." },
+      { step: "Activate", desc: "Enable e-verification, ITR filing, and profile management." },
+    ],
+    documents: ["PAN", "Aadhaar", "Registered mobile number"],
+    timeline: "Same day to 1 working day.",
+    pricing: "₹499",
+    faqs: [
+      { q: "Can I file ITR myself once registered?", a: "Yes — once your portal profile is active, you can file directly. We also offer managed ITR filing as a separate service if you'd prefer us to handle it." },
+    ],
+  },
+  {
+    slug: "traces-portal-registration",
+    title: "TRACES Portal Registration",
+    icon: Receipt,
+    category: "Tax & Statutory Compliance",
+    tagline: "Your TAN's home for TDS returns and Form 16/16A.",
+    summary:
+      "Register on the TRACES portal using your TAN — enabling TDS return filing, Form 16/16A generation, and challan trace confirmations.",
+    whoNeeds: [
+      "Employers required to deduct TDS",
+      "Businesses paying rent, professional fees, or commission",
+      "Anyone needing to view or download Form 16/16A",
+    ],
+    process: [
+      { step: "Obtain TAN", desc: "Ensure you have a 10-digit TAN allotted." },
+      { step: "Register", desc: "Create TRACES profile with TAN and OTP authentication." },
+      { step: "Configure", desc: "Set up admin users, upload challans, and enable return filing." },
+    ],
+    documents: ["TAN", "PAN of deductor", "Registered mobile number", "Email address"],
+    timeline: "1–2 working days.",
+    pricing: "₹499",
+    faqs: [
+      { q: "What can I do once registered on TRACES?", a: "File quarterly TDS returns (24Q, 26Q, 27Q, 27EQ), generate and download Form 16/16A, view challan status, and manage your TDS ledger." },
+    ],
+  },
+  {
+    slug: "gst-lut-filing",
+    title: "GST LUT Filing",
+    icon: FileCheck2,
+    category: "Tax & Statutory Compliance",
+    tagline: "Zero-rated supplies without paying GST upfront.",
+    summary:
+      "File your GST Letter of Undertaking (LUT) for zero-rated supplies — export, deemed exports, and SEZ transactions without paying IGST in advance.",
+    whoNeeds: [
+      "Exporters shipping out of India",
+      "Businesses making SEZ supplies",
+      "Importers with zero-rated transactions",
+    ],
+    process: [
+      { step: "Assess", desc: "Confirm your export or zero-rated supply eligibility and turnover." },
+      { step: "Prepare", desc: "Draft the LUT application form for the new financial year." },
+      { step: "File", desc: "Submit the LUT on the GST portal before the 25th of April." },
+    ],
+    documents: [
+      "Valid GSTIN",
+      "Bank account details",
+      "Export commitment or SEZ supply details",
+      "Authorized signatory details",
+    ],
+    timeline: "Submitted by 25th April each financial year.",
+    pricing: "₹1,999 per filing",
+    faqs: [
+      { q: "When must the LUT be filed?", a: "Every financial year, by 25th April — or before your first zero-rated supply. We track and file it on time so your exports remain duty-free." },
+    ],
+  },
+
   // ---------- Business Registration & Corporate ----------
   {
     slug: "business-registration",
@@ -401,7 +483,7 @@ export const SERVICES: Service[] = [
     category: "Business Registration & Corporate",
     tagline: "Class 3 DSC for filing, tenders and e-verification.",
     summary:
-      "Class 3 DSC issuance and renewal — valid for e-filing of returns, e-tendering, and signing documents digitally.",
+      "Class 3 DSC issuance and renewal — valid for e-filing of returns, e-tendering, EPFO KYC (DSC & e-sign) and signing documents digitally.",
     whoNeeds: [
       "Directors of companies filing MCA returns",
       "Businesses participating in e-tenders",
@@ -419,14 +501,101 @@ export const SERVICES: Service[] = [
       { q: "USB token vs cloud DSC?", a: "USB tokens are the traditional option; cloud DSCs let you sign from any device. We recommend cloud for most founders unless you specifically need the hardware token for e-tenders." },
     ],
   },
+  // ---------- Shop & Establishment (from visiting card) ----------
+  {
+    slug: "shop-establishment-registration",
+    title: "Shop & Establishment Registration",
+    icon: Building2,
+    category: "Business Registration & Corporate",
+    tagline: "State-level registration for shops, offices, and commercial establishments — mandatory in most states.",
+    summary:
+      "Registration under the state Shop & Establishment Act — a legal requirement for most businesses with physical premises, covering working hours, holidays, and employee conditions.",
+    whoNeeds: [
+      "Any shop, office, or commercial establishment with employees",
+      "Retail stores, hotels, restaurants, and cafes",
+      "Offices, warehouses, and service establishments",
+    ],
+    process: [
+      { step: "Register", desc: "File the application with the state labour/shops department within the prescribed time of starting operations." },
+      { step: "Details", desc: "Provide establishment name, address, type, number of employees, and working hours." },
+      { step: "Certificate", desc: "Registration certificate issued — display prominently at the premises." },
+      { step: "Renew", desc: "Renewal handled annually or as per state rules." },
+    ],
+    documents: ["Business registration / ownership proof", "Premises address proof", "Owner/manager details and ID proof", "Employee count and details", "Photo of premises"],
+    timeline: "3–10 working days (varies by state).",
+    pricing: "From ₹999",
+    faqs: [
+      { q: "Is Shop & Establishment registration mandatory?", a: "In most states, yes — any shop, office, or commercial establishment must register under the state Shop & Establishment Act, usually within 30 days of starting operations." },
+      { q: "Does it apply to online-only businesses?", a: "Generally no — Shop & Establishment registration is for businesses with a physical premises. If you have a registered office or workspace, check your state's specific rules." },
+      { q: "How often do I need to renew?", a: "Renewal periods vary by state — some are annual, some every few years. We track your state's renewal schedule and handle it." },
+    ],
+  },
+  // ---------- FSSAI Registration (from visiting card) ----------
+  {
+    slug: "fssai-registration",
+    title: "FSSAI Registration",
+    icon: ShieldCheck,
+    category: "Business Registration & Corporate",
+    tagline: "Food safety licence for any business that makes, stores, sells, or serves food.",
+    summary:
+      "FSSAI (Food Safety and Standards Authority of India) registration or licence — mandatory for any business involved in food manufacturing, processing, packaging, storage, distribution, or sale.",
+    whoNeeds: [
+      "Food manufacturers and processors",
+      "Restaurants, cafes, hotels, and cloud kitchens",
+      "Retailers, distributors, and transporters of food",
+      "Online food businesses and food delivery platforms",
+    ],
+    process: [
+      { step: "Assess", desc: "We determine whether you need Basic Registration (turnover below ₹12 lakh), State Licence (₹12 lakh–₹20 crore), or Central Licence (above ₹20 crore, or inter-state / large manufacturers)." },
+      { step: "Apply", desc: "File the FSSAI application with the appropriate authority along with required documents." },
+      { step: "Issue", desc: "FSSAI licence/registration certificate issued with your 14-digit FSSAI number." },
+    ],
+    documents: ["Business registration proof", "Premises ownership or rental agreement / NOC", "List of food products handled", "Owner/director details and ID proof", "Photo of premises and equipment"],
+    timeline: "Basic registration: 1–7 days. State licence: 30–60 days. Central licence: 45–60 days.",
+    pricing: "Basic Registration from ₹1,499 · State Licence from ₹4,499 · Central Licence — quote on request",
+    faqs: [
+      { q: "Which FSSAI category do I fall under?", a: "It depends on your turnover and scale. Below ₹12 lakh/year → Basic Registration. ₹12 lakh to ₹20 crore → State Licence. Above ₹20 crore, inter-state operations, or large manufacturers → Central Licence. We assess your exact category before you apply." },
+      { q: "Can I operate without FSSAI?", a: "No — FSSAI registration or licence is mandatory for any food business. Operating without it can lead to penalties and closure. We get you registered before you start operations." },
+      { q: "How long is FSSAI licence valid?", a: "FSSAI licences are valid for 1 to 5 years depending on the category and your choice at application. Renewal must be applied for at least 30 days before expiry." },
+    ],
+  },
+
+  // ---------- IEC Code Registration (from visiting card) ----------
+  {
+    slug: "iec-code-registration",
+    title: "IEC Code Registration",
+    icon: Handshake,
+    category: "Business Registration & Corporate",
+    tagline: "The Import-Export Code — required for any Indian business that imports or exports goods or services.",
+    summary:
+      "IEC (Import-Export Code) registration from the DGFT — a 10-digit code that every Indian importer and exporter needs to clear customs and conduct foreign trade.",
+    whoNeeds: [
+      "Importers of goods or services into India",
+      "Exporters of goods or services from India",
+      "Freight forwarders, custom brokers, and trading companies",
+    ],
+    process: [
+      { step: "GUID", desc: "Obtain a Digital Signature-based GUID (Government User ID) on the DGFT portal." },
+      { step: "Apply", desc: "File the IEC application online — proprietorship, partnership, company, or any other entity." },
+      { step: "Issue", desc: "IEC code issued — valid for the lifetime of the firm (no renewal needed)." },
+    ],
+    documents: ["Business registration proof (PAN, incorporation, partnership deed)", "PAN of the firm and proprietors/directors", "Bank account details and IEC code request letter", "Address proof of registered office", "Digital Signature Certificate (DSC) of authorised signatory"],
+    timeline: "3–7 working days.",
+    pricing: "₹1,499",
+    faqs: [
+      { q: "Is IEC mandatory for every export and import?", a: "Yes — an IEC is mandatory for any import or export of goods or services from/to India, except for certain personal or specific exempted transactions. Customs and banking require it." },
+      { q: "How long is an IEC valid?", a: "IEC is valid for the lifetime of the business entity. There is no renewal requirement — it stays valid until the business closes or the IEC is surrendered/cancelled." },
+      { q: "Do I need a DSC for IEC?", a: "A Digital Signature Certificate (DSC) is required for most IEC applications. We arrange the DSC and handle the full application — you just provide the documents." },
+    ],
+  },
   {
     slug: "business-licenses",
     title: "Business Licenses",
     icon: ScrollText,
     category: "Business Registration & Corporate",
-    tagline: "Shop & Establishment, FSSAI, Trade License, IEC — what you need, where you are.",
+    tagline: "The aggregated business licenses bundle — or pick the individual services below.",
     summary:
-      "Every licence your business legally needs — Shop & Establishment, FSSAI, Trade License, Import-Export Code and more.",
+      "Every licence your business legally needs — Shop & Establishment, FSSAI, Trade License, Import-Export Code and more. Each also has its own dedicated page below.",
     whoNeeds: [
       "Any business with a physical premises",
       "Food businesses (manufacturers, restaurants, traders)",
@@ -441,561 +610,66 @@ export const SERVICES: Service[] = [
     timeline: "Varies by licence (1 day to 30 days).",
     pricing: "From ₹1,499 per licence",
     faqs: [
-      { q: "Which licences does my business need?", a: "It depends on your activity and location. A typical retail store needs Shop & Establishment + Trade License + GST. A food business adds FSSAI. An importer needs IEC. We'll give you a specific checklist." },
-    ],
-  },
-  {
-    slug: "startup-india-registration",
-    title: "Startup India Registration",
-    icon: TrendingUp,
-    category: "Business Registration & Corporate",
-    tagline: "DPIIT recognition and the tax benefits it unlocks.",
-    summary:
-      "DPIIT recognition as a startup under the Startup India scheme — unlocking tax holiday under Section 80-IAC and easier compliance.",
-    whoNeeds: [
-      "Incorporated startups under 10 years old",
-      "Innovative businesses with turnover under ₹100 crore",
-      "Founders seeking the 3-year tax holiday",
-    ],
-    process: [
-      { step: "Prepare", desc: "Innovation pitch, incorporation docs, and sector details." },
-      { step: "Apply", desc: "File on the Startup India portal for DPIIT recognition." },
-      { step: "Tax exemption", desc: "Apply for 80-IAC tax holiday if eligible." },
-    ],
-    documents: ["Certificate of Incorporation", "PAN", "Pitch deck / innovation note", "Director details"],
-    timeline: "10–20 working days.",
-    pricing: "₹4,999",
-    faqs: [
-      { q: "Does every startup get the tax holiday?", a: "No — DPIIT recognition is separate from the 80-IAC tax holiday. Recognition is broad; the tax holiday requires inter-ministerial board approval. We help you assess eligibility honestly." },
-    ],
-  },
-  {
-    slug: "section-8-ngo-registration",
-    title: "Section 8 / NGO Registration",
-    icon: HeartPulse,
-    category: "Business Registration & Corporate",
-    tagline: "Set up a non-profit with 12A/80G tax-exempt status.",
-    summary:
-      "Section 8 company incorporation plus 12A and 80G registrations — enabling tax-exempt status and deductible donations.",
-    whoNeeds: [
-      "Founders starting a non-profit or charitable trust",
-      "NGOs wanting to receive tax-deductible donations",
-      "Existing trusts/societies formalising as Section 8",
-    ],
-    process: [
-      { step: "Incorporate", desc: "Section 8 company set-up via SPICe+." },
-      { step: "12A", desc: "Income tax exemption registration." },
-      { step: "80G", desc: "Donor tax-deduction registration." },
-      { step: "FCRA (optional)", desc: "If you plan to receive foreign contributions." },
-    ],
-    documents: ["Director details", "Memorandum & Articles", "Object & activity plan", "Registered office proof"],
-    timeline: "30–60 days for incorporation + registrations.",
-    pricing: "From ₹14,999",
-    faqs: [
-      { q: "What's the difference between 12A and 80G?", a: "12A exempts the NGO's own income from tax. 80G allows donors to claim a deduction on their donation. Most legitimate NGOs want both." },
+      { q: "Which licences does my business need?", a: "It depends on your activity and location. See our individual licence pages — Shop & Establishment Registration, Trade License, FSSAI Registration, and IEC Code Registration — or get a custom checklist from us." },
     ],
   },
 
-  // ---------- Accounting & Bookkeeping ----------
+
+
   {
-    slug: "bookkeeping-accounting",
-    title: "Bookkeeping & Accounting",
-    icon: BookOpen,
-    category: "Accounting & Bookkeeping",
-    tagline: "Clean, reconciled books — and reports you can actually read.",
+    slug: "trade-license",
+    title: "Trade License",
+    icon: Landmark,
+    category: "Business Registration & Corporate",
+    tagline: "The local licence every shop, trade, and commercial establishment needs to operate legally.",
     summary:
-      "Monthly bookkeeping in your preferred tool, fully reconciled to bank and GST, with reports that make sense to a non-accountant.",
+      "Trade license registration with your local municipal authority — the basic licence most physical businesses need to operate from a premises, whether a shop, office, or commercial establishment.",
     whoNeeds: [
-      "Any business needing accurate monthly books",
-      "Founders tired of messy spreadsheets",
-      "Companies preparing for audit or fundraising",
+      "Any business operating from a physical premises",
+      "Retail shops, markets, and shopping complexes",
+      "Trading and commercial establishments in municipal limits",
     ],
     process: [
-      { step: "Set up", desc: "We configure your accounting tool (Tally / Zoho / QuickBooks) properly." },
-      { step: "Record", desc: "Monthly recording of sales, purchases, expenses, and bank entries." },
-      { step: "Reconcile", desc: "Bank, GST, and TDS reconciliation every month." },
-      { step: "Report", desc: "P&L, balance sheet, and a plain-English monthly summary." },
+      { step: "Identify", desc: "We identify your local authority and the exact licence category your business falls under." },
+      { step: "Apply", desc: "File the trade license application with the municipal corporation, including premises and owner details." },
+      { step: "Issue", desc: "Trade license certificate issued, valid for the prescribed period — typically 1 to 3 years, renewable." },
     ],
-    documents: ["Bank statements", "Sales & purchase invoices", "Expense receipts", "GST returns", "Payroll data"],
-    timeline: "Monthly — closed within 7 days of month-end.",
-    pricing: "From ₹4,999/mo",
+    documents: ["Business registration proof", "Premises address and rental/ownership proof", "Owner identity and address proof", "Photographs of premises", "NOC from owner (if rented)"],
+    timeline: "7–21 working days (varies by municipality).",
+    pricing: "From ₹1,499",
     faqs: [
-      { q: "Which accounting tool do you use?", a: "Your choice — Tally Prime, Zoho Books, QuickBooks, or even a custom sheet for very small operations. We're tool-agnostic and work with what suits your scale." },
-      { q: "Do you take over existing books?", a: "Yes. We review your current books, clean up any misclassifications, and continue from there. Most clients arrive with 6–12 months of unorganised data." },
-    ],
-    featured: true,
-  },
-  {
-    slug: "bank-reconciliation",
-    title: "Bank Reconciliation",
-    icon: Banknote,
-    category: "Accounting & Bookkeeping",
-    tagline: "Every rupee accounted for, every month.",
-    summary:
-      "Monthly bank reconciliation matching your books to actual bank balances — catching errors, duplicates and missing entries.",
-    whoNeeds: [
-      "Businesses with multiple bank accounts",
-      "Anyone noticing book vs bank balance mismatches",
-      "Companies preparing for audit",
-    ],
-    process: [
-      { step: "Match", desc: "Compare books against bank statements entry by entry." },
-      { step: "Identify", desc: "Flag missing entries, duplicates, and uncleared items." },
-      { step: "Adjust", desc: "Post correcting entries and clear reconciling items." },
-    ],
-    documents: ["Bank statements", "Books of accounts", "Cheque & deposit registers"],
-    timeline: "Monthly, within 5 days of month-end.",
-    pricing: "From ₹1,499/mo",
-    faqs: [
-      { q: "Why does my bank balance never match my books?", a: "Usually because of uncleared cheques, unrecorded bank charges, or timing differences. Regular reconciliation eliminates the gap — and surfaces any errors early." },
-    ],
-  },
-  {
-    slug: "accounts-receivable-payable",
-    title: "Accounts Receivable / Payable",
-    icon: Handshake,
-    category: "Accounting & Bookkeeping",
-    tagline: "Know who owes you — and who you owe.",
-    summary:
-      "AR/AP management with ageing analysis, follow-up schedules, and clear visibility on your working capital position.",
-    whoNeeds: [
-      "Businesses with credit sales or supplier credit",
-      "Companies struggling with cash flow timing",
-      "Anyone wanting tighter debtor follow-up",
-    ],
-    process: [
-      { step: "Record", desc: "Track every invoice raised and bill received." },
-      { step: "Age", desc: "Ageing buckets: 0–30, 31–60, 61–90, 90+ days." },
-      { step: "Follow up", desc: "Scheduled debtor follow-ups; creditor payment calendar." },
-    ],
-    documents: ["Sales invoices", "Purchase bills", "Payment receipts", "Supplier statements"],
-    timeline: "Ongoing — weekly ageing reports.",
-    pricing: "From ₹2,499/mo",
-    faqs: [
-      { q: "Can you chase my customers for payment?", a: "We prepare professional follow-up communications and reminders for your approval; the actual sending can be done by you or on your behalf, depending on your preference." },
-    ],
-  },
-  {
-    slug: "mis-reporting",
-    title: "MIS Reporting",
-    icon: PieChart,
-    category: "Accounting & Bookkeeping",
-    tagline: "A dashboard you can actually run the business from.",
-    summary:
-      "Custom monthly MIS reports — P&L, cash flow, unit economics, KPIs — formatted for founders, not accountants.",
-    whoNeeds: [
-      "Founders wanting real visibility on performance",
-      "Businesses preparing for investor reporting",
-      "Teams needing consistent monthly metrics",
-    ],
-    process: [
-      { step: "Define", desc: "We agree the 8–12 metrics that matter for your business." },
-      { step: "Compile", desc: "Monthly data pulled and structured from your books." },
-      { step: "Present", desc: "A one-page report with trends, variance, and commentary." },
-    ],
-    documents: ["Books of accounts", "Prior period reports", "Business KPI definitions"],
-    timeline: "Monthly, within 10 days of month-end.",
-    pricing: "From ₹3,499/mo",
-    faqs: [
-      { q: "What goes in a typical MIS?", a: "P&L summary, cash position, top customers, AR/AP ageing, burn rate (for startups), and 3–5 business-specific KPIs. We tailor the format to how you actually make decisions." },
-    ],
-  },
-  {
-    slug: "financial-statement-preparation",
-    title: "Financial Statement Preparation",
-    icon: FileCheck2,
-    category: "Accounting & Bookkeeping",
-    tagline: "P&L, balance sheet, notes — audit-ready.",
-    summary:
-      "Preparation of the full set of financial statements — Balance Sheet, P&L, notes, and schedules — in the format auditors and regulators expect.",
-    whoNeeds: [
-      "Companies preparing for statutory audit",
-      "Businesses needing bank-ready financials",
-      "Founders seeking investment (investor due diligence)",
-    ],
-    process: [
-      { step: "Close books", desc: "Complete and reconcile the year's accounts." },
-      { step: "Prepare", desc: "Balance sheet, P&L, cash flow, schedules, and notes." },
-      { step: "Review", desc: "Internal review for classification and disclosure." },
-    ],
-    documents: ["Trial balance", "Ledgers", "Bank statements", "Supporting vouchers"],
-    timeline: "2–3 weeks from complete books.",
-    pricing: "From ₹9,999",
-    faqs: [
-      { q: "Are these audited financials?", a: "These are management-prepared financial statements. For statutory audit certification, we coordinate with our CA partner network to sign off." },
-    ],
-  },
-  {
-    slug: "cash-flow-management",
-    title: "Cash Flow Management",
-    icon: Wallet,
-    category: "Accounting & Bookkeeping",
-    tagline: "Know your cash position before it becomes a crisis.",
-    summary:
-      "Cash flow forecasting and monitoring — 13-week rolling view, working capital tracking, and early warnings.",
-    whoNeeds: [
-      "Growing businesses with tight working capital",
-      "Startups managing runway",
-      "Anyone who has been surprised by a cash shortfall",
-    ],
-    process: [
-      { step: "Map", desc: "Weekly inflows and outflows for the next 13 weeks." },
-      { step: "Monitor", desc: "Weekly check-in on actuals vs forecast." },
-      { step: "Adjust", desc: "Reforecast and flag risks early." },
-    ],
-    documents: ["Bank balances", "AR/AP ageing", "Committed expenses", "Sales pipeline"],
-    timeline: "Ongoing — weekly updates.",
-    pricing: "From ₹3,999/mo",
-    faqs: [
-      { q: "How accurate is a 13-week forecast?", a: "Weeks 1–4 are highly accurate (committed), weeks 5–9 are reasonable, weeks 10–13 are directional. The value is in early warnings, not perfect prediction." },
-    ],
-  },
-  {
-    slug: "cost-accounting",
-    title: "Cost Accounting",
-    icon: Calculator,
-    category: "Accounting & Bookkeeping",
-    tagline: "Know what every product, job or service truly costs.",
-    summary:
-      "Cost accounting — allocating direct and indirect costs to products, services, and departments so you price profitably.",
-    whoNeeds: [
-      "Manufacturers needing product costing",
-      "Service businesses with multi-service profitability",
-      "Anyone pricing without knowing true margins",
-    ],
-    process: [
-      { step: "Map cost centres", desc: "Identify direct and indirect cost categories." },
-      { step: "Allocate", desc: "Apportion overheads on a sensible basis." },
-      { step: "Report", desc: "Per-product / per-service margin analysis." },
-    ],
-    documents: ["Material costs", "Labour costs", "Overhead details", "Production / service volumes"],
-    timeline: "Initial set-up 2–3 weeks; monthly updates thereafter.",
-    pricing: "From ₹4,999/mo",
-    faqs: [
-      { q: "We're a services firm — is cost accounting relevant?", a: "Very. Knowing the true cost of each engagement (including unbillable time) reveals which clients are actually profitable and which are quietly losing you money." },
-    ],
-  },
-  {
-    slug: "inventory-management-valuation",
-    title: "Inventory Management & Valuation",
-    icon: Factory,
-    category: "Accounting & Bookkeeping",
-    tagline: "Right stock, right value, less write-off.",
-    summary:
-      "Inventory accounting — valuation methods (FIFO/weighted average), stock reconciliation, and slow-moving write-downs.",
-    whoNeeds: [
-      "Traders and manufacturers carrying stock",
-      "Businesses with inventory shrinkage",
-      "Companies needing accurate COGS",
-    ],
-    process: [
-      { step: "Value", desc: "Adopt the right valuation method (FIFO / WAC)." },
-      { step: "Reconcile", desc: "Physical vs book stock reconciliation." },
-      { step: "Write down", desc: "Identify slow-moving / obsolete stock." },
-    ],
-    documents: ["Stock registers", "Purchase invoices", "Physical count sheets"],
-    timeline: "Quarterly recommended.",
-    pricing: "From ₹2,499/quarter",
-    faqs: [
-      { q: "FIFO or weighted average?", a: "Depends on your inventory turnover and tax strategy. FIFO often matches physical flow better; weighted average smooths price fluctuations. We recommend based on your specifics." },
-    ],
-  },
-  {
-    slug: "budgeting-forecasting",
-    title: "Budgeting & Forecasting",
-    icon: LineChart,
-    category: "Accounting & Bookkeeping",
-    tagline: "A budget you'll actually use — and reforecast against.",
-    summary:
-      "Annual budgeting with monthly variance analysis and rolling reforecasts — so you steer the business, not the other way around.",
-    whoNeeds: [
-      "Businesses wanting deliberate growth",
-      "Founders who keep missing their numbers",
-      "Teams needing shared financial targets",
-    ],
-    process: [
-      { step: "Budget", desc: "Revenue, cost, and overhead plan for the year." },
-      { step: "Compare", desc: "Monthly actual vs budget variance." },
-      { step: "Reforecast", desc: "Quarterly rolling update." },
-    ],
-    documents: ["Historical financials", "Sales pipeline", "Cost structure", "Growth plans"],
-    timeline: "Annual budget + monthly variance.",
-    pricing: "From ₹4,999/mo",
-    faqs: [
-      { q: "Our numbers are unpredictable — is a budget useful?", a: "Especially then. A budget isn't about predicting perfectly; it's about having a shared baseline to measure against, so you spot deviations early and adjust intentionally." },
+      { q: "Is a trade licence the same as Shop & Establishment registration?", a: "No — they're separate licences from different authorities. A trade licence is from your local municipal corporation; Shop & Establishment is from the state labour department. Many businesses need both." },
+      { q: "How long is a trade licence valid?", a: "Usually 1 to 3 years depending on the municipality. It must be renewed before expiry — we track and handle renewals for you." },
     ],
   },
 
-  // ---------- Payroll & HR Compliance ----------
+  // ---------- EPFO KYC (DSC & E-sign) - from visiting card ----------
   {
-    slug: "payroll-services",
-    title: "Payroll Services",
+    slug: "epfo-kyc",
+    title: "EPFO KYC (DSC & E-sign)",
     icon: Users,
     category: "Payroll & HR Compliance",
-    tagline: "Salaries, payslips, PF/ESI and full-and-final — done.",
+    tagline: "Verify your identity with EPFO using DSC or e-sign - done once, works everywhere.",
     summary:
-      "End-to-end payroll processing — salary computation, payslips, PF/ESI deposits, TDS on salary, and exits.",
+      "Complete your EPFO KYC using a Class 3 Digital Signature Certificate or Aadhaar-based e-sign - so your UAN is verified and your EPF account becomes fully online and portable.",
     whoNeeds: [
-      "Any business with employees",
-      "Companies hiring their first employee",
-      "Teams wanting to outsource the monthly payroll grind",
+      "Any EPF member whose UAN KYC status shows 'Pending'",
+      "Employees changing jobs who need seamless PF transfer",
+      "Establishments wanting their workforce KYC-compliant",
     ],
     process: [
-      { step: "Set up", desc: "Salary structures, PF/ESI registration, and TDS declarations." },
-      { step: "Process", desc: "Monthly computation, payslip generation, and bank file." },
-      { step: "Comply", desc: "PF/ESI deposit and return, TDS deposit and Form 16." },
-      { step: "Exit", desc: "Full-and-final settlement on exits." },
+      { step: "Check", desc: "We check your UAN KYC status and identify what's pending - Aadhaar, PAN, or bank." },
+      { step: "Certify", desc: "Sign the KYC form using your DSC or Aadhaar e-sign." },
+      { step: "Verify", desc: "KYC approved on the EPFO portal - your UAN is now fully verified." },
     ],
-    documents: ["Employee details", "CTC structures", "Attendance / leave", "Declarations (80C, rent, etc.)"],
-    timeline: "Monthly — payslips within 3 days of month-end.",
-    pricing: "From ₹299/employee/mo",
+    documents: ["UAN number", "Aadhaar linked to UAN", "PAN", "Class 3 DSC (if using DSC mode)", "Bank account details (if not already seeded)"],
+    timeline: "1-2 working days per member.",
+    pricing: "₹299 per member",
     faqs: [
-      { q: "Do you handle PF and ESI registration too?", a: "Yes. PF is mandatory once you cross 20 employees; ESI applies to employees earning under ₹21,000. We handle registration, monthly deposit, and returns." },
-      { q: "Can you process variable pay and bonuses?", a: "Yes — incentive structures, variable pay, joining / retention bonuses, and leave encashment are all handled in the monthly run." },
-    ],
-    featured: true,
-  },
-  {
-    slug: "pf-esi-compliance",
-    title: "PF & ESI Compliance",
-    icon: HeartPulse,
-    category: "Payroll & HR Compliance",
-    tagline: "Statutory social security — registered, deposited, returned.",
-    summary:
-      "PF and ESI registration, monthly contributions, and returns — keeping you compliant with India's social security regimes.",
-    whoNeeds: [
-      "Employers with 20+ employees (PF)",
-      "Employers with 10+ employees earning under ₹21,000 (ESI)",
-      "Companies wanting to offer PF voluntarily",
-    ],
-    process: [
-      { step: "Register", desc: "EPFO & ESIC registration with UAN generation." },
-      { step: "Deposit", desc: "Monthly employer + employee contribution by 15th." },
-      { step: "Return", desc: "Monthly ECR filing and ESI returns." },
-    ],
-    documents: ["Incorporation", "PAN", "Employee details", "Bank details", "Cancelled cheque"],
-    timeline: "Registration 7–15 days; monthly thereafter.",
-    pricing: "From ₹1,999/mo",
-    faqs: [
-      { q: "Is PF mandatory from day one?", a: "Mandatory once you cross 20 employees. Below that, it's voluntary. Many startups register early to attract talent and build employee benefits." },
+      { q: "What is EPFO KYC and why does it matter?", a: "KYC verifies your identity with EPFO using Aadhaar, PAN, and bank details. Once verified, your PF account becomes fully online - you can transfer, withdraw, and check balances without physical paperwork." },
+      { q: "DSC or e-sign - which should I use?", a: "E-sign via Aadhaar OTP is the easiest if your Aadhaar is linked to your mobile. DSC is required in some cases and is preferred for bulk KYC by establishments. We handle both." },
+      { q: "Can you do KYC for our whole team at once?", a: "Yes - for establishments, we process KYC for all employees in bulk using DSC, which is the standard approach for companies." },
     ],
   },
 
-  // ---------- Advisory & Growth ----------
-  {
-    slug: "virtual-cfo",
-    title: "Virtual CFO & Growth Advisory",
-    icon: TrendingUp,
-    category: "Advisory & Growth",
-    tagline: "CFO-level insight without a full-time hire.",
-    summary:
-      "Part-time CFO support — financial strategy, fundraising readiness, investor reporting, and the clarity founders need to scale.",
-    whoNeeds: [
-      "Startups preparing to raise capital",
-      "Growing businesses needing strategic financial direction",
-      "Founders without a CFO on the team",
-    ],
-    process: [
-      { step: "Diagnose", desc: "We assess your financial position and gaps." },
-      { step: "Strategise", desc: "Build a financial roadmap aligned to your goals." },
-      { step: "Execute", desc: "Monthly check-ins, investor reports, and ad-hoc support." },
-    ],
-    documents: ["Financials", "Business plan", "Cap table", "Fundraising targets"],
-    timeline: "Retainer-based, monthly.",
-    pricing: "From ₹24,999/mo",
-    faqs: [
-      { q: "Is this the same as bookkeeping?", a: "No — bookkeeping records the past; a Virtual CFO shapes the future. We handle unit economics, fundraising readiness, investor conversations, and strategic financial decisions." },
-    ],
-    comingSoon: true,
-    featured: true,
-  },
-  {
-    slug: "business-valuation",
-    title: "Business Valuation",
-    icon: PieChart,
-    category: "Advisory & Growth",
-    tagline: "Know what your business is worth — and why.",
-    summary:
-      "Independent business valuation using income, market, and asset approaches — for fundraising, exits, or internal clarity.",
-    whoNeeds: [
-      "Founders raising equity capital",
-      "Business owners considering a sale",
-      "Companies issuing ESOPs at fair value",
-    ],
-    process: [
-      { step: "Analyse", desc: "Financials, growth, and comparable transactions." },
-      { step: "Value", desc: "Multiple valuation methods applied." },
-      { step: "Report", desc: "Valuation report with methodology and assumptions." },
-    ],
-    documents: ["3-year financials", "Projections", "Cap table", "Business plan"],
-    timeline: "2–3 weeks.",
-    pricing: "From ₹19,999",
-    faqs: [
-      { q: "Which valuation method is used?", a: "Typically a blend — DCF for growth businesses, comparable company analysis for market context, and asset-based for asset-heavy businesses. We apply the combination that fits your stage." },
-    ],
-  },
-  {
-    slug: "due-diligence",
-    title: "Due Diligence Support",
-    icon: Search,
-    category: "Advisory & Growth",
-    tagline: "Walk into investor or acquisition diligence prepared.",
-    summary:
-      "Buy-side and sell-side financial due diligence — clean data rooms, reconciled financials, and defensible numbers.",
-    whoNeeds: [
-      "Founders entering fundraising diligence",
-      "Businesses being acquired",
-      "Acquirers needing financial DD support",
-    ],
-    process: [
-      { step: "Prepare", desc: "Organise financials into a clean data room." },
-      { step: "Reconcile", desc: "Ensure all numbers tie and are defensible." },
-      { step: "Defend", desc: "Support through Q&A and clarifications." },
-    ],
-    documents: ["Full financials", "Contracts", "Customer & supplier data", "Tax filings"],
-    timeline: "Project-based, 3–6 weeks.",
-    pricing: "From ₹49,999",
-    faqs: [
-      { q: "When should we start preparing for diligence?", a: "Ideally 3–6 months before raising. Clean financials, reconciled numbers, and organised documentation prevent deals from stalling over avoidable questions." },
-    ],
-  },
-  {
-    slug: "project-finance",
-    title: "Project Finance",
-    icon: Factory,
-    category: "Advisory & Growth",
-    tagline: "Structure and present funding for your next big project.",
-    summary:
-      "Project finance advisory — financial models, lender-ready projections, and support through the sanction process.",
-    whoNeeds: [
-      "Businesses expanding with new projects",
-      "Manufacturers setting up new facilities",
-      "Anyone seeking term loans for capital expenditure",
-    ],
-    process: [
-      { step: "Model", desc: "Build a detailed financial model for the project." },
-      { step: "Package", desc: "Prepare the CMA and projections lenders expect." },
-      { step: "Support", desc: "Liaise through sanction and disbursement." },
-    ],
-    documents: ["Project cost breakdown", "Revenue projections", "Promoter details", "Existing financials"],
-    timeline: "4–8 weeks.",
-    pricing: "From ₹34,999",
-    faqs: [
-      { q: "What's a CMA data?", a: "Credit Monitoring Arrangement data — the standardised financial projection format banks require for term loans. We prepare it to exactly the format your lender expects." },
-    ],
-  },
-  {
-    slug: "loan-funding-assistance",
-    title: "Loan & Funding Assistance",
-    icon: Banknote,
-    category: "Advisory & Growth",
-    tagline: "From application to disbursement — less friction.",
-    summary:
-      "End-to-end support for business loans — documentation, lender matching, application tracking, and disbursement.",
-    whoNeeds: [
-      "Businesses seeking working capital or term loans",
-      "Startups exploring debt or seed equity",
-      "Anyone navigating the loan application maze",
-    ],
-    process: [
-      { step: "Assess", desc: "Understand your need and eligibility." },
-      { step: "Package", desc: "Prepare the application with all documents." },
-      { step: "Submit", desc: "Apply to suitable lenders and track progress." },
-      { step: "Disburse", desc: "Coordinate through to sanction and disbursal." },
-    ],
-    documents: ["Business financials", "Bank statements (12 months)", "GST returns", "ITR", "Project / use-of-funds note"],
-    timeline: "2–6 weeks depending on lender and loan type.",
-    pricing: "From ₹9,999",
-    faqs: [
-      { q: "Do you guarantee loan approval?", a: "No one can ethically guarantee approval — it depends on the lender's assessment. What we guarantee is a complete, well-presented application that maximises your chances and minimises back-and-forth." },
-    ],
-  },
-  {
-    slug: "startup-fundraising-support",
-    title: "Startup Fundraising Support",
-    icon: Handshake,
-    category: "Advisory & Growth",
-    tagline: "Term sheets, cap tables, and the numbers behind them.",
-    summary:
-      "Fundraising support — financial models, pitch numbers, term sheet review, and cap table management for early-stage startups.",
-    whoNeeds: [
-      "Pre-seed and seed-stage founders",
-      "Startups raising their first institutional round",
-      "Founders navigating term sheets",
-    ],
-    process: [
-      { step: "Prepare", desc: "Financial model, unit economics, and use of funds." },
-      { step: "Cap table", desc: "Clean cap table with ESOP pool and dilution modelling." },
-      { step: "Review", desc: "Term sheet review — valuation, liquidation, anti-dilution." },
-    ],
-    documents: ["Current cap table", "Financial projections", "Pitch deck", "Existing agreements"],
-    timeline: "Engagement-based through the raise.",
-    pricing: "From ₹29,999",
-    faqs: [
-      { q: "Do you help find investors?", a: "We prepare you to raise — the model, the numbers, the cap table, and term sheet review. Introductions depend on your sector and stage; we'll be honest about what we can and can't do there." },
-    ],
-  },
-  {
-    slug: "internal-audit-controls",
-    title: "Internal Audit & Controls",
-    icon: ShieldCheck,
-    category: "Advisory & Growth",
-    tagline: "Find the gaps before anyone else does.",
-    summary:
-      "Internal audit and process review — identifying control weaknesses, process inefficiencies, and compliance gaps.",
-    whoNeeds: [
-      "Growing businesses with multiple processes",
-      "Companies preparing for external audit",
-      "Anyone concerned about fraud or leakage",
-    ],
-    process: [
-      { step: "Scope", desc: "Identify the processes and risk areas to review." },
-      { step: "Audit", desc: "Test controls, sample transactions, and interview." },
-      { step: "Report", desc: "Findings, risk ratings, and practical remediation." },
-    ],
-    documents: ["Process documentation", "Financial records", "Access to team"],
-    timeline: "2–4 weeks for a standard scope.",
-    pricing: "From ₹24,999",
-    faqs: [
-      { q: "Is internal audit only for large companies?", a: "No — smaller businesses often benefit most, because control gaps are costlier relative to size. A single leakage prevented can pay for years of audit." },
-    ],
-  },
-  {
-    slug: "financial-health-checkup",
-    title: "Financial Health Checkup",
-    icon: Stethoscope,
-    category: "Advisory & Growth",
-    tagline: "A complete diagnostic of your business finances.",
-    summary:
-      "A one-time financial health check — profitability, liquidity, tax exposure, and compliance gaps, with a prioritised action plan.",
-    whoNeeds: [
-      "Founders who've never had a proper financial review",
-      "Businesses feeling uncertain about their financial position",
-      "Anyone considering engaging an accountant",
-    ],
-    process: [
-      { step: "Review", desc: "Full review of books, filings, and cash position." },
-      { step: "Diagnose", desc: "Identify strengths, risks, and gaps." },
-      { step: "Plan", desc: "Prioritised action plan with cost estimates." },
-    ],
-    documents: ["Books of accounts", "Tax filings", "Bank statements", "Existing registrations"],
-    timeline: "1–2 weeks.",
-    pricing: "From ₹9,999",
-    faqs: [
-      { q: "Is this useful if I already have an accountant?", a: "Yes — it's an independent second opinion. We often find things internal accountants miss, simply because we're looking with fresh eyes." },
-    ],
-  },
-];
-
-// Convenience lookups
-export function getService(slug: string): Service | undefined {
-  return SERVICES.find((s) => s.slug === slug);
-}
-
-export function servicesByCategory(category: ServiceCategory): Service[] {
-  return SERVICES.filter((s) => s.category === category);
-}
-
-export function featuredServices(): Service[] {
-  return SERVICES.filter((s) => s.featured);
-}
+]

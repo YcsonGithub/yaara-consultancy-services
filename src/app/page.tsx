@@ -121,7 +121,7 @@ export default function Home() {
                   <span className="italic font-light">compliant and current</span>.
                 </h2>
                 <p className="mt-4 font-sans text-[1rem] leading-relaxed text-body">
-                  30+ services across tax, registrations, accounting, payroll and advisory &mdash; one partner, one point of contact.
+                  40+ services across tax, registrations, accounting, payroll and advisory &mdash; one partner, one point of contact.
                 </p>
               </div>
               <Link href="/services" className="group inline-flex items-center gap-1.5 font-sans text-[0.92rem] font-medium text-ink hover:text-gold">

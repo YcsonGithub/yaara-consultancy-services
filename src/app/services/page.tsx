@@ -22,7 +22,7 @@ function slugify(s: string): string {
 export const metadata = {
   title: "Services — GST, ITR, ROC, Payroll, Advisory",
   description:
-    "30+ compliance services for Indian businesses — GST, ITR, TDS, incorporation, ROC, bookkeeping, payroll and advisory. Filter by category and jump to any service for documents, timeline, pricing and FAQs.",
+    "40+ compliance services for Indian businesses — GST, ITR, TDS, incorporation, ROC, bookkeeping, payroll and advisory. Filter by category and jump to any service for documents, timeline, pricing and FAQs.",
 };
 
 export default function ServicesPage() {
@@ -40,7 +40,7 @@ export default function ServicesPage() {
         eyebrow="Services"
         title={
           <>
-            30+ compliance services.{" "}
+            40+ compliance services.{" "}
             <span className="italic font-light">One person</span> who knows your
             books.
           </>

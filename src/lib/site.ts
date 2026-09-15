@@ -14,11 +14,11 @@ export const SITE = {
 } as const;
 
 export const CONTACT = {
-  email: "contact@yaaraconsultancyservices.com",
-  phone: "+91 76750 16737",
-  phoneHref: "tel:+917675016737",
-  whatsapp: "917675016737",
-  whatsappHref: "https://wa.me/917675016737",
+  email: "pawan.ycs001@gmail.com",
+  phone: "+91 83091 27360",
+  phoneHref: "tel:+918309127360",
+  whatsapp: "918309127360",
+  whatsappHref: "https://wa.me/918309127360",
   address: {
     line1: "4, 5-512, SY NO.5/1, Room No.401",
     line2: "Near Sindhu Hospitals, Izzath Nagar",
@@ -41,7 +41,7 @@ export const CONTACT = {
 export const GRIEVANCE_OFFICER = {
   name: "Anakali Pawan Kalyan",
   role: "Grievance Officer & Founder",
-  email: "grievance@yaaraconsultancyservices.com",
+  email: "pawan.ycs001@gmail.com",
   phone: CONTACT.phone,
   phoneHref: CONTACT.phoneHref,
   responseWindow: "Acknowledgement within 24 hours · Resolution within 21 days (DPDP Act §8(9))",
@@ -302,7 +302,7 @@ export const FAQS: Faq[] = [
 
 export const STATS = [
   { value: "5", unit: "yrs", label: "hands-on accounting experience" },
-  { value: "30", unit: "+", label: "compliance services under one roof" },
+  { value: "40", unit: "+", label: "compliance services under one roof" },
   { value: "1", unit: "day", label: "typical response time, working days" },
   { value: "CA", unit: "network", label: "empanelled partners for statutory sign-off" },
 ];
