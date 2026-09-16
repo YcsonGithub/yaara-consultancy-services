@@ -125,11 +125,17 @@ export const PRICING = {
   hiddenCta: "Ask for a written quote",
 } as const;
 
+/**
+ * Primary navigation order — deliberately sequenced as a conversion funnel:
+ *   what we do (Services) → who it's for (Industries) → who we are (About)
+ *   → what it costs (Pricing/Fees) → self-serve help (Resources) → talk to us
+ *   (Contact). Home is always first, Contact always last.
+ */
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
-  { label: "About", href: "/about" },
   { label: "Industries", href: "/industries" },
+  { label: "About", href: "/about" },
   { label: PRICING.visible ? "Pricing" : "Fees", href: "/pricing" },
   { label: "Resources", href: "/resources" },
   { label: "Contact", href: "/contact" },
@@ -300,8 +306,16 @@ export const FLAT_FEES: FlatFee[] = [
   { service: "LLP incorporation", fee: "5,499", note: "+ govt. fees" },
   { service: "OPC incorporation", fee: "5,999", note: "+ govt. fees" },
   { service: "Udyam (MSME)", fee: "999", note: "one-time" },
+  { service: "Shop & Establishment reg.", fee: "999", note: "one-time" },
+  { service: "Trade licence", fee: "from 1,499", note: "+ municipal fees" },
+  { service: "FSSAI — basic registration", fee: "1,499", note: "one-time" },
+  { service: "FSSAI — state licence", fee: "from 4,499", note: "+ govt. fees" },
+  { service: "IEC (Import-Export Code)", fee: "1,499", note: "one-time, incl. DSC" },
   { service: "Trademark filing", fee: "3,499", note: "+ govt. fees" },
   { service: "DSC Class 3", fee: "1,499", note: "2-year validity" },
+  { service: "Business PAN / TAN", fee: "499", note: "each, one-time" },
+  { service: "EPFO / ESIC monthly filing", fee: "from 1,499", note: "per month, each" },
+  { service: "GST LUT filing", fee: "999", note: "per year" },
   { service: "ROC annual filing", fee: "from 4,999", note: "per form" },
   { service: "GST audit (9C)", fee: "from 14,999", note: "per year" },
   { service: "Tax audit (44AB)", fee: "from 24,999", note: "per year" },

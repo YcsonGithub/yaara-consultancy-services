@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -8,6 +9,7 @@ import {
 import { PageHero, CtaBand } from "@/components/site/section";
 import { Reveal } from "@/components/site/reveal";
 import { INDUSTRIES } from "@/lib/site";
+import { SITE_IMAGES, INDUSTRY_IMAGES } from "@/lib/images";
 import { cn } from "@/lib/utils";
 import { breadcrumbSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/site/json-ld";
@@ -40,6 +42,15 @@ export default function IndustriesPage() {
           </>
         }
         intro="A freelancer and a Pvt Ltd founder have completely different anxieties. These pages speak to each — specifically."
+        aside={
+          <Image
+            src={SITE_IMAGES.industriesHero.src}
+            alt={SITE_IMAGES.industriesHero.alt}
+            width={SITE_IMAGES.industriesHero.width}
+            height={SITE_IMAGES.industriesHero.height}
+            className="h-52 w-full object-cover sm:h-60 lg:h-68"
+          />
+        }
       />
 
       {/* ============ INDUSTRY ANCHOR NAV ============ */}
@@ -131,6 +142,20 @@ export default function IndustriesPage() {
                   delay={0.1}
                 >
                   <div className="overflow-hidden rounded-xl border border-border bg-card shadow-[0_18px_44px_-30px_rgba(14,42,71,0.35)]">
+                    {/* Industry image banner — placeholder until AI artwork replaces it (see `AI bundles/image-prompts.json`) */}
+                    {INDUSTRY_IMAGES[ind.slug] && (
+                      <div className="relative border-b border-border">
+                        <Image
+                          src={INDUSTRY_IMAGES[ind.slug].src}
+                          alt={INDUSTRY_IMAGES[ind.slug].alt}
+                          width={INDUSTRY_IMAGES[ind.slug].width}
+                          height={INDUSTRY_IMAGES[ind.slug].height}
+                          className="h-40 w-full object-cover sm:h-44"
+                        />
+                        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1 bg-gold/70" />
+                      </div>
+                    )}
+
                     {/* Services block */}
                     <div className="border-b border-border p-7 sm:p-8">
                       <p className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-gold">

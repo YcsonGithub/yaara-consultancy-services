@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import Image from "next/image";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -11,6 +12,7 @@ import {
 import { PageHero, CtaBand } from "@/components/site/section";
 import { Reveal } from "@/components/site/reveal";
 import { SITE } from "@/lib/site";
+import { SITE_IMAGES } from "@/lib/images";
 import { breadcrumbSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/site/json-ld";
 
@@ -72,6 +74,15 @@ export default function ResourcesPage() {
           </>
         }
         intro="Compliance deadlines, plain-English answers, and the reference material you need to stay on top of your obligations — without becoming a tax expert yourself."
+        aside={
+          <Image
+            src={SITE_IMAGES.resourcesHero.src}
+            alt={SITE_IMAGES.resourcesHero.alt}
+            width={SITE_IMAGES.resourcesHero.width}
+            height={SITE_IMAGES.resourcesHero.height}
+            className="h-52 w-full object-cover sm:h-60 lg:h-68"
+          />
+        }
       />
 
       {/* ============ RESOURCE CARDS ============ */}

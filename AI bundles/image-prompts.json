@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Yaara Consultancy Services — AI image generation manifest",
+  "description": "One entry per image slot on the website. Generate each image with an AI image tool (Midjourney, DALL·E, Flux, Ideogram, etc.), then overwrite the file at the listed path in the project. The site picks up the new artwork automatically — no code change is needed. File paths are relative to the project root.",
+  "howToUse": [
+    "1. Copy the `prompt` for an image into your AI image generator.",
+    "2. Set the output size to the listed `width` x `height` (or the closest supported aspect ratio).",
+    "3. Export as PNG, named exactly as in `file`, and replace the placeholder at that path.",
+    "4. Keep the `negativePrompt` (or append it with --no / negative prompt field if your tool supports one).",
+    "5. Do not add any legible text inside images — labels are rendered by the website, not the artwork."
+  ],
+  "styleGuide": {
+    "summary": "Editorial flat vector illustration for a premium Indian accounting & compliance consultancy. Calm, trustworthy, hand-crafted feel — like Stripe's brand illustrations, but warmer.",
+    "palette": {
+      "navy": "#0E2A47",
+      "navyDark": "#0B1F3A",
+      "gold": "#B8873B",
+      "goldLight": "#D4A855",
+      "paper": "#FAF7F1",
+      "surface": "#F2EFE7",
+      "slateBlue": "#4A6B8A",
+      "slateBlueLight": "#8FA9C0"
+    },
+    "globalStyleTokens": "flat editorial illustration, clean vector shapes, soft rounded geometry, subtle paper-grain texture, generous negative space, warm natural light, Indian small-business context, premium and calm, matte colours",
+    "globalNegativePrompt": "photorealistic people, stock photo look, 3D render gloss, neon colours, legible text, letters, numbers, watermark, logo, busy clutter, dramatic shadows, lens flare, distorted hands, deformed faces",
+    "notes": "Human figures may appear but must be stylised and faceless or softly abstracted (illustration style), never photorealistic. Navy should dominate; gold is an accent (roughly 85/15). Backgrounds must be the warm paper tone (#FAF7F1) or the light surface tone (#F2EFE7) so the artwork blends with the website."
+  },
+  "images": [
+    {
+      "id": "industries-hero",
+      "file": "public/images/industries/hero.png",
+      "webPath": "/images/industries/hero.png",
+      "width": 1024,
+      "height": 640,
+      "usedOn": ["/industries (page hero aside)"],
+      "alt": "Editorial illustration of six different Indian businesses — a startup desk, a freelancer, a shop counter, a clinic, a community trust and a small factory — connected by one ledger",
+      "prompt": "Flat editorial vector illustration, wide composition: six small vignettes of Indian businesses arranged in a gentle arc — a founder's desk with a laptop and incorporation certificate, a freelancer at a home studio, a kirana shop counter with a ledger, a doctor's clinic desk, a community trust office with donation receipts, and a small factory with crates. All six connected by a single flowing gold ledger line that sweeps across the composition. Deep navy (#0E2A47) dominant with muted gold (#B8873B) accents, warm paper background (#FAF7F1), soft paper-grain texture, stylised faceless figures, generous negative space, premium calm editorial mood."
+    },
+    {
+      "id": "industry-startups-founders",
+      "file": "public/images/industries/startups-founders.png",
+      "webPath": "/images/industries/startups-founders.png",
+      "width": 1024,
+      "height": 512,
+      "usedOn": ["/industries#startups-founders (card banner)"],
+      "alt": "Young founders at a minimalist workspace with a laptop, cap-table chart and incorporation certificate",
+      "prompt": "Flat editorial vector illustration, wide banner: two young Indian founders at a minimalist co-working desk, laptop open to a simple cap-table chart, an incorporation certificate with a gold seal leaning on a stand, a small plant and two cups of filter coffee. Deep navy and slate-blue shapes with muted gold accents, warm paper background, stylised faceless figures, soft paper grain, wide-format composition with breathing room."
+    },
+    {
+      "id": "industry-freelancers-professionals",
+      "file": "public/images/industries/freelancers-professionals.png",
+      "webPath": "/images/industries/freelancers-professionals.png",
+      "width": 1024,
+      "height": 512,
+      "usedOn": ["/industries#freelancers-professionals (card banner)"],
+      "alt": "A freelancer working from a home studio with invoices and a laptop",
+      "prompt": "Flat editorial vector illustration, wide banner: a freelance designer at a home-studio desk with a laptop showing a simple invoice, loose receipts pinned with a brass clip, headphones on a hook, a window with evening light. Deep navy and slate-blue palette with muted gold accents, warm paper background, stylised faceless figure, calm home-office mood, soft paper-grain texture."
+    },
+    {
+      "id": "industry-small-medium-businesses",
+      "file": "public/images/industries/small-medium-businesses.png",
+      "webPath": "/images/industries/small-medium-businesses.png",
+      "width": 1024,
+      "height": 512,
+      "usedOn": ["/industries#small-medium-businesses (card banner)"],
+      "alt": "A small business owner at a shop counter with a ledger and GST receipts",
+      "prompt": "Flat editorial vector illustration, wide banner: an Indian shop owner behind a small business counter — cloth shop shelves with folded fabric, a thick handwritten ledger book open, GST invoices in a file, a small calculator and a bell. Deep navy dominant, muted gold accents, warm paper background, stylised faceless figure, dignified and warm small-business mood, soft paper grain."
+    },
+    {
+      "id": "industry-doctors-lawyers-architects",
+      "file": "public/images/industries/doctors-lawyers-architects.png",
+      "webPath": "/images/industries/doctors-lawyers-architects.png",
+      "width": 1024,
+      "height": 512,
+      "usedOn": ["/industries#doctors-lawyers-architects (card banner)"],
+      "alt": "Regulated professionals — a doctor, a lawyer and an architect — at their consulting desks",
+      "prompt": "Flat editorial vector illustration, wide banner: a triptych of three Indian professional consulting rooms — a doctor's clinic desk with a stethoscope and prescription pad, a lawyer's study with law books and a brass lamp, an architect's studio with rolled blueprints, a drafting compass and a small scale model of a building. Deep navy with muted gold accents, warm paper background, stylised faceless figures, soft paper-grain texture, calm and distinguished mood."
+    },
+    {
+      "id": "industry-ngos-trusts",
+      "file": "public/images/industries/ngos-trusts.png",
+      "webPath": "/images/industries/ngos-trusts.png",
+      "width": 1024,
+      "height": 512,
+      "usedOn": ["/industries#ngos-trusts (card banner)"],
+      "alt": "A community trust office with donation receipts and audit files",
+      "prompt": "Flat editorial vector illustration, wide banner: a small NGO trust office — a wooden desk with donation receipt books, an audit file with a gold ribbon seal, a register with a red cloth binding, framed 12A/80G certificate on the wall, a small bowl of marigolds. Deep navy with muted gold accents, warm paper background, gentle community warmth, stylised faceless hands only, soft paper grain."
+    },
+    {
+      "id": "industry-manufacturers-traders",
+      "file": "public/images/industries/manufacturers-traders.png",
+      "webPath": "/images/industries/manufacturers-traders.png",
+      "width": 1024,
+      "height": 512,
+      "usedOn": ["/industries#manufacturers-traders (card banner)"],
+      "alt": "A small factory floor with inventory, crates and cost-accounting ledgers",
+      "prompt": "Flat editorial vector illustration, wide banner: a small Indian manufacturing unit — a workbench with tools and parts bins, wooden crates on pallets, a cost-accounting ledger with a pencil, a wall of inventory shelves, a delivery scooter visible through the shutter. Deep navy with slate blue and muted gold accents, warm paper background, stylised faceless figure, industrious but calm mood, soft paper grain."
+    },
+    {
+      "id": "resources-hero",
+      "file": "public/images/resources/hero.png",
+      "webPath": "/images/resources/hero.png",
+      "width": 1024,
+      "height": 640,
+      "usedOn": ["/resources (page hero aside)"],
+      "alt": "A desk with a printed compliance calendar, reference books and a cup of chai",
+      "prompt": "Flat editorial vector illustration: a study desk from a gentle top-down three-quarter angle — a printed yearly compliance calendar grid with a few dates circled in gold, a stack of reference books, an open notebook with a fountain pen, a glass cup of chai with steam curls, a small brass paperweight. Deep navy with muted gold accents, warm paper background, no people, soft paper-grain texture, studious and organised mood."
+    },
+    {
+      "id": "book-hero",
+      "file": "public/images/book/hero.png",
+      "webPath": "/images/book/hero.png",
+      "width": 1024,
+      "height": 640,
+      "usedOn": ["/book (booking hero, below the promise list)"],
+      "alt": "A warm video-call scene: a founder and an advisor talking over a laptop with notes",
+      "prompt": "Flat editorial vector illustration: a warm video-consultation scene — a laptop on a desk showing two stylised faceless figures in conversation (an advisor with a notepad and a founder), a tea glass and a phone beside the laptop, a small wall calendar behind with one date ringed in gold. Deep navy dominant with muted gold accents, warm paper background, friendly and calm mood, soft paper-grain texture, wide composition."
+    },
+    {
+      "id": "founder-portrait",
+      "file": "public/founder/founder-at-work.png",
+      "webPath": "/founder/founder-at-work.png",
+      "width": 864,
+      "height": 1152,
+      "existing": true,
+      "usedOn": ["/ (homepage aside)", "/about (founder column)"],
+      "notes": "Real portrait slot for a real person — Anakali Pawan Kalyan, Managing Partner. A genuine photograph is strongly preferred over AI for a person; use 3:4 portrait orientation, warm neutral background, navy or charcoal attire."
+    },
+    {
+      "id": "scene-workspace-flatlay",
+      "file": "public/scenes/workspace-flatlay.png",
+      "webPath": "/scenes/workspace-flatlay.png",
+      "width": 1344,
+      "height": 768,
+      "existing": true,
+      "usedOn": ["currently unused — reserved for a future knowledge-center hero or OG image"],
+      "prompt": "Flat editorial vector illustration, wide: a top-down flat-lay of an accountant's desk — GST challan receipts, a leather ledger, a fountain pen, a stamp pad with a gold seal, reading glasses, a cup of chai, a paper calculator tape. Deep navy with muted gold accents, warm paper background, soft paper-grain texture, generous negative space in the upper-left for text overlay."
+    },
+    {
+      "id": "scene-growth-illustration",
+      "file": "public/scenes/growth-illustration.png",
+      "webPath": "/scenes/growth-illustration.png",
+      "width": 1024,
+      "height": 1024,
+      "existing": true,
+      "usedOn": ["currently unused — reserved for a future case-study or advisory-page visual"],
+      "prompt": "Flat editorial vector illustration, square: a rising staircase of navy ledger blocks growing left to right, a single gold line arcing upward over the steps ending in a small gold flag, a tiny compass and a potted money plant at the base. Deep navy dominant, muted gold accents, warm paper background, calm optimistic mood, soft paper grain."
+    }
+  ]
+}

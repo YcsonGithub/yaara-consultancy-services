@@ -83,6 +83,7 @@ export const CATEGORY_DESCRIPTIONS: Record<ServiceCategory, string> = {
 
 export const SERVICES: Service[] = [
   // ---------- Tax & Statutory Compliance ----------
+
   {
     slug: "gst-registration-filing",
     title: "GST Registration & Filings",
@@ -113,6 +114,7 @@ export const SERVICES: Service[] = [
     ],
     featured: true,
   },
+
   {
     slug: "income-tax-return-filing",
     title: "Income Tax Return (ITR) Filing",
@@ -142,6 +144,7 @@ export const SERVICES: Service[] = [
     ],
     featured: true,
   },
+
   {
     slug: "tds-compliance",
     title: "TDS Filings & Compliance",
@@ -170,6 +173,7 @@ export const SERVICES: Service[] = [
       { q: "What's the penalty for late deposit?", a: "1% interest per month on the delayed amount, plus a late fee on the return. We keep you ahead of the 7th so this never applies." },
     ],
   },
+
   {
     slug: "professional-tax",
     title: "Professional Tax Registration & Filings",
@@ -196,6 +200,7 @@ export const SERVICES: Service[] = [
       { q: "Is professional tax the same everywhere?", a: "No — it's a state levy and each state has its own slabs, due dates and return formats. Telangana, Karnataka, Maharashtra and others differ significantly. We handle the specifics for your state." },
     ],
   },
+
   {
     slug: "gst-audit",
     title: "GST Audit (GSTR-9C)",
@@ -221,6 +226,7 @@ export const SERVICES: Service[] = [
       { q: "Who signs off the GSTR-9C?", a: "A practicing Chartered Accountant or Cost Accountant from our empanelled partner network — the certification is statutory and must be signed by a CA/CMA." },
     ],
   },
+
   {
     slug: "tax-audit",
     title: "Tax Audit (Section 44AB)",
@@ -247,6 +253,7 @@ export const SERVICES: Service[] = [
       { q: "Is the tax audit done by you directly?", a: "The audit and Form 3CB-3CD certification is signed by a practicing Chartered Accountant from our empanelled partner network. We coordinate the entire process end-to-end." },
     ],
   },
+
   {
     slug: "tax-planning-strategy",
     title: "Tax Planning & Strategy",
@@ -272,6 +279,7 @@ export const SERVICES: Service[] = [
       { q: "Is tax planning legal?", a: "Absolutely — tax planning (using legitimate deductions, exemptions and structures) is your right. Tax evasion is illegal; tax planning is not. We stay firmly on the legal side." },
     ],
   },
+
   {
     slug: "advance-tax",
     title: "Advance Tax",
@@ -297,7 +305,6 @@ export const SERVICES: Service[] = [
     ],
   },
 
-  // ---------- From visiting card: portal registrations & LUT ----------
   {
     slug: "income-tax-portal-registration",
     title: "Income Tax Portal Registration",
@@ -323,6 +330,7 @@ export const SERVICES: Service[] = [
       { q: "Can I file ITR myself once registered?", a: "Yes — once your portal profile is active, you can file directly. We also offer managed ITR filing as a separate service if you'd prefer us to handle it." },
     ],
   },
+
   {
     slug: "traces-portal-registration",
     title: "TRACES Portal Registration",
@@ -348,6 +356,7 @@ export const SERVICES: Service[] = [
       { q: "What can I do once registered on TRACES?", a: "File quarterly TDS returns (24Q, 26Q, 27Q, 27EQ), generate and download Form 16/16A, view challan status, and manage your TDS ledger." },
     ],
   },
+
   {
     slug: "gst-lut-filing",
     title: "GST LUT Filing",
@@ -379,7 +388,6 @@ export const SERVICES: Service[] = [
     ],
   },
 
-  // ---------- Business Registration & Corporate ----------
   {
     slug: "business-registration",
     title: "Business Registration",
@@ -408,6 +416,7 @@ export const SERVICES: Service[] = [
     ],
     featured: true,
   },
+
   {
     slug: "udyam-msme-registration",
     title: "Udyam (MSME) Registration",
@@ -433,6 +442,7 @@ export const SERVICES: Service[] = [
       { q: "Is Udyam registration mandatory?", a: "Not legally mandatory, but practically essential — it unlocks priority sector lending, protection against delayed payments (MSME Samadhaan), and subsidies. Free on the government portal; we charge for the hassle of getting it right." },
     ],
   },
+
   {
     slug: "roc-compliance-annual-filings",
     title: "ROC Compliance & Annual Filings",
@@ -459,6 +469,7 @@ export const SERVICES: Service[] = [
       { q: "What happens if I miss ROC filings?", a: "A flat ₹100/day penalty per form applies, and directors' DINs can be deactivated after repeated defaults. We bring companies current and set up a calendar so it doesn't recur." },
     ],
   },
+
   {
     slug: "trademark-registration",
     title: "Trademark Registration",
@@ -485,6 +496,7 @@ export const SERVICES: Service[] = [
       { q: "When can I use the ™ and ® symbols?", a: "Use ™ from the date you file the application. Use ® only after the trademark is fully registered and the certificate is issued." },
     ],
   },
+
   {
     slug: "digital-signature-certificate",
     title: "Digital Signature Certificate (DSC)",
@@ -510,7 +522,7 @@ export const SERVICES: Service[] = [
       { q: "USB token vs cloud DSC?", a: "USB tokens are the traditional option; cloud DSCs let you sign from any device. We recommend cloud for most founders unless you specifically need the hardware token for e-tenders." },
     ],
   },
-  // ---------- Shop & Establishment (from visiting card) ----------
+
   {
     slug: "shop-establishment-registration",
     title: "Shop & Establishment Registration",
@@ -539,7 +551,7 @@ export const SERVICES: Service[] = [
       { q: "How often do I need to renew?", a: "Renewal periods vary by state — some are annual, some every few years. We track your state's renewal schedule and handle it." },
     ],
   },
-  // ---------- FSSAI Registration (from visiting card) ----------
+
   {
     slug: "fssai-registration",
     title: "FSSAI Registration",
@@ -569,7 +581,6 @@ export const SERVICES: Service[] = [
     ],
   },
 
-  // ---------- IEC Code Registration (from visiting card) ----------
   {
     slug: "iec-code-registration",
     title: "IEC Code Registration",
@@ -597,6 +608,7 @@ export const SERVICES: Service[] = [
       { q: "Do I need a DSC for IEC?", a: "A Digital Signature Certificate (DSC) is required for most IEC applications. We arrange the DSC and handle the full application — you just provide the documents." },
     ],
   },
+
   {
     slug: "business-licenses",
     title: "Business Licenses",
@@ -622,8 +634,6 @@ export const SERVICES: Service[] = [
       { q: "Which licences does my business need?", a: "It depends on your activity and location. See our individual licence pages — Shop & Establishment Registration, Trade License, FSSAI Registration, and IEC Code Registration — or get a custom checklist from us." },
     ],
   },
-
-
 
   {
     slug: "trade-license",
@@ -652,38 +662,6 @@ export const SERVICES: Service[] = [
     ],
   },
 
-  // ---------- EPFO KYC (DSC & E-sign) - from visiting card ----------
-  {
-    slug: "epfo-kyc",
-    title: "EPFO KYC (DSC & E-sign)",
-    icon: Users,
-    category: "Payroll & HR Compliance",
-    tagline: "Verify your identity with EPFO using DSC or e-sign - done once, works everywhere.",
-    summary:
-      "Complete your EPFO KYC using a Class 3 Digital Signature Certificate or Aadhaar-based e-sign - so your UAN is verified and your EPF account becomes fully online and portable.",
-    whoNeeds: [
-      "Any EPF member whose UAN KYC status shows 'Pending'",
-      "Employees changing jobs who need seamless PF transfer",
-      "Establishments wanting their workforce KYC-compliant",
-    ],
-    process: [
-      { step: "Check", desc: "We check your UAN KYC status and identify what's pending - Aadhaar, PAN, or bank." },
-      { step: "Certify", desc: "Sign the KYC form using your DSC or Aadhaar e-sign." },
-      { step: "Verify", desc: "KYC approved on the EPFO portal - your UAN is now fully verified." },
-    ],
-    documents: ["UAN number", "Aadhaar linked to UAN", "PAN", "Class 3 DSC (if using DSC mode)", "Bank account details (if not already seeded)"],
-    timeline: "1-2 working days per member.",
-    pricing: "₹299 per member",
-    faqs: [
-      { q: "What is EPFO KYC and why does it matter?", a: "KYC verifies your identity with EPFO using Aadhaar, PAN, and bank details. Once verified, your PF account becomes fully online - you can transfer, withdraw, and check balances without physical paperwork." },
-      { q: "DSC or e-sign - which should I use?", a: "E-sign via Aadhaar OTP is the easiest if your Aadhaar is linked to your mobile. DSC is required in some cases and is preferred for bulk KYC by establishments. We handle both." },
-      { q: "Can you do KYC for our whole team at once?", a: "Yes - for establishments, we process KYC for all employees in bulk using DSC, which is the standard approach for companies." },
-    ],
-  },
-
-  /* ============================================================
-     Visiting-card catalog — company & firm registrations
-     ============================================================ */
   {
     slug: "private-limited-company-registration",
     title: "Private Limited Company Registration",
@@ -830,9 +808,278 @@ export const SERVICES: Service[] = [
     ],
   },
 
-  /* ============================================================
-     Visiting-card catalog — payroll, PF & ESI
-     ============================================================ */
+  {
+    slug: "section-8-ngo-registration",
+    title: "Section 8 / NGO Registration",
+    icon: HeartPulse,
+    category: "Business Registration & Corporate",
+    tagline: "Set up a non-profit with 12A/80G tax-exempt status.",
+    summary:
+      "Section 8 company incorporation plus 12A and 80G registrations — enabling tax-exempt status and deductible donations.",
+    whoNeeds: [
+      "Founders starting a non-profit or charitable trust",
+      "NGOs wanting to receive tax-deductible donations",
+      "Existing trusts/societies formalising as Section 8",
+    ],
+    process: [
+      { step: "Incorporate", desc: "Section 8 company set-up via SPICe+." },
+      { step: "12A", desc: "Income tax exemption registration." },
+      { step: "80G", desc: "Donor tax-deduction registration." },
+      { step: "FCRA (optional)", desc: "If you plan to receive foreign contributions." },
+    ],
+    documents: ["Director details", "Memorandum & Articles", "Object & activity plan", "Registered office proof"],
+    timeline: "30–60 days for incorporation + registrations.",
+    pricing: "From ₹14,999",
+    faqs: [
+      { q: "What's the difference between 12A and 80G?", a: "12A exempts the NGO's own income from tax. 80G allows donors to claim a deduction on their donation. Most legitimate NGOs want both." },
+    ],
+  },
+
+  {
+    slug: "bookkeeping-accounting",
+    title: "Bookkeeping & Accounting",
+    shortTitle: "Bookkeeping",
+    icon: BookOpen,
+    category: "Accounting & Bookkeeping",
+    tagline: "Clean books every month — not a scramble at year end.",
+    summary:
+      "Monthly recording of sales, purchases, expenses, bank and GST entries in the accounting software of your choice, closed with a trial balance you can rely on.",
+    whoNeeds: [
+      "Startups with investors or lenders watching the numbers",
+      "Businesses filing returns without clean books behind them",
+      "Owners whose accountant only appears in the last week of the year",
+    ],
+    process: [
+      { step: "Set up", desc: "Chart of accounts, opening balances and the software configured around how you actually bill." },
+      { step: "Record", desc: "Sales, purchases, expenses, payroll and journals posted from your documents each month." },
+      { step: "Reconcile", desc: "Bank, GST, TDS and party ledgers matched — differences explained, not buried." },
+      { step: "Close", desc: "Monthly close with a trial balance, P&L and balance sheet you can act on." },
+    ],
+    documents: ["Sales and purchase invoices", "Bank statements for every account", "Expense bills and payment proof", "Loan, lease and EMI details", "GST returns filed for the period"],
+    timeline: "Books closed by the 10th of the following month.",
+    pricing: "From ₹2,999/month",
+    faqs: [
+      { q: "Which accounting software do you work on?", a: "Whichever suits you — Tally, Zoho Books, QuickBooks or a spreadsheet for very small volumes. If you have no system yet, we recommend one based on your turnover and whether you bill on GST." },
+      { q: "Why does monthly bookkeeping cost more than a yearly filing?", a: "Because it prevents the expensive part — a year-end reconstruction that hides missed input credit, unreconciled banks and pending TDS. Monthly books cost less than fixing annual chaos." },
+    ],
+  },
+
+  {
+    slug: "mis-reporting",
+    title: "MIS Reporting & Financial Statements",
+    shortTitle: "MIS Reporting",
+    icon: PieChart,
+    category: "Accounting & Bookkeeping",
+    tagline: "Numbers a founder can actually act on.",
+    summary:
+      "Monthly P&L, balance sheet, receivables and payables ageing and budget-versus-actual reporting — prepared for decisions, not just for filing.",
+    whoNeeds: [
+      "Owners making pricing, hiring or expansion decisions",
+      "Businesses preparing for funding or a bank loan",
+      "Companies with more than one revenue stream or location",
+    ],
+    process: [
+      { step: "Agree metrics", desc: "Decide what matters for your business — margins, per-unit economics, working capital, department spend." },
+      { step: "Build", desc: "Prepare the statements from closed books, with prior-period comparison." },
+      { step: "Review", desc: "Walk through the numbers with you and flag what changed and why." },
+      { step: "Improve", desc: "Refine the format each quarter as your questions get sharper." },
+    ],
+    documents: ["Closed books for the month", "Sales and purchase summaries", "Receivables and payables lists", "Bank balances and loan schedules"],
+    timeline: "MIS delivered by the 12th of each month.",
+    pricing: "From ₹1,999/month",
+    faqs: [
+      { q: "What is different about MIS versus a normal P&L?", a: "A filed P&L answers the tax department. MIS answers you: which product is actually profitable, where cash is stuck, what the month's fixed cost looked like against plan. Same books, different question." },
+      { q: "Can you give it to my investor or bank?", a: "Yes. We prepare investor- and lender-ready packs — including the schedules and notes a diligence team will ask for." },
+    ],
+  },
+
+  {
+    slug: "bank-reconciliation",
+    title: "Bank & Ledger Reconciliation",
+    shortTitle: "Reconciliation",
+    icon: Search,
+    category: "Accounting & Bookkeeping",
+    tagline: "Find the gap between what the bank says and what the books say.",
+    summary:
+      "Account-by-account reconciliation of bank, cash and ledger balances, with a plain-English explanation of every mismatch — and the corrections posted in your books.",
+    whoNeeds: [
+      "Businesses whose books have never matched the bank",
+      "Owners switching accountants mid-year",
+      "Anyone heading into a loan application, audit or due diligence",
+    ],
+    process: [
+      { step: "Pull", desc: "Collect statements for every bank, cash and payment-gateway account for the period." },
+      { step: "Match", desc: "Line-by-line matching of receipts, payments, charges, interest and unsettled items." },
+      { step: "Explain", desc: "A written note on what caused each difference — timing, missed entries, or a real error." },
+      { step: "Correct", desc: "Post the corrections and hand you a reconciled trial balance." },
+    ],
+    documents: ["Bank statements for all accounts", "Payment gateway settlement reports", "Cash book / petty cash records", "Current books (ledger export)"],
+    timeline: "3–7 working days depending on volume of transactions.",
+    pricing: "From ₹1,499/month",
+    faqs: [
+      { q: "Why do books drift even with an accountant?", a: "Almost always timing and information gaps — statements that never reached the accountant, gateway settlements net of fees, or auto-debits nobody recorded. Reconciling monthly closes those gaps while they are still small." },
+      { q: "Do you reconcile old years too?", a: "Yes. Historical clean-up is common before a funding round or loan. We do it in slabs so you can see progress month by month instead of waiting for one large project." },
+    ],
+  },
+
+  {
+    slug: "accounts-receivable-payable",
+    title: "Accounts Receivable / Payable",
+    icon: Handshake,
+    category: "Accounting & Bookkeeping",
+    tagline: "Know who owes you — and who you owe.",
+    summary:
+      "AR/AP management with ageing analysis, follow-up schedules, and clear visibility on your working capital position.",
+    whoNeeds: [
+      "Businesses with credit sales or supplier credit",
+      "Companies struggling with cash flow timing",
+      "Anyone wanting tighter debtor follow-up",
+    ],
+    process: [
+      { step: "Record", desc: "Track every invoice raised and bill received." },
+      { step: "Age", desc: "Ageing buckets: 0–30, 31–60, 61–90, 90+ days." },
+      { step: "Follow up", desc: "Scheduled debtor follow-ups; creditor payment calendar." },
+    ],
+    documents: ["Sales invoices", "Purchase bills", "Payment receipts", "Supplier statements"],
+    timeline: "Ongoing — weekly ageing reports.",
+    pricing: "From ₹2,499/mo",
+    faqs: [
+      { q: "Can you chase my customers for payment?", a: "We prepare professional follow-up communications and reminders for your approval; the actual sending can be done by you or on your behalf, depending on your preference." },
+    ],
+  },
+
+  {
+    slug: "financial-statement-preparation",
+    title: "Financial Statement Preparation",
+    icon: FileCheck2,
+    category: "Accounting & Bookkeeping",
+    tagline: "P&L, balance sheet, notes — audit-ready.",
+    summary:
+      "Preparation of the full set of financial statements — Balance Sheet, P&L, notes, and schedules — in the format auditors and regulators expect.",
+    whoNeeds: [
+      "Companies preparing for statutory audit",
+      "Businesses needing bank-ready financials",
+      "Founders seeking investment (investor due diligence)",
+    ],
+    process: [
+      { step: "Close books", desc: "Complete and reconcile the year's accounts." },
+      { step: "Prepare", desc: "Balance sheet, P&L, cash flow, schedules, and notes." },
+      { step: "Review", desc: "Internal review for classification and disclosure." },
+    ],
+    documents: ["Trial balance", "Ledgers", "Bank statements", "Supporting vouchers"],
+    timeline: "2–3 weeks from complete books.",
+    pricing: "From ₹9,999",
+    faqs: [
+      { q: "Are these audited financials?", a: "These are management-prepared financial statements. For statutory audit certification, we coordinate with our CA partner network to sign off." },
+    ],
+  },
+
+  {
+    slug: "cost-accounting",
+    title: "Cost Accounting",
+    icon: Calculator,
+    category: "Accounting & Bookkeeping",
+    tagline: "Know what every product, job or service truly costs.",
+    summary:
+      "Cost accounting — allocating direct and indirect costs to products, services, and departments so you price profitably.",
+    whoNeeds: [
+      "Manufacturers needing product costing",
+      "Service businesses with multi-service profitability",
+      "Anyone pricing without knowing true margins",
+    ],
+    process: [
+      { step: "Map cost centres", desc: "Identify direct and indirect cost categories." },
+      { step: "Allocate", desc: "Apportion overheads on a sensible basis." },
+      { step: "Report", desc: "Per-product / per-service margin analysis." },
+    ],
+    documents: ["Material costs", "Labour costs", "Overhead details", "Production / service volumes"],
+    timeline: "Initial set-up 2–3 weeks; monthly updates thereafter.",
+    pricing: "From ₹4,999/mo",
+    faqs: [
+      { q: "We're a services firm — is cost accounting relevant?", a: "Very. Knowing the true cost of each engagement (including unbillable time) reveals which clients are actually profitable and which are quietly losing you money." },
+    ],
+  },
+
+  {
+    slug: "inventory-management-valuation",
+    title: "Inventory Management & Valuation",
+    icon: Factory,
+    category: "Accounting & Bookkeeping",
+    tagline: "Right stock, right value, less write-off.",
+    summary:
+      "Inventory accounting — valuation methods (FIFO/weighted average), stock reconciliation, and slow-moving write-downs.",
+    whoNeeds: [
+      "Traders and manufacturers carrying stock",
+      "Businesses with inventory shrinkage",
+      "Companies needing accurate COGS",
+    ],
+    process: [
+      { step: "Value", desc: "Adopt the right valuation method (FIFO / WAC)." },
+      { step: "Reconcile", desc: "Physical vs book stock reconciliation." },
+      { step: "Write down", desc: "Identify slow-moving / obsolete stock." },
+    ],
+    documents: ["Stock registers", "Purchase invoices", "Physical count sheets"],
+    timeline: "Quarterly recommended.",
+    pricing: "From ₹2,499/quarter",
+    faqs: [
+      { q: "FIFO or weighted average?", a: "Depends on your inventory turnover and tax strategy. FIFO often matches physical flow better; weighted average smooths price fluctuations. We recommend based on your specifics." },
+    ],
+  },
+
+  {
+    slug: "budgeting-forecasting",
+    title: "Budgeting & Forecasting",
+    icon: LineChart,
+    category: "Accounting & Bookkeeping",
+    tagline: "A budget you'll actually use — and reforecast against.",
+    summary:
+      "Annual budgeting with monthly variance analysis and rolling reforecasts — so you steer the business, not the other way around.",
+    whoNeeds: [
+      "Businesses wanting deliberate growth",
+      "Founders who keep missing their numbers",
+      "Teams needing shared financial targets",
+    ],
+    process: [
+      { step: "Budget", desc: "Revenue, cost, and overhead plan for the year." },
+      { step: "Compare", desc: "Monthly actual vs budget variance." },
+      { step: "Reforecast", desc: "Quarterly rolling update." },
+    ],
+    documents: ["Historical financials", "Sales pipeline", "Cost structure", "Growth plans"],
+    timeline: "Annual budget + monthly variance.",
+    pricing: "From ₹4,999/mo",
+    faqs: [
+      { q: "Our numbers are unpredictable — is a budget useful?", a: "Especially then. A budget isn't about predicting perfectly; it's about having a shared baseline to measure against, so you spot deviations early and adjust intentionally." },
+    ],
+  },
+
+  {
+    slug: "epfo-kyc",
+    title: "EPFO KYC (DSC & E-sign)",
+    icon: Users,
+    category: "Payroll & HR Compliance",
+    tagline: "Verify your identity with EPFO using DSC or e-sign - done once, works everywhere.",
+    summary:
+      "Complete your EPFO KYC using a Class 3 Digital Signature Certificate or Aadhaar-based e-sign - so your UAN is verified and your EPF account becomes fully online and portable.",
+    whoNeeds: [
+      "Any EPF member whose UAN KYC status shows 'Pending'",
+      "Employees changing jobs who need seamless PF transfer",
+      "Establishments wanting their workforce KYC-compliant",
+    ],
+    process: [
+      { step: "Check", desc: "We check your UAN KYC status and identify what's pending - Aadhaar, PAN, or bank." },
+      { step: "Certify", desc: "Sign the KYC form using your DSC or Aadhaar e-sign." },
+      { step: "Verify", desc: "KYC approved on the EPFO portal - your UAN is now fully verified." },
+    ],
+    documents: ["UAN number", "Aadhaar linked to UAN", "PAN", "Class 3 DSC (if using DSC mode)", "Bank account details (if not already seeded)"],
+    timeline: "1-2 working days per member.",
+    pricing: "₹299 per member",
+    faqs: [
+      { q: "What is EPFO KYC and why does it matter?", a: "KYC verifies your identity with EPFO using Aadhaar, PAN, and bank details. Once verified, your PF account becomes fully online - you can transfer, withdraw, and check balances without physical paperwork." },
+      { q: "DSC or e-sign - which should I use?", a: "E-sign via Aadhaar OTP is the easiest if your Aadhaar is linked to your mobile. DSC is required in some cases and is preferred for bulk KYC by establishments. We handle both." },
+      { q: "Can you do KYC for our whole team at once?", a: "Yes - for establishments, we process KYC for all employees in bulk using DSC, which is the standard approach for companies." },
+    ],
+  },
+
   {
     slug: "epfo-registration",
     title: "EPFO Registration",
@@ -950,127 +1197,34 @@ export const SERVICES: Service[] = [
   },
 
   {
-    slug: "payroll-processing",
-    title: "Payroll Processing & Payslips",
-    shortTitle: "Payroll",
-    icon: Coins,
+    slug: "payroll-services",
+    title: "Payroll Services",
+    icon: Users,
     category: "Payroll & HR Compliance",
-    tagline: "Salaries, TDS, PF, ESI and payslips — one dependable monthly run.",
+    tagline: "Salaries, payslips, PF/ESI and full-and-final — done.",
     summary:
-      "End-to-end payroll: salary structuring, monthly computation, statutory deductions, payslip generation and the registers your accountant and auditor will ask for.",
+      "End-to-end payroll processing — salary computation, payslips, PF/ESI deposits, TDS on salary, and exits.",
     whoNeeds: [
-      "Small businesses still running payroll on a spreadsheet",
-      "Startups with 1–50 employees and no HR function",
-      "Employers who want payslips and registers audit-ready",
+      "Any business with employees",
+      "Companies hiring their first employee",
+      "Teams wanting to outsource the monthly payroll grind",
     ],
     process: [
-      { step: "Set up", desc: "Structure CTC, build the payroll master and confirm PF/ESI/PT applicability for each employee." },
-      { step: "Run", desc: "Compute the month's payroll with attendance, leave, overtime, bonuses and reimbursements." },
-      { step: "Deduct & file", desc: "TDS, PF, ESI and PT deductions computed, deposited and returned on time." },
-      { step: "Deliver", desc: "Payslips released to employees, salary register and bank transfer file handed over." },
+      { step: "Set up", desc: "Salary structures, PF/ESI registration, and TDS declarations." },
+      { step: "Process", desc: "Monthly computation, payslip generation, and bank file." },
+      { step: "Comply", desc: "PF/ESI deposit and return, TDS deposit and Form 16." },
+      { step: "Exit", desc: "Full-and-final settlement on exits." },
     ],
-    documents: ["Employee master (CTC, date of joining, PAN, bank, UAN / ESIC numbers)", "Attendance and leave data for the month", "Bonus, incentive and overtime inputs", "Investment declarations and previous employment income"],
-    timeline: "Payroll run within 2 working days of receiving inputs.",
-    pricing: "From ₹99/employee/month",
+    documents: ["Employee details", "CTC structures", "Attendance / leave", "Declarations (80C, rent, etc.)"],
+    timeline: "Monthly — payslips within 3 days of month-end.",
+    pricing: "From ₹299/employee/mo",
     faqs: [
-      { q: "Do you handle payslips and registers too?", a: "Yes — payslips, the salary register, the statutory deduction summary and the bank transfer file come as part of the monthly run, in formats an auditor or lender can read." },
-      { q: "Can you take over mid-year with existing employees?", a: "Yes. We rebuild the employee master from your previous registers, reconcile opening balances for PF/ESI, and continue without a break in contributions." },
+      { q: "Do you handle PF and ESI registration too?", a: "Yes. PF is mandatory once you cross 20 employees; ESI applies to employees earning under ₹21,000. We handle registration, monthly deposit, and returns." },
+      { q: "Can you process variable pay and bonuses?", a: "Yes — incentive structures, variable pay, joining / retention bonuses, and leave encashment are all handled in the monthly run." },
     ],
+    featured: true,
   },
 
-  /* ============================================================
-     Accounting & Bookkeeping
-     ============================================================ */
-  {
-    slug: "bookkeeping-accounting",
-    title: "Bookkeeping & Accounting",
-    shortTitle: "Bookkeeping",
-    icon: BookOpen,
-    category: "Accounting & Bookkeeping",
-    tagline: "Clean books every month — not a scramble at year end.",
-    summary:
-      "Monthly recording of sales, purchases, expenses, bank and GST entries in the accounting software of your choice, closed with a trial balance you can rely on.",
-    whoNeeds: [
-      "Startups with investors or lenders watching the numbers",
-      "Businesses filing returns without clean books behind them",
-      "Owners whose accountant only appears in the last week of the year",
-    ],
-    process: [
-      { step: "Set up", desc: "Chart of accounts, opening balances and the software configured around how you actually bill." },
-      { step: "Record", desc: "Sales, purchases, expenses, payroll and journals posted from your documents each month." },
-      { step: "Reconcile", desc: "Bank, GST, TDS and party ledgers matched — differences explained, not buried." },
-      { step: "Close", desc: "Monthly close with a trial balance, P&L and balance sheet you can act on." },
-    ],
-    documents: ["Sales and purchase invoices", "Bank statements for every account", "Expense bills and payment proof", "Loan, lease and EMI details", "GST returns filed for the period"],
-    timeline: "Books closed by the 10th of the following month.",
-    pricing: "From ₹2,999/month",
-    faqs: [
-      { q: "Which accounting software do you work on?", a: "Whichever suits you — Tally, Zoho Books, QuickBooks or a spreadsheet for very small volumes. If you have no system yet, we recommend one based on your turnover and whether you bill on GST." },
-      { q: "Why does monthly bookkeeping cost more than a yearly filing?", a: "Because it prevents the expensive part — a year-end reconstruction that hides missed input credit, unreconciled banks and pending TDS. Monthly books cost less than fixing annual chaos." },
-    ],
-  },
-
-  {
-    slug: "mis-reporting",
-    title: "MIS Reporting & Financial Statements",
-    shortTitle: "MIS Reporting",
-    icon: PieChart,
-    category: "Accounting & Bookkeeping",
-    tagline: "Numbers a founder can actually act on.",
-    summary:
-      "Monthly P&L, balance sheet, receivables and payables ageing and budget-versus-actual reporting — prepared for decisions, not just for filing.",
-    whoNeeds: [
-      "Owners making pricing, hiring or expansion decisions",
-      "Businesses preparing for funding or a bank loan",
-      "Companies with more than one revenue stream or location",
-    ],
-    process: [
-      { step: "Agree metrics", desc: "Decide what matters for your business — margins, per-unit economics, working capital, department spend." },
-      { step: "Build", desc: "Prepare the statements from closed books, with prior-period comparison." },
-      { step: "Review", desc: "Walk through the numbers with you and flag what changed and why." },
-      { step: "Improve", desc: "Refine the format each quarter as your questions get sharper." },
-    ],
-    documents: ["Closed books for the month", "Sales and purchase summaries", "Receivables and payables lists", "Bank balances and loan schedules"],
-    timeline: "MIS delivered by the 12th of each month.",
-    pricing: "From ₹1,999/month",
-    faqs: [
-      { q: "What is different about MIS versus a normal P&L?", a: "A filed P&L answers the tax department. MIS answers you: which product is actually profitable, where cash is stuck, what the month's fixed cost looked like against plan. Same books, different question." },
-      { q: "Can you give it to my investor or bank?", a: "Yes. We prepare investor- and lender-ready packs — including the schedules and notes a diligence team will ask for." },
-    ],
-  },
-
-  {
-    slug: "bank-reconciliation",
-    title: "Bank & Ledger Reconciliation",
-    shortTitle: "Reconciliation",
-    icon: Search,
-    category: "Accounting & Bookkeeping",
-    tagline: "Find the gap between what the bank says and what the books say.",
-    summary:
-      "Account-by-account reconciliation of bank, cash and ledger balances, with a plain-English explanation of every mismatch — and the corrections posted in your books.",
-    whoNeeds: [
-      "Businesses whose books have never matched the bank",
-      "Owners switching accountants mid-year",
-      "Anyone heading into a loan application, audit or due diligence",
-    ],
-    process: [
-      { step: "Pull", desc: "Collect statements for every bank, cash and payment-gateway account for the period." },
-      { step: "Match", desc: "Line-by-line matching of receipts, payments, charges, interest and unsettled items." },
-      { step: "Explain", desc: "A written note on what caused each difference — timing, missed entries, or a real error." },
-      { step: "Correct", desc: "Post the corrections and hand you a reconciled trial balance." },
-    ],
-    documents: ["Bank statements for all accounts", "Payment gateway settlement reports", "Cash book / petty cash records", "Current books (ledger export)"],
-    timeline: "3–7 working days depending on volume of transactions.",
-    pricing: "From ₹1,499/month",
-    faqs: [
-      { q: "Why do books drift even with an accountant?", a: "Almost always timing and information gaps — statements that never reached the accountant, gateway settlements net of fees, or auto-debits nobody recorded. Reconciling monthly closes those gaps while they are still small." },
-      { q: "Do you reconcile old years too?", a: "Yes. Historical clean-up is common before a funding round or loan. We do it in slabs so you can see progress month by month instead of waiting for one large project." },
-    ],
-  },
-
-  /* ============================================================
-     Advisory & Growth
-     ============================================================ */
   {
     slug: "virtual-cfo",
     title: "Virtual CFO",
@@ -1271,6 +1425,85 @@ export const SERVICES: Service[] = [
     faqs: [
       { q: "Do you guarantee sanction?", a: "No — the lender decides, always. What we control is the paperwork: projections that reconcile, ratios the bank can rely on, and answers prepared before they're asked. Sloppy CMA data is the most common reason a good case is rejected." },
       { q: "Can you help with subsidy schemes?", a: "Yes. Several central and state schemes offer capital or interest support to MSMEs. We check which you qualify for and prepare the application alongside the loan file." },
+    ],
+  },
+
+  {
+    slug: "due-diligence",
+    title: "Due Diligence Support",
+    icon: Search,
+    category: "Advisory & Growth",
+    tagline: "Walk into investor or acquisition diligence prepared.",
+    summary:
+      "Buy-side and sell-side financial due diligence — clean data rooms, reconciled financials, and defensible numbers.",
+    whoNeeds: [
+      "Founders entering fundraising diligence",
+      "Businesses being acquired",
+      "Acquirers needing financial DD support",
+    ],
+    process: [
+      { step: "Prepare", desc: "Organise financials into a clean data room." },
+      { step: "Reconcile", desc: "Ensure all numbers tie and are defensible." },
+      { step: "Defend", desc: "Support through Q&A and clarifications." },
+    ],
+    documents: ["Full financials", "Contracts", "Customer & supplier data", "Tax filings"],
+    timeline: "Project-based, 3–6 weeks.",
+    pricing: "From ₹49,999",
+    faqs: [
+      { q: "When should we start preparing for diligence?", a: "Ideally 3–6 months before raising. Clean financials, reconciled numbers, and organised documentation prevent deals from stalling over avoidable questions." },
+    ],
+  },
+
+  {
+    slug: "loan-funding-assistance",
+    title: "Loan & Funding Assistance",
+    icon: Banknote,
+    category: "Advisory & Growth",
+    tagline: "From application to disbursement — less friction.",
+    summary:
+      "End-to-end support for business loans — documentation, lender matching, application tracking, and disbursement.",
+    whoNeeds: [
+      "Businesses seeking working capital or term loans",
+      "Startups exploring debt or seed equity",
+      "Anyone navigating the loan application maze",
+    ],
+    process: [
+      { step: "Assess", desc: "Understand your need and eligibility." },
+      { step: "Package", desc: "Prepare the application with all documents." },
+      { step: "Submit", desc: "Apply to suitable lenders and track progress." },
+      { step: "Disburse", desc: "Coordinate through to sanction and disbursal." },
+    ],
+    documents: ["Business financials", "Bank statements (12 months)", "GST returns", "ITR", "Project / use-of-funds note"],
+    timeline: "2–6 weeks depending on lender and loan type.",
+    pricing: "From ₹9,999",
+    faqs: [
+      { q: "Do you guarantee loan approval?", a: "No one can ethically guarantee approval — it depends on the lender's assessment. What we guarantee is a complete, well-presented application that maximises your chances and minimises back-and-forth." },
+    ],
+  },
+
+  {
+    slug: "internal-audit-controls",
+    title: "Internal Audit & Controls",
+    icon: ShieldCheck,
+    category: "Advisory & Growth",
+    tagline: "Find the gaps before anyone else does.",
+    summary:
+      "Internal audit and process review — identifying control weaknesses, process inefficiencies, and compliance gaps.",
+    whoNeeds: [
+      "Growing businesses with multiple processes",
+      "Companies preparing for external audit",
+      "Anyone concerned about fraud or leakage",
+    ],
+    process: [
+      { step: "Scope", desc: "Identify the processes and risk areas to review." },
+      { step: "Audit", desc: "Test controls, sample transactions, and interview." },
+      { step: "Report", desc: "Findings, risk ratings, and practical remediation." },
+    ],
+    documents: ["Process documentation", "Financial records", "Access to team"],
+    timeline: "2–4 weeks for a standard scope.",
+    pricing: "From ₹24,999",
+    faqs: [
+      { q: "Is internal audit only for large companies?", a: "No — smaller businesses often benefit most, because control gaps are costlier relative to size. A single leakage prevented can pay for years of audit." },
     ],
   },
 ];

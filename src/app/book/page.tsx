@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Clock,
   ShieldCheck,
@@ -11,6 +12,7 @@ import {
 import { Reveal } from "@/components/site/reveal";
 import { ConsultationForm } from "@/components/site/consultation-form";
 import { CONTACT, SITE } from "@/lib/site";
+import { SITE_IMAGES } from "@/lib/images";
 import { breadcrumbSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/site/json-ld";
 
@@ -132,6 +134,20 @@ export default function BookPage() {
                   );
                 })}
               </ul>
+            </Reveal>
+
+            {/* Consultation scene image — placeholder until AI artwork replaces it (see `AI bundles/image-prompts.json`) */}
+            <Reveal delay={0.14} className="mt-10">
+              <div className="relative overflow-hidden rounded-xl border border-paper/20 shadow-[0_28px_60px_-34px_rgba(0,0,0,0.6)]">
+                <Image
+                  src={SITE_IMAGES.bookHero.src}
+                  alt={SITE_IMAGES.bookHero.alt}
+                  width={SITE_IMAGES.bookHero.width}
+                  height={SITE_IMAGES.bookHero.height}
+                  className="h-48 w-full object-cover lg:h-54"
+                />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1 bg-gold" />
+              </div>
             </Reveal>
           </div>
 
