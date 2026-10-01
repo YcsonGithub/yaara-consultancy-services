@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { BRAND_ASSETS } from "@/lib/images";
 
 /**
  * Yaara logo — uses the client's original logo image.
@@ -46,7 +47,7 @@ export function YaaraLogo({
   return (
     <div className={cn("relative", className)} style={{ height }}>
       <Image
-        src="/logo-original.png"
+        src={BRAND_ASSETS.logoLockup}
         alt="Yaara Consultancy Services — Advise · Analyze · Achieve"
         width={612}
         height={408}

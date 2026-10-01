@@ -119,6 +119,7 @@ src/
   lib/
     site.ts            — Site config: name, founder, contact, nav, industries, pricing, FAQs
     services.ts        — Typed catalog of 36 services across 5 categories
+    images.ts          — Central image registry: SITE_IMAGES + BRAND_ASSETS (all public/ paths)
     schema.ts          — JSON-LD builders (Organization, WebSite, Service, Breadcrumb, FAQ)
     analytics.ts       — Consent Mode v2 + GTM/GA4 bootstrap scripts
     chat-context.ts    — System prompt builder for the AI assistant
@@ -128,9 +129,20 @@ src/
 prisma/
   schema.prisma        — SQLite schema (ConsultationRequest, ContactMessage, + demo models)
 public/
-  logo.svg, logo-original.png, favicon.ico
-  founder/             — Founder portrait
-  scenes/              — Workspace flatlay, growth illustration
+  favicon.ico          — Root only; browsers probe /favicon.ico directly
+  brand/               — logo-original.png (canonical lockup), logo.svg,
+                         logo-mark.svg, logo-mark-16.svg, logo-maskable.svg,
+                         apple-touch-icon.png, icon-192.png, icon-512.png
+  images/
+    industries/        — Hero + one card per industry slug
+    resources/         — Resources hero
+    book/              — /book hero
+    people/            — Founder portrait
+    scenes/            — Workspace flatlay, growth illustration
+  docs/                — company-profile.pdf
+scripts/
+  generate-placeholders.mjs — Regenerate editorial placeholder PNGs
+  generate-brand-icons.mjs — Regenerate favicon + app icons from logo-mark.svg
 Caddyfile              — Gateway config (single-port reverse proxy)
 next.config.ts         — `output: "standalone"`, `reactStrictMode: false`
 ```

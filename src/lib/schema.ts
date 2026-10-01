@@ -12,9 +12,10 @@
 import { SITE, CONTACT, GRIEVANCE_OFFICER, SOCIAL, PRICING } from "@/lib/site";
 import { SERVICES, getService } from "@/lib/services";
 import { FAQS } from "@/lib/site";
+import { BRAND_ASSETS } from "@/lib/images";
 
 const BASE_URL = SITE.url;
-const LOGO_URL = `${BASE_URL}/logo-original.png`;
+const LOGO_URL = `${BASE_URL}${BRAND_ASSETS.logoLockup}`;
 
 /** Organisation / LocalBusiness — emitted once site-wide in the root layout. */
 export function organizationSchema() {

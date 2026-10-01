@@ -10,6 +10,7 @@ import { ConsentProvider } from "@/components/site/consent-provider";
 import { JsonLd } from "@/components/site/json-ld";
 import { SITE, CONTACT, ANALYTICS } from "@/lib/site";
 import { organizationSchema, websiteSchema } from "@/lib/schema";
+import { BRAND_ASSETS } from "@/lib/images";
 import {
   consentModeDefaultScript,
   gtmBootstrapScript,
@@ -88,10 +89,10 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/logo.svg", type: "image/svg+xml" },
-      { url: "/favicon.ico", sizes: "any" },
+      { url: BRAND_ASSETS.favicon, sizes: "any" },
+      { url: BRAND_ASSETS.markSvg, type: "image/svg+xml" },
     ],
-    apple: [{ url: "/logo.svg" }],
+    apple: [{ url: BRAND_ASSETS.appleTouchIcon, sizes: "180x180" }],
   },
   manifest: "/manifest.webmanifest",
   openGraph: {

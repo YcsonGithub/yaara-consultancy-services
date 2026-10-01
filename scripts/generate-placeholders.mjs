@@ -2,12 +2,18 @@
  * ============================================================
  *  YAARA PLACEHOLDER IMAGE GENERATOR
  * ============================================================
- * Generates branded placeholder PNGs into public/images/ for every
+ * Generates branded placeholder PNGs into public/images/<group>/ for every
  * slot listed below. Each placeholder is a warm-paper panel with a
  * navy label chip and a gold rule — on-brand enough for production
  * previews, and clearly a placeholder.
  *
+ * Group folders mirror the site: `industries`, `resources` and `book` map to
+ * their routes; `people` and `scenes` are cross-page assets. Keep this list
+ * in sync with SITE_IMAGES in src/lib/images.ts.
+ *
  * Usage:  bun scripts/generate-placeholders.mjs   (or: node ...)
+ *
+ * Brand icons live separately — see scripts/generate-brand-icons.mjs.
  *
  * The AI prompts for the real artwork live in
  * `AI bundles/image-prompts.json`. Overwrite the generated files with
@@ -83,10 +89,10 @@ for (const img of IMAGES) {
 
 // Report dimensions of the EXISTING images so the prompts JSON stays accurate.
 const EXISTING = [
-  "public/founder/founder-at-work.png",
-  "public/scenes/workspace-flatlay.png",
-  "public/scenes/growth-illustration.png",
-  "public/logo-original.png",
+  "public/images/people/founder-at-work.png",
+  "public/images/scenes/workspace-flatlay.png",
+  "public/images/scenes/growth-illustration.png",
+  "public/brand/logo-original.png",
 ];
 const dims = {};
 for (const f of EXISTING) {

@@ -18,6 +18,7 @@ import {
 import { PageHero, CtaBand } from "@/components/site/section";
 import { Reveal } from "@/components/site/reveal";
 import { FounderSignature } from "@/components/site/logo";
+import { SITE_IMAGES } from "@/lib/images";
 import { SITE, CONTACT, STATS } from "@/lib/site";
 import { breadcrumbSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/site/json-ld";
@@ -105,10 +106,10 @@ export default function AboutPage() {
               <div className="relative mx-auto max-w-sm lg:max-w-none lg:sticky lg:top-28">
                 <div className="duotone-navy relative overflow-hidden rounded-xl border border-border shadow-[0_30px_60px_-30px_rgba(14,42,71,0.45)]">
                   <Image
-                    src="/founder/founder-at-work.png"
+                    src={SITE_IMAGES.founderPortrait.src}
                     alt={`Portrait of ${SITE.founder}, ${SITE.founderRole} of Yaara Consultancy Services`}
-                    width={864}
-                    height={1152}
+                    width={SITE_IMAGES.founderPortrait.width}
+                    height={SITE_IMAGES.founderPortrait.height}
                     priority
                     className="h-full w-full object-cover"
                   />
