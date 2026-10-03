@@ -122,7 +122,7 @@ const PRICING_FLAG = (process.env.NEXT_PUBLIC_SHOW_PRICING ?? "")
   .toLowerCase();
 export const PRICING = {
   /** true → fees are rendered. Anything else (incl. unset) → hidden. */
-  visible: ["true", "1", "yes", "on"].includes(PRICING_FLAG),
+  visible: PRICING_FLAG === "true",
   /** Shown wherever a fee would have been. */
   hiddenLabel: "Price on request",
   /** The "how you get a price" line used in place of fee tables. */
