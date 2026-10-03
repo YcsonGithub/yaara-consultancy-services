@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import {
   CATEGORY_ORDER,
@@ -10,11 +11,11 @@ import {
 import { Reveal } from "@/components/site/reveal";
 import { SectionHeading, PageHero, CtaBand } from "@/components/site/section";
 import { CategoryArt } from "@/components/art/service-art";
-import { LedgerDeskArt } from "@/components/art/section-art";
 import { Price } from "@/components/site/price";
 import { serviceListSchema, breadcrumbSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/site/json-ld";
 import { SITE } from "@/lib/site";
+import { SERVICE_CATEGORY_IMAGES } from "@/lib/images";
 
 /** Slugify a category name for anchor IDs and #hash nav */
 function slugify(s: string): string {
@@ -51,7 +52,15 @@ export default function ServicesPage() {
           </>
         }
         intro="Every registration, filing and review an Indian business needs — from GST and ITR to company formation, PF & ESI, ROC, bookkeeping and advisory. Jump to any service for documents, timeline and FAQs."
-        aside={<LedgerDeskArt className="h-[15rem] sm:h-[17rem] lg:h-[20rem]" />}
+        aside={
+          <Image
+            src={SERVICE_CATEGORY_IMAGES["Accounting & Bookkeeping"].src}
+            alt="An accountant reviewing clean books with a ledger, calculator and financial reports"
+            width={SERVICE_CATEGORY_IMAGES["Accounting & Bookkeeping"].width}
+            height={SERVICE_CATEGORY_IMAGES["Accounting & Bookkeeping"].height}
+            className="h-[15rem] w-full object-cover sm:h-[17rem] lg:h-[20rem]"
+          />
+        }
       />
 
       {/* ============ CATEGORY NAV (sticky anchor chips) ============ */}
@@ -154,11 +163,23 @@ export default function ServicesPage() {
 /* -------- Service card -------- */
 function ServiceCard({ service }: { service: Service }) {
   const Icon = service.icon;
+  const serviceImage = SERVICE_CATEGORY_IMAGES[service.category];
   return (
     <Link
       href={`/services/${service.slug}`}
       className="group relative flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card p-6 transition-all hover:border-ink/25 hover:shadow-[0_18px_44px_-26px_rgba(14,42,71,0.4)]"
     >
+      <div className="relative -mx-6 -mt-6 mb-6 overflow-hidden border-b border-border">
+        <Image
+          src={serviceImage.src}
+          alt={`${service.title}: ${serviceImage.alt}`}
+          width={serviceImage.width}
+          height={serviceImage.height}
+          className="h-28 w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+        />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-ink/35 to-transparent" />
+      </div>
+
       {/* gold hairline that fills in on hover — brand signature */}
       <span className="absolute inset-x-0 top-0 h-0.5 w-0 bg-gold transition-all duration-500 group-hover:w-full" />
 

@@ -77,60 +77,60 @@ export const SITE_IMAGES = {
   industriesHero: {
     src: "/images/industries/hero.png",
     alt: "Editorial illustration of six different Indian businesses — a startup desk, a freelancer, a shop counter, a clinic, a community trust and a small factory — connected by one ledger",
-    width: 1024,
-    height: 640,
+    width: 1774,
+    height: 887,
   },
   industryStartupsFounders: {
     src: "/images/industries/startups-founders.png",
     alt: "Young founders at a minimalist workspace with a laptop, cap-table chart and incorporation certificate",
-    width: 1024,
-    height: 512,
+    width: 1672,
+    height: 941,
   },
   industryFreelancersProfessionals: {
     src: "/images/industries/freelancers-professionals.png",
     alt: "A freelancer working from a home studio with invoices and a laptop",
-    width: 1024,
-    height: 512,
+    width: 1774,
+    height: 887,
   },
   industrySmallMediumBusinesses: {
     src: "/images/industries/small-medium-businesses.png",
     alt: "A small business owner at a shop counter with a ledger and GST receipts",
-    width: 1024,
-    height: 512,
+    width: 2043,
+    height: 770,
   },
   industryDoctorsLawyersArchitects: {
     src: "/images/industries/doctors-lawyers-architects.png",
     alt: "Regulated professionals — a doctor, a lawyer and an architect — at their consulting desks",
-    width: 1024,
-    height: 512,
+    width: 1916,
+    height: 821,
   },
   industryNgosTrusts: {
     src: "/images/industries/ngos-trusts.png",
     alt: "A community trust office with donation receipts and audit files",
-    width: 1024,
-    height: 512,
+    width: 1774,
+    height: 887,
   },
   industryManufacturersTraders: {
     src: "/images/industries/manufacturers-traders.png",
     alt: "A small factory floor with inventory, crates and cost-accounting ledgers",
-    width: 1024,
-    height: 512,
+    width: 1774,
+    height: 887,
   },
 
   /* ---- /resources ---- */
   resourcesHero: {
     src: "/images/resources/hero.png",
     alt: "A desk with a printed compliance calendar, reference books and a cup of chai",
-    width: 1024,
-    height: 640,
+    width: 1672,
+    height: 941,
   },
 
   /* ---- /book ---- */
   bookHero: {
     src: "/images/book/hero.png",
     alt: "A warm video-call scene: a founder and an advisor talking over a laptop with notes",
-    width: 1024,
-    height: 640,
+    width: 1774,
+    height: 887,
   },
 
   /* ---- /people — founder portrait, used on / and /about ---- */
@@ -140,19 +140,57 @@ export const SITE_IMAGES = {
     width: 1586,
     height: 992,
   },
+  homeConsultation: {
+    src: "/images/people/home-consultation.png",
+    alt: "An Indian business owner and financial advisor reviewing a ledger together in a bright Hyderabad office",
+    width: 1680,
+    height: 944,
+  },
 
   /* ---- /scenes — ambient cross-page imagery ---- */
   workspaceFlatlay: {
     src: "/images/scenes/workspace-flatlay.png",
     alt: "An overhead flatlay of a consultancy workspace — ledger, calculator and documents",
-    width: 1344,
-    height: 768,
+    width: 1536,
+    height: 1024,
   },
   growthIllustration: {
     src: "/images/scenes/growth-illustration.png",
     alt: "Illustration of a business growing steadily over successive quarters",
-    width: 1024,
-    height: 1024,
+    width: 1254,
+    height: 1254,
+  },
+
+  /* ---- /services/[slug] — category visuals shared by each service detail page ---- */
+  serviceTaxStatutory: {
+    src: "/images/services/tax-statutory.png",
+    alt: "An organised tax compliance desk with a ledger, calculator, filing folders and calendar",
+    width: 1774,
+    height: 887,
+  },
+  serviceBusinessRegistration: {
+    src: "/images/services/business-registration.png",
+    alt: "Founders reviewing incorporation papers beside a company seal and business planning blocks",
+    width: 2048,
+    height: 768,
+  },
+  serviceAccountingBookkeeping: {
+    src: "/images/services/accounting-bookkeeping.png",
+    alt: "An accountant reviewing an open ledger with a calculator, coins and financial reports",
+    width: 1942,
+    height: 809,
+  },
+  servicePayrollHr: {
+    src: "/images/services/payroll-hr.png",
+    alt: "An HR team reviewing organised employee records, payroll papers and a calendar",
+    width: 1774,
+    height: 887,
+  },
+  serviceAdvisoryGrowth: {
+    src: "/images/services/advisory-growth.png",
+    alt: "A founder and advisor reviewing a financial plan with a chart, compass and roadmap cards",
+    width: 1983,
+    height: 793,
   },
 } as const satisfies Record<string, SiteImage>;
 
@@ -166,4 +204,13 @@ export const INDUSTRY_IMAGES: Record<string, SiteImage> = {
   "doctors-lawyers-architects": SITE_IMAGES.industryDoctorsLawyersArchitects,
   "ngos-trusts": SITE_IMAGES.industryNgosTrusts,
   "manufacturers-traders": SITE_IMAGES.industryManufacturersTraders,
+};
+
+/** Service category → visual used on every service detail hero. */
+export const SERVICE_CATEGORY_IMAGES: Record<string, SiteImage> = {
+  "Tax & Statutory Compliance": SITE_IMAGES.serviceTaxStatutory,
+  "Business Registration & Corporate": SITE_IMAGES.serviceBusinessRegistration,
+  "Accounting & Bookkeeping": SITE_IMAGES.serviceAccountingBookkeeping,
+  "Payroll & HR Compliance": SITE_IMAGES.servicePayrollHr,
+  "Advisory & Growth": SITE_IMAGES.serviceAdvisoryGrowth,
 };
