@@ -24,6 +24,7 @@ import { breadcrumbSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/site/json-ld";
 
 export const metadata = {
+  alternates: { canonical: "https://www.yaaraconsultancyservices.com/about" },
   title: "About — A real person, not a portal",
   description:
     "Yaara Consultancy Services was founded in 2024 by Anakali Pawan Kalyan in Hyderabad. Five years of hands-on accounting experience, a CA partner network for statutory sign-off, and a single point of contact who knows your name and your numbers.",

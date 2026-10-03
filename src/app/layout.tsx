@@ -8,6 +8,7 @@ import { WhatsAppFloat } from "@/components/site/whatsapp-float";
 import { ChatAssistant } from "@/components/site/chat-assistant";
 import { ConsentProvider } from "@/components/site/consent-provider";
 import { JsonLd } from "@/components/site/json-ld";
+import { AnalyticsEvents } from "@/components/site/analytics-events";
 import { SITE, CONTACT, ANALYTICS } from "@/lib/site";
 import { organizationSchema, websiteSchema } from "@/lib/schema";
 import { BRAND_ASSETS } from "@/lib/images";
@@ -45,8 +46,8 @@ const ibmPlexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} — Accounting, Tax & Compliance for Founders`,
-    template: `%s · ${SITE.name}`,
+    default: `${SITE.name} | Accounting, Tax & Compliance for Founders`,
+    template: `%s | ${SITE.name}`,
   },
   description:
     "An Indian accounting and compliance partner for founders and small businesses who want a real person who understands their numbers. GST, ITR, business registration, ROC, bookkeeping, payroll, TDS, advisory and more — handled personally.",
@@ -90,7 +91,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: BRAND_ASSETS.favicon, sizes: "any" },
-      { url: BRAND_ASSETS.markSvg, type: "image/svg+xml" },
+      { url: BRAND_ASSETS.markPng, type: "image/png", sizes: "1254x1254" },
     ],
     apple: [{ url: BRAND_ASSETS.appleTouchIcon, sizes: "180x180" }],
   },
@@ -120,8 +121,14 @@ export const metadata: Metadata = {
     images: ["/opengraph-image"],
   },
   // Google site verification (set via env in production).
-  verification: process.env.NEXT_PUBLIC_GSC_VERIFICATION
-    ? { google: process.env.NEXT_PUBLIC_GSC_VERIFICATION }
+  verification:
+    (process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ??
+      process.env.NEXT_PUBLIC_GSC_VERIFICATION)
+      ? {
+          google:
+            process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ??
+            process.env.NEXT_PUBLIC_GSC_VERIFICATION,
+        }
     : undefined,
 };
 
@@ -176,6 +183,7 @@ export default function RootLayout({
         {/* Structured data — Organization + WebSite, site-wide. */}
         <JsonLd data={organizationSchema()} />
         <JsonLd data={websiteSchema()} />
+        <AnalyticsEvents />
 
         {/*
           Skip-to-content link — the first focusable element on the page

@@ -14,6 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { SERVICES } from "@/lib/services";
+import { trackEvent } from "@/lib/analytics";
 
 const SERVICE_OPTIONS = SERVICES.map((s) => s.title).concat(
   "Not sure yet — help me figure it out"
@@ -66,6 +67,8 @@ export function ConsultationForm({ variant = "light" }: { variant?: "light" | "d
         return;
       }
       setDone(true);
+      trackEvent("contact_form_submit");
+      trackEvent("consultation_request");
       toast({
         title: "Request received",
         description:
@@ -97,7 +100,12 @@ export function ConsultationForm({ variant = "light" }: { variant?: "light" | "d
       {done ? (
         <SuccessState onReset={() => setDone(false)} />
       ) : (
-        <form onSubmit={onSubmit} className="space-y-5" noValidate>
+        <form
+          onSubmit={onSubmit}
+          className="space-y-5"
+          noValidate
+          data-analytics-form="consultation"
+        >
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <Field label="Your name" required>
               {(id) => <Input id={id} name="name" placeholder="e.g. Priya Sharma" autoComplete="name" required className="h-11" />}

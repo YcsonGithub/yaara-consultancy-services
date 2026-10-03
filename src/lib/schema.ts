@@ -9,7 +9,7 @@
  * Reference: https://schema.org / https://developers.google.com/search/docs/appearance/structured-data
  */
 
-import { SITE, CONTACT, GRIEVANCE_OFFICER, SOCIAL, PRICING } from "@/lib/site";
+import { SITE, CONTACT, SOCIAL } from "@/lib/site";
 import { SERVICES, getService } from "@/lib/services";
 import { FAQS } from "@/lib/site";
 import { BRAND_ASSETS } from "@/lib/images";
@@ -33,7 +33,7 @@ export function organizationSchema() {
     email: CONTACT.email,
     telephone: CONTACT.phone,
     founder: { "@type": "Person", name: SITE.founder, jobTitle: SITE.founderRole },
-    founderDate: String(SITE.foundedYear),
+    foundingDate: String(SITE.foundedYear),
     knowsAbout: [
       "GST registration and filing",
       "Income tax return filing",
@@ -53,13 +53,7 @@ export function organizationSchema() {
       postalCode: CONTACT.address.pincode,
       addressCountry: "IN",
     },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 17.4435,
-      longitude: 78.3772,
-    },
     areaServed: { "@type": "Country", name: "India" },
-    priceRange: "₹₹",
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
@@ -68,7 +62,7 @@ export function organizationSchema() {
         closes: "19:00",
       },
     ],
-    sameAs: SOCIAL.map((s) => s.href),
+    sameAs: SOCIAL.filter((s) => s.label !== "WhatsApp").map((s) => s.href),
     contactPoint: [
       {
         "@type": "ContactPoint",
@@ -82,7 +76,7 @@ export function organizationSchema() {
   };
 }
 
-/** WebSite schema with SearchAction — enables Google sitelinks search box. */
+/** WebSite schema for the public site. */
 export function websiteSchema() {
   return {
     "@context": "https://schema.org",
@@ -92,14 +86,6 @@ export function websiteSchema() {
     name: SITE.name,
     publisher: { "@id": `${BASE_URL}/#organization` },
     inLanguage: "en-IN",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${BASE_URL}/resources?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
   };
 }
 
@@ -118,22 +104,6 @@ export function serviceSchema(slug: string) {
     provider: { "@id": `${BASE_URL}/#organization` },
     areaServed: { "@type": "Country", name: "India" },
     url: `${BASE_URL}/services/${slug}`,
-    /*
-      Fees are only published to search engines when the site-wide
-      NEXT_PUBLIC_SHOW_PRICING switch is on — shipping indicative-only
-      numbers as structured data would be misleading.
-    */
-    offers:
-      PRICING.visible && service.pricing
-        ? {
-            "@type": "Offer",
-            priceCurrency: "INR",
-            price: "0",
-            availability: "https://schema.org/InStock",
-            description: service.pricing,
-            url: `${BASE_URL}/pricing`,
-          }
-        : undefined,
   };
 }
 
@@ -154,11 +124,13 @@ export function serviceListSchema() {
 }
 
 /** FAQPage schema — emitted on /resources/faqs. */
-export function faqPageSchema() {
+export function faqPageSchema(
+  faqs: { q: string; a: string }[] = FAQS,
+) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: FAQS.map((f) => ({
+    mainEntity: faqs.map((f) => ({
       "@type": "Question",
       name: f.q,
       acceptedAnswer: { "@type": "Answer", text: f.a },

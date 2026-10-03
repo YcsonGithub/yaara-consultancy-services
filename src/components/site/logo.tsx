@@ -2,15 +2,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { BRAND_ASSETS } from "@/lib/images";
 
-/**
- * Yaara logo — uses the client's original logo image.
- * Two variants:
- *  - `lockup` : the full original PNG (icon + wordmark + tagline)
- *  - `mark`   : a clean flat SVG monogram for favicon / small placements
- *               (the original 3D-bevelled image does not survive at 24×24px,
- *                so a flat SVG mark is used for tiny placements — this is
- *                standard practice, not a replacement of the brand logo.)
- */
+/** Uses the supplied shield artwork consistently across light and dark surfaces. */
 export function YaaraLogo({
   className,
   variant = "lockup",
@@ -23,43 +15,39 @@ export function YaaraLogo({
   height?: number;
 }) {
   if (variant === "mark") {
-    const navy = onDark ? "#FAF7F1" : "#0E2A47";
-    const gold = onDark ? "#D4A855" : "#B8873B";
     return (
-      <svg
-        viewBox="0 0 48 48"
-        className={cn("h-9 w-9", className)}
-        role="img"
-        aria-label="Yaara Consultancy Services"
-        fill="none"
-      >
-        <path d="M24 3a21 21 0 1 0 0 42" stroke={navy} strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M24 45a21 21 0 0 0 0-42" stroke={gold} strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M24 16v16" stroke={navy} strokeWidth="3" strokeLinecap="round" />
-        <path d="M24 22l-7-7" stroke={navy} strokeWidth="3" strokeLinecap="round" />
-        <rect x="25.5" y="20" width="2.6" height="6" rx="1" fill={gold} />
-        <rect x="29.5" y="16.5" width="2.6" height="9.5" rx="1" fill={gold} />
-        <path d="M33.5 13.5l3-3 3 3M36.5 10.5v9" stroke={gold} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
+      <Image
+        src={BRAND_ASSETS.logoLockup}
+        alt="Yaara Consultancy Services"
+        width={1254}
+        height={1254}
+        className={cn("h-9 w-9 object-contain", className)}
+      />
     );
   }
 
   return (
-    <div className={cn("relative", className)} style={{ height }}>
+    <div className={cn("flex items-center gap-2.5", className)} style={{ height }}>
       <Image
         src={BRAND_ASSETS.logoLockup}
-        alt="Yaara Consultancy Services — Advise · Analyze · Achieve"
-        width={612}
-        height={408}
+        alt="Yaara Consultancy Services"
+        width={1254}
+        height={1254}
         priority
-        className="h-full w-auto object-contain"
-        sizes="(max-width: 768px) 180px, 220px"
+        className="h-full w-auto shrink-0 object-contain"
+        sizes={`${height}px`}
       />
+      <span className={cn("flex min-w-0 flex-col leading-none", onDark ? "text-paper" : "text-ink")}>
+        <span className="font-serif text-[1.08rem] font-semibold tracking-[-0.02em]">Yaara</span>
+        <span className={cn("mt-1 font-mono text-[0.54rem] font-medium uppercase tracking-[0.14em]", onDark ? "text-paper/65" : "text-muted-foreground")}>
+          Consultancy Services
+        </span>
+      </span>
     </div>
   );
 }
 
-/** Founder signature — cursive-style SVG */
+/** Founder signature — cursive-style SVG. */
 export function FounderSignature({ className }: { className?: string }) {
   return (
     <svg

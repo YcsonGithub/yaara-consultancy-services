@@ -2,6 +2,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "./reveal";
+import { Breadcrumbs, type BreadcrumbItem } from "./breadcrumbs";
 
 /** Consistent section eyebrow + heading block used across pages */
 export function SectionHeading({
@@ -44,6 +45,7 @@ export function PageHero({
   intro,
   children,
   aside,
+  breadcrumbs,
 }: {
   eyebrow?: string;
   title: React.ReactNode;
@@ -51,6 +53,7 @@ export function PageHero({
   children?: React.ReactNode;
   /** Optional bespoke artwork panel rendered beside the copy on lg+ screens. */
   aside?: React.ReactNode;
+  breadcrumbs?: BreadcrumbItem[];
 }) {
   return (
     <section className="relative overflow-hidden border-b border-border paper-grain">
@@ -63,6 +66,7 @@ export function PageHero({
           )}
         >
           <Reveal className={cn(aside && "lg:col-span-7")}>
+            {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
             {eyebrow && (
               <span className="font-mono text-[0.72rem] font-medium uppercase tracking-[0.22em] text-gold-ink">
                 <span className="mr-2 inline-block h-px w-7 align-middle bg-gold-ink" />

@@ -14,6 +14,36 @@
 
 import { ANALYTICS } from "@/lib/site";
 
+export type ConversionEventName =
+  | "phone_click"
+  | "whatsapp_click"
+  | "email_click"
+  | "contact_form_start"
+  | "contact_form_submit"
+  | "consultation_request"
+  | "service_cta_click";
+
+type EventParameter = string | number | boolean;
+type EventParameters = Record<string, EventParameter>;
+
+declare global {
+  interface Window {
+    dataLayer?: unknown[];
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
+/** Send a consent-aware, PII-free conversion event to GTM/GA4. */
+export function trackEvent(
+  name: ConversionEventName,
+  parameters: EventParameters = {},
+): void {
+  if (typeof window === "undefined") return;
+  const dataLayer = (window.dataLayer ??= []);
+  dataLayer.push({ event: name, ...parameters });
+  window.gtag?.("event", name, parameters);
+}
+
 export type ConsentGranular = {
   /** Required — always on. Anonymous cookieless pings, no identifiers. */
   essential: true;

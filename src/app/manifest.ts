@@ -19,7 +19,7 @@ export default function manifest(): MetadataRoute.Manifest {
     lang: "en-IN",
     scope: "/",
     icons: [
-      { src: BRAND_ASSETS.markSvg, sizes: "any", type: "image/svg+xml", purpose: "any" },
+      { src: BRAND_ASSETS.markPng, sizes: "1254x1254", type: "image/png", purpose: "any" },
       { src: BRAND_ASSETS.icon192, sizes: "192x192", type: "image/png", purpose: "any" },
       { src: BRAND_ASSETS.icon512, sizes: "512x512", type: "image/png", purpose: "maskable" },
     ],

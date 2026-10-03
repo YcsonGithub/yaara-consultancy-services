@@ -10,11 +10,13 @@ import { PageHero, CtaBand } from "@/components/site/section";
 import { Reveal } from "@/components/site/reveal";
 import { INDUSTRIES } from "@/lib/site";
 import { SITE_IMAGES, INDUSTRY_IMAGES } from "@/lib/images";
+import { SITE } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { breadcrumbSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/site/json-ld";
 
 export const metadata = {
+  alternates: { canonical: `${SITE.url}/industries` },
   title: "Industries we serve",
   description:
     "Yaara serves six kinds of Indian businesses with different compliance realities — startups & founders, freelancers & professionals, SMBs, regulated professionals (doctors/lawyers/architects), NGOs & trusts, and manufacturers & traders. Each gets specialised handling.",

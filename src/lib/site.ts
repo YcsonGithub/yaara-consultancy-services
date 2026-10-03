@@ -3,12 +3,18 @@
 
 import { SERVICES, SERVICE_COUNT } from "./services";
 
+const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+const configuredGa4Id =
+  process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() ||
+  process.env.NEXT_PUBLIC_GA4_ID?.trim() ||
+  "";
+
 export const SITE = {
   name: "Yaara Consultancy Services",
   shortName: "Yaara",
   tagline: "Advise · Analyze · Achieve",
   domain: "yaaraconsultancyservices.com",
-  url: "https://www.yaaraconsultancyservices.com",
+  url: configuredSiteUrl || "https://www.yaaraconsultancyservices.com",
   founder: "Anakali Pawan Kalyan",
   // Title as printed on the visiting card.
   founderRole: "Managing Partner & Business Setup Specialist",
@@ -80,10 +86,11 @@ export const LEGAL_PAGES = [
  */
 export const ANALYTICS = {
   gtmId: process.env.NEXT_PUBLIC_GTM_ID ?? "",
-  ga4Id: process.env.NEXT_PUBLIC_GA4_ID ?? "",
+  // Preferred name; keep the existing variable as a compatibility fallback.
+  ga4Id: configuredGa4Id,
   /** GA4 measurement ID for the gtag.js fallback when GTM isn't used. */
-  gtmEnabled: Boolean(process.env.NEXT_PUBLIC_GTM_ID),
-  ga4Enabled: Boolean(process.env.NEXT_PUBLIC_GA4_ID),
+  gtmEnabled: Boolean(process.env.NEXT_PUBLIC_GTM_ID?.trim()),
+  ga4Enabled: Boolean(configuredGa4Id),
 } as const;
 
 /**

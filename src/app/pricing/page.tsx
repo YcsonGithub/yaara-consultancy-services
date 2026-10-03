@@ -16,9 +16,11 @@ import { PRICING_TIERS, FLAT_FEES, PRICING } from "@/lib/site";
 import { SERVICE_COUNT } from "@/lib/services";
 import { cn } from "@/lib/utils";
 import { breadcrumbSchema } from "@/lib/schema";
+import { SITE } from "@/lib/site";
 import { JsonLd } from "@/components/site/json-ld";
 
 export const metadata = {
+  alternates: { canonical: `${SITE.url}/pricing` },
   title: PRICES_VISIBLE
     ? "Pricing — transparent fees, no quote walls"
     : "Fees — quoted upfront, in writing",

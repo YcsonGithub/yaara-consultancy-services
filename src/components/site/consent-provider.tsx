@@ -16,11 +16,11 @@
 
 import { useSyncExternalStore, useEffect, useCallback } from "react";
 import { CookieBanner } from "./cookie-banner";
+import { GoogleAnalytics } from "./google-analytics";
 import {
   CONSENT_STORAGE_KEY,
   CONSENT_VERSION,
   consentModeUpdateScript,
-  ga4BootstrapScript,
   type ConsentState,
   type ConsentGranular,
 } from "@/lib/analytics";
@@ -109,16 +109,6 @@ function applyConsentUpdate(choices: ConsentGranular) {
   // GA4 fallback: if GTM isn't configured but a GA4 id is, load gtag.js
   // now that analytics consent is granted. When GTM IS configured, GA4
   // loads as a tag inside the GTM container — no manual load needed.
-  if (choices.analytics && !ANALYTICS.gtmEnabled && ANALYTICS.ga4Enabled) {
-    const ga4 = ga4BootstrapScript();
-    if (ga4) {
-      try {
-        new Function(ga4)();
-      } catch {
-        /* non-fatal */
-      }
-    }
-  }
 }
 
 /* ---------- component ---------- */
@@ -144,7 +134,11 @@ export function ConsentProvider() {
 
   // `state === null` covers both "no decision yet" and "server snapshot".
   // The banner shows only when there is genuinely no stored decision.
-  if (state && state.granted) return null;
+  if (state && state.granted) {
+    return !ANALYTICS.gtmEnabled && state.choices.analytics ? (
+      <GoogleAnalytics measurementId={ANALYTICS.ga4Id} />
+    ) : null;
+  }
   if (state === null) return <CookieBanner onDecide={decide} />;
   return null;
 }

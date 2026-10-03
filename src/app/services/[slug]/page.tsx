@@ -13,12 +13,12 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { SERVICES, getService, type Service } from "@/lib/services";
-import { CONTACT } from "@/lib/site";
+import { CONTACT, SITE } from "@/lib/site";
 import { Reveal } from "@/components/site/reveal";
 import { PageHero, CtaBand } from "@/components/site/section";
 import { CategoryArt } from "@/components/art/service-art";
 import { Price, PriceNote } from "@/components/site/price";
-import { serviceSchema, breadcrumbSchema } from "@/lib/schema";
+import { serviceSchema, breadcrumbSchema, faqPageSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/site/json-ld";
 import {
   Accordion,
@@ -46,6 +46,7 @@ export async function generateMetadata({
   return {
     title: service.title,
     description: service.tagline,
+    alternates: { canonical: `${SITE.url}/services/${service.slug}` },
     openGraph: {
       title: `${service.title} · Yaara Consultancy Services`,
       description: service.tagline,
@@ -72,6 +73,7 @@ export default async function ServiceDetailPage({
   return (
     <>
       <JsonLd data={serviceSchema(slug)} />
+      {service.faqs.length > 0 && <JsonLd data={faqPageSchema(service.faqs)} />}
       <JsonLd
         data={breadcrumbSchema([
           { name: "Home", path: "/" },
@@ -85,6 +87,11 @@ export default async function ServiceDetailPage({
       />
       {/* ============ HERO ============ */}
       <PageHero
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "Services", path: "/services" },
+          { name: service.title, path: `/services/${slug}` },
+        ]}
         eyebrow={service.category}
         title={service.title}
         intro={service.tagline}
@@ -101,6 +108,8 @@ export default async function ServiceDetailPage({
 
           <Link
             href="/book"
+            data-analytics-event="service_cta_click"
+            data-analytics-service={service.slug}
             className="group inline-flex h-11 items-center justify-center gap-2 rounded-md bg-gold px-6 font-sans text-[0.92rem] font-semibold text-ink transition-all hover:bg-gold-light"
           >
             Book this service
@@ -343,6 +352,8 @@ function SummaryCard({
       <div className="space-y-2.5 border-t border-border px-5 py-5">
         <Link
           href="/book"
+          data-analytics-event="service_cta_click"
+          data-analytics-service={service.slug}
           className="group inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-gold px-5 font-sans text-[0.92rem] font-semibold text-ink transition-all hover:bg-gold-light"
         >
           Book a free consultation

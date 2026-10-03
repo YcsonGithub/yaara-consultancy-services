@@ -2,7 +2,7 @@
  * ============================================================
  *  YAARA BRAND ICON GENERATOR
  * ============================================================
- * Renders `public/brand/logo-mark.svg` into every raster icon size
+ * Renders the supplied `public/brand/logo-original.png` into every raster icon size
  * the site needs. Run it after editing the mark:
  *
  *   bun scripts/generate-brand-icons.mjs   (or: node ...)
@@ -14,9 +14,7 @@
  *   public/brand/icon-512.png           — PWA, maskable (navy plate)
  *
  * Inputs
- *   public/brand/logo-mark.svg          — standard mark (32px and up)
- *   public/brand/logo-mark-16.svg       — reduced mark for the 16px entry
- *   public/brand/logo-maskable.svg      — navy plate for masked placements
+ *   public/brand/logo-original.png     — canonical supplied logo source
  *
  * The ICO container is assembled by hand because sharp cannot write
  * .ico; each entry embeds a PNG blob, which every current browser reads.
@@ -26,14 +24,14 @@ import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 /** Transparent-background mark — used for favicon and "any" purpose. */
-const MARK = "public/brand/logo-mark.svg";
-/** Reduced mark for the 16px .ico entry, where detail turns to mud. */
-const MARK_16 = "public/brand/logo-mark-16.svg";
+const MARK = "public/brand/logo-original.png";
+/** Same supplied logo source for the 16px .ico entry. */
+const MARK_16 = "public/brand/logo-original.png";
 /** Full-bleed navy plate — used wherever the platform applies a mask. */
-const MASKABLE = "public/brand/logo-maskable.svg";
+const MASKABLE = "public/brand/logo-original.png";
 
 /**
- * Rasterise an SVG to a square PNG at `size`.
+ * Rasterise the supplied logo source to a square PNG at `size`.
  *
  * `density` controls the intermediate raster size before the downscale.
  * Left at the 72dpi default, sharp rasterises a 64-unit viewBox at just
@@ -43,10 +41,11 @@ const MASKABLE = "public/brand/logo-maskable.svg";
  */
 const densityFor = (size) => Math.max(72, Math.min(384, size * 4));
 
-/** Rasterise an SVG to a square PNG at `size`. */
-const render = async (source, size) =>
+/** Rasterise the supplied logo source to a square PNG at `size`. */
+const render = async (source, size, { maskable = false } = {}) =>
   sharp(source, { density: densityFor(size) })
     .resize(size, size, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } })
+    .flatten(maskable ? { background: "#0E2A47" } : { background: { r: 0, g: 0, b: 0, alpha: 0 } })
     .png({ compressionLevel: 9, palette: size <= 64 })
     .toBuffer();
 
@@ -96,7 +95,7 @@ const rasters = [
 ];
 
 for (const { file, size, source, note } of rasters) {
-  const buf = await render(source, size);
+  const buf = await render(source, size, { maskable: note === "maskable" });
   writeFileSync(file, buf);
   console.log(
     `✓ ${file}`,

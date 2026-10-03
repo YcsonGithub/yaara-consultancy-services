@@ -63,10 +63,11 @@ export const BRAND_ASSETS = {
   /** Square monogram — favicon and PWA "any" purpose. */
   markSvg: "/brand/logo-mark.svg",
   /** Navy plate monogram — PWA "maskable" purpose. */
-  markMaskableSvg: "/brand/logo.svg",
-  appleTouchIcon: "/brand/icon.ico",
-  icon192: "/brand/icon.ico",
-  icon512: "/brand/icon.ico",
+  markMaskableSvg: "/brand/logo-maskable.svg",
+  appleTouchIcon: "/brand/apple-touch-icon.png",
+  icon192: "/brand/icon-192.png",
+  icon512: "/brand/icon-512.png",
+  markPng: "/brand/logo-original.png",
   /** Root-only: browsers request /favicon.ico without consulting the HTML. */
   favicon: "/favicon.ico",
 } as const;

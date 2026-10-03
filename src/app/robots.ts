@@ -15,12 +15,12 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/_next/", "/admin/", "/*?*XTransformPort="],
+        disallow: ["/api"],
       },
       {
         userAgent: "GPTBot",
         allow: "/",
-        disallow: ["/api/", "/_next/"],
+        disallow: ["/api"],
       },
       {
         userAgent: "Googlebot",

@@ -14,6 +14,7 @@ import { LedgerDeskArt } from "@/components/art/section-art";
 import { Price } from "@/components/site/price";
 import { serviceListSchema, breadcrumbSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/site/json-ld";
+import { SITE } from "@/lib/site";
 
 /** Slugify a category name for anchor IDs and #hash nav */
 function slugify(s: string): string {
@@ -24,6 +25,7 @@ function slugify(s: string): string {
 }
 
 export const metadata = {
+  alternates: { canonical: `${SITE.url}/services` },
   title: "Services — GST, ITR, ROC, Payroll, Advisory",
   description: `${SERVICE_COUNT} compliance services for Indian businesses — GST, ITR, TDS, company and firm registration, PF & ESI, ROC, bookkeeping, payroll and advisory. Jump to any service for documents, timeline and FAQs.`,
 };
