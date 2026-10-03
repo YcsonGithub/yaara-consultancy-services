@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import {
@@ -16,7 +17,7 @@ import { SERVICES, getService, type Service } from "@/lib/services";
 import { CONTACT, SITE } from "@/lib/site";
 import { Reveal } from "@/components/site/reveal";
 import { PageHero, CtaBand } from "@/components/site/section";
-import { CategoryArt } from "@/components/art/service-art";
+import { FEATURED_SERVICE_IMAGES, SERVICE_CATEGORY_IMAGES } from "@/lib/images";
 import { Price, PriceNote } from "@/components/site/price";
 import { serviceSchema, breadcrumbSchema, faqPageSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/site/json-ld";
@@ -69,6 +70,8 @@ export default async function ServiceDetailPage({
   }
 
   const Icon = service.icon;
+  const serviceImage =
+    FEATURED_SERVICE_IMAGES[service.slug] ?? SERVICE_CATEGORY_IMAGES[service.category];
 
   return (
     <>
@@ -95,7 +98,18 @@ export default async function ServiceDetailPage({
         eyebrow={service.category}
         title={service.title}
         intro={service.tagline}
-        aside={<CategoryArt category={service.category} className="h-[13rem] sm:h-[15rem] lg:h-[17rem]" />}
+        aside={
+          <div className="relative">
+            <Image
+              src={serviceImage.src}
+              alt={`${service.title}: ${serviceImage.alt}`}
+              width={serviceImage.width}
+              height={serviceImage.height}
+              className="h-[13rem] w-full object-cover sm:h-[15rem] lg:h-[17rem]"
+            />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-ink/35 to-transparent" />
+          </div>
+        }
       >
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
           <Link

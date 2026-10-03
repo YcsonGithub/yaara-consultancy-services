@@ -4,16 +4,13 @@ import {
   ArrowRight,
   ArrowUpRight,
   CalendarClock,
-  CheckCircle2,
   Clock,
-  FileCheck2,
   MessageCircle,
   ShieldCheck,
-  Sparkles,
 } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
 import { FounderSignature } from "@/components/site/logo";
-import { SITE_IMAGES } from "@/lib/images";
+import { FEATURED_SERVICE_IMAGES, INDUSTRY_IMAGES, SITE_IMAGES } from "@/lib/images";
 import { ConsultationForm } from "@/components/site/consultation-form";
 import {
   SERVICES,
@@ -94,7 +91,27 @@ export default function Home() {
 
           <div className="lg:col-span-5">
             <Reveal delay={0.18} y={24}>
-              <HeroCalendarMotif />
+              <div className="relative mx-auto max-w-xl pb-3">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border bg-card shadow-[0_24px_60px_-30px_rgba(14,42,71,0.45)]">
+                  <Image
+                    src={SITE_IMAGES.homeConsultation.src}
+                    alt={SITE_IMAGES.homeConsultation.alt}
+                    width={SITE_IMAGES.homeConsultation.width}
+                    height={SITE_IMAGES.homeConsultation.height}
+                    className="h-full w-full object-cover object-right transition-transform duration-700 hover:scale-[1.02]"
+                    priority
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/25 via-transparent to-transparent" />
+                  <div className="absolute bottom-4 left-4 rounded-lg border border-paper/30 bg-ink/85 px-3.5 py-2.5 text-paper shadow-lg backdrop-blur-sm">
+                    <p className="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-gold-light">Human-first support</p>
+                    <p className="mt-1 font-sans text-[0.74rem] text-paper/80">Your books, understood in context.</p>
+                  </div>
+                </div>
+                <div className="absolute -bottom-1 right-4 hidden items-center gap-2 rounded-lg border border-border bg-paper px-3.5 py-2.5 shadow-[0_12px_30px_-14px_rgba(14,42,71,0.35)] sm:flex">
+                  <span className="h-2 w-2 rounded-full bg-success" />
+                  <span className="font-mono text-[0.68rem] font-medium uppercase tracking-wide text-ink">One person. One clear next step.</span>
+                </div>
+              </div>
             </Reveal>
           </div>
         </div>
@@ -141,16 +158,27 @@ export default function Home() {
           <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-2">
             {featured.slice(0, 2).map((s, i) => {
               const Icon = s.icon;
+              const featuredImage = FEATURED_SERVICE_IMAGES[s.slug];
               return (
                 <Reveal key={s.slug} delay={i * 0.06}>
                   <Link href={`/services/${s.slug}`} className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-all hover:border-ink/25 hover:shadow-[0_18px_44px_-26px_rgba(14,42,71,0.4)]">
                     {/* category artwork — drawn for the category, not stock */}
                     <div className="relative overflow-hidden border-b border-border">
+                      {featuredImage ? (
+                        <Image
+                          src={featuredImage.src}
+                          alt={`${s.title}: ${featuredImage.alt}`}
+                          width={featuredImage.width}
+                          height={featuredImage.height}
+                          className="h-[9.5rem] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] sm:h-[11rem]"
+                        />
+                      ) : (
                       <CategoryArt
                         category={s.category}
                         className="h-[9.5rem] sm:h-[11rem]"
                         label={`${s.category} — Yaara Consultancy Services`}
                       />
+                      )}
                       <span className="absolute bottom-3 left-4 rounded-full bg-paper/90 px-3 py-1 font-mono text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-ink backdrop-blur">
                         {s.category}
                       </span>
@@ -230,19 +258,37 @@ export default function Home() {
               </p>
             </div>
           </Reveal>
-          <div className="relative mt-14">
-            <div className="absolute left-0 right-0 top-7 hidden h-px bg-border lg:block" />
-            <ol className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
-              {PROCESS_STEPS.map((s, i) => (
-                <Reveal as="li" key={s.n} delay={i * 0.08} className="relative">
-                  <div className="flex items-center gap-4 lg:block">
-                    <span className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border bg-paper font-mono text-[1rem] font-semibold text-ink shadow-[0_6px_18px_-10px_rgba(14,42,71,0.3)]">{s.n}</span>
-                    <h3 className="font-serif text-[1.4rem] font-medium text-ink lg:mt-5">{s.title}</h3>
-                  </div>
-                  <p className="mt-3 font-sans text-[0.92rem] leading-relaxed text-body lg:mt-3">{s.desc}</p>
-                </Reveal>
-              ))}
-            </ol>
+          <div className="relative mt-14 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-14">
+            <div className="relative lg:col-span-7">
+              <div className="absolute left-0 right-0 top-7 hidden h-px bg-border lg:block" />
+              <ol className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+                {PROCESS_STEPS.map((s, i) => (
+                  <Reveal as="li" key={s.n} delay={i * 0.08} className="relative">
+                    <div className="flex items-center gap-4 lg:block">
+                      <span className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border bg-paper font-mono text-[1rem] font-semibold text-ink shadow-[0_6px_18px_-10px_rgba(14,42,71,0.3)]">{s.n}</span>
+                      <h3 className="font-serif text-[1.4rem] font-medium text-ink lg:mt-5">{s.title}</h3>
+                    </div>
+                    <p className="mt-3 font-sans text-[0.92rem] leading-relaxed text-body lg:mt-3">{s.desc}</p>
+                  </Reveal>
+                ))}
+              </ol>
+            </div>
+            <Reveal className="lg:col-span-5" delay={0.12} y={20}>
+              <div className="relative overflow-hidden rounded-xl border border-border bg-card shadow-[0_22px_50px_-34px_rgba(14,42,71,0.4)]">
+                <Image
+                  src={SITE_IMAGES.workspaceFlatlay.src}
+                  alt={SITE_IMAGES.workspaceFlatlay.alt}
+                  width={SITE_IMAGES.workspaceFlatlay.width}
+                  height={SITE_IMAGES.workspaceFlatlay.height}
+                  className="h-64 w-full object-cover sm:h-72"
+                />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink/75 to-transparent" />
+                <div className="absolute bottom-4 left-5 right-5">
+                  <p className="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-gold-light">No black box</p>
+                  <p className="mt-1 font-serif text-[1.2rem] leading-tight text-paper">You always know what is pending, filed and next.</p>
+                </div>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -313,14 +359,26 @@ export default function Home() {
           <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {INDUSTRIES.slice(0, 5).map((ind, i) => (
               <Reveal key={ind.slug} delay={(i % 3) * 0.06}>
-                <Link href={`/industries#${ind.slug}`} className="group flex h-full flex-col rounded-lg border border-border bg-card p-6 transition-all hover:border-ink/25 hover:shadow-[0_16px_40px_-26px_rgba(14,42,71,0.4)]">
-                  <h3 className="inline-block font-serif text-[1.2rem] font-medium text-ink">
-                    <span className="relative">
-                      {ind.title}
-                      <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gold transition-all duration-300 group-hover:w-full" />
-                    </span>
-                  </h3>
-                  <p className="mt-2.5 font-sans text-[0.9rem] leading-relaxed text-body">{ind.blurb}</p>
+                <Link href={`/industries#${ind.slug}`} className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-ink/25 hover:shadow-[0_16px_40px_-26px_rgba(14,42,71,0.4)]">
+                  <div className="relative overflow-hidden border-b border-border">
+                    <Image
+                      src={INDUSTRY_IMAGES[ind.slug].src}
+                      alt={INDUSTRY_IMAGES[ind.slug].alt}
+                      width={INDUSTRY_IMAGES[ind.slug].width}
+                      height={INDUSTRY_IMAGES[ind.slug].height}
+                      className="h-32 w-full object-cover transition-transform duration-500 group-hover:scale-[1.04] sm:h-36"
+                    />
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-ink/35 to-transparent" />
+                  </div>
+                  <div className="flex flex-1 flex-col p-6">
+                    <h3 className="inline-block font-serif text-[1.2rem] font-medium text-ink">
+                      <span className="relative">
+                        {ind.title}
+                        <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gold transition-all duration-300 group-hover:w-full" />
+                      </span>
+                    </h3>
+                    <p className="mt-2.5 font-sans text-[0.9rem] leading-relaxed text-body">{ind.blurb}</p>
+                  </div>
                 </Link>
               </Reveal>
             ))}
@@ -358,7 +416,16 @@ export default function Home() {
               </Link>
             </Reveal>
             <Reveal delay={0.08}>
-              <span className="font-mono text-[0.72rem] font-medium uppercase tracking-[0.22em] text-gold">
+              <div className="overflow-hidden rounded-xl border border-border shadow-[0_22px_50px_-34px_rgba(14,42,71,0.4)]">
+                <Image
+                  src={SITE_IMAGES.pricingClarity.src}
+                  alt={SITE_IMAGES.pricingClarity.alt}
+                  width={SITE_IMAGES.pricingClarity.width}
+                  height={SITE_IMAGES.pricingClarity.height}
+                  className="h-[10rem] w-full object-cover transition-transform duration-500 hover:scale-[1.02] sm:h-[12rem]"
+                />
+              </div>
+              <span className="mt-8 block font-mono text-[0.72rem] font-medium uppercase tracking-[0.22em] text-gold">
                 {PRICING.visible ? "06 — Pricing" : "06 — Fees"}
               </span>
               <h2 className="mt-3 font-serif text-[1.8rem] font-medium leading-tight text-ink sm:text-[2.2rem]">
@@ -471,56 +538,3 @@ function PromiseItem({ icon: Icon, title, desc }: { icon: typeof Clock; title: s
   );
 }
 
-function HeroCalendarMotif() {
-  const days = Array.from({ length: 31 }, (_, i) => i + 1);
-  const today = 11;
-  const dueDay = 20;
-  return (
-    <div className="relative">
-      <div className="absolute -right-3 -top-4 z-10 rotate-2 rounded-lg border border-border bg-paper px-3.5 py-2 shadow-[0_12px_30px_-14px_rgba(14,42,71,0.35)] sm:-right-5">
-        <div className="flex items-center gap-2">
-          <CheckCircle2 className="h-4 w-4 text-success" />
-          <span className="font-mono text-[0.72rem] font-medium uppercase tracking-wide text-ink">GSTR-3B filed</span>
-        </div>
-        <p className="mt-0.5 font-sans text-[0.66rem] text-muted-foreground">on time, every month</p>
-      </div>
-      <article className="overflow-hidden rounded-xl border border-border bg-card shadow-[0_24px_60px_-30px_rgba(14,42,71,0.4)]">
-        <div className="flex items-center justify-between border-b border-border bg-surface px-5 py-4">
-          <div className="flex items-center gap-2 text-ink">
-            <CalendarClock className="h-4 w-4 text-gold" />
-            <span className="font-serif text-[1.05rem] font-medium">Compliance desk</span>
-          </div>
-          <span className="font-mono text-[0.7rem] uppercase tracking-wider text-muted-foreground">live view</span>
-        </div>
-        <div className="px-5 pb-2 pt-4">
-          <div className="mb-2 flex items-center justify-between">
-            <span className="font-sans text-[0.82rem] font-semibold text-ink">This month</span>
-            <span className="font-mono text-[0.72rem] text-muted-foreground">M T W T F S S</span>
-          </div>
-          <div className="grid grid-cols-7 gap-1">
-            {days.map((d) => {
-              const isToday = d === today;
-              const isDue = d === dueDay;
-              return (
-                <div key={d} className={`flex h-6 items-center justify-center rounded font-mono text-[0.62rem] ${isDue ? "bg-gold/20 font-semibold text-gold ring-1 ring-gold/40" : isToday ? "bg-ink text-paper" : "text-muted-foreground"}`}>
-                  {d}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        <div className="space-y-2.5 border-t border-border px-5 py-4">
-          <p className="font-sans text-[0.72rem] font-medium uppercase tracking-wider text-muted-foreground">Upcoming</p>
-          <div className="flex items-center justify-between"><span className="font-sans text-[0.88rem] text-body">GSTR-3B</span><span className="font-mono text-[0.78rem] font-medium text-warning">20th</span></div>
-          <div className="flex items-center justify-between"><span className="font-sans text-[0.88rem] text-body">TDS payment</span><span className="font-mono text-[0.78rem] font-medium text-ink">7th</span></div>
-          <div className="flex items-center justify-between"><span className="font-sans text-[0.88rem] text-body">Advance tax</span><span className="font-mono text-[0.78rem] font-medium text-ink">15th</span></div>
-        </div>
-        <div className="flex items-center gap-2 border-t border-border bg-surface px-5 py-3">
-          <FileCheck2 className="h-4 w-4 text-success" />
-          <span className="font-sans text-[0.78rem] text-body"><span className="font-semibold text-ink">0</span> overdue filings this quarter</span>
-        </div>
-      </article>
-      <div className="pointer-events-none absolute -bottom-6 left-6 right-6 h-10 rounded-[50%] bg-ink/10 blur-2xl" />
-    </div>
-  );
-}
